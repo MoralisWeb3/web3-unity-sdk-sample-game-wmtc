@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Moralis Web3 Unity SDK Samples/MySampleGame/Scenes/Scene01_Intro.unity
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene01_Intro.unity
     guid: e86d776073058a543aa040dcc9919139
   - enabled: 1
-    path: Assets/Moralis Web3 Unity SDK Samples/MySampleGame/Scenes/Scene02_Game.unity
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene02_Game.unity
     guid: b5b386d0b9ddcdf44bef8a21c690a845
   m_configObjects: {}
