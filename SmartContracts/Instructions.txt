@@ -20,46 +20,48 @@
 
 // 05. INSTALL DEPENDENCIES via COMMAND LINE (EACH LINE IS A SEPARATE COMMAND)
 
+    npm install dotenv
+
     npm install --save-dev @nomicfoundation/hardhat-toolbox
 
     npm i -D @openzeppelin/contracts
 
 
-// 06. VERIFY INSTALL via COMMAND LINE. COMMAND FINISHES WITH NO RED ERRORS = SUCCESS :)
-
-    npx hardhat 
+// 06. DELETE FILE(S) WITHIN "./MyHardHat/contracts/"
 
 
-// 07. DELETE FILE(S) WITHIN "./MyHardHat/contracts/"
-
-
-// 08. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/contracts/" TO
+// 07. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/contracts/" TO
 
     "./MyHardHat/contracts/" 
 
 
-// 09. DELETE FILE(S) WITHIN "./MyHardHat/scripts/"
+// 08. DELETE FILE(S) WITHIN "./MyHardHat/scripts/"
 
 
-// 10. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/scripts/" TO
+// 09. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/scripts/" TO
 
     "./MyHardHat/scripts/" 
 
 
-// 11. COPY THE CONTENTS OF "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/hardhat.config.js" INTO 
+// 10. COPY THE CONTENTS OF "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/hardhat.config.js" INTO 
 
     "./MyHardHat/hardhat.config.js" 
    
 
-// 12. IN "./hardhat.config.js", ADD THESE FIELDS BEFORE "module.exports" part:
+// 11. IN "./.env", POPULATE THE VALUES OF THESE FIELDS
 
-    const PRIVATE_KEY = "";           // Populate from MetaMask, after sign-in
-    const POLYGONSCAN_API_KEY = "";   // Populate from polygonscan.com, after sign-in
-    const MUMBAI_NETWORK_URL = "";    // Populate as described below
+    PRIVATE_KEY = "";           // Populate from MetaMask, after sign-in
+    POLYGONSCAN_API_KEY = "";   // Populate from polygonscan.com, after sign-in
+    MUMBAI_NETWORK_URL = "";    // Populate as described below
 
     UPDATE: Since the creation of this repo and related videos there has been a technical change. 
             Now, populate the MUMBAI_NETWORK_URL from the value you set up on https://moralis.io/largenodes. 
             For more information, see https://github.com/MoralisWeb3/changelog/blob/main/2022-07-11-speedy-node-removal.md
+
+
+// 12. VERIFY INSTALL via COMMAND LINE. COMMAND FINISHES WITH NO RED ERRORS = SUCCESS :)
+
+    npx hardhat 
 
 
 // 13. CLEAN SMART CONTRACT via COMMAND LINE
