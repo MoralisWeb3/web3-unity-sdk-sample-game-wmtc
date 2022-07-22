@@ -48,7 +48,7 @@
     "./MyHardHat/hardhat.config.js" 
    
 
-// 11. IN "./.env", POPULATE THE VALUES OF THESE FIELDS
+// 11. OPEN THE FILE "./.env", POPULATE THE VALUES OF THESE FIELDS
 
     PRIVATE_KEY = "";           // Populate from MetaMask, after sign-in
     POLYGONSCAN_API_KEY = "";   // Populate from polygonscan.com, after sign-in
