@@ -10,6 +10,7 @@
 /Unity/[Ll]ogs/
 /Unity/[Uu]ser[Ss]ettings/
 /[Ss]mart[Cc]ontracts/node_modules/
+/[Ss]mart[Cc]ontracts/.env.*
 
 # Temporary auto-generated Android Assets
 /Unity/[Aa]ssets/Moralis Web3 Unity SDK/
@@ -82,5 +83,5 @@ crashlytics-build.properties
 # Samples symlink to Samples~
 Samples
 Samples.meta
-Unity/Assets/StreamingAssets.meta
-SmartContracts/.env
+
+
