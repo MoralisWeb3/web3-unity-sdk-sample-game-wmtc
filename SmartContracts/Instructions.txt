@@ -1,0 +1,96 @@
+///////////////////////////////////////////////////////////
+// Instructions.txt
+///////////////////////////////////////////////////////////
+
+// 01. INSTALL THE LATEST VERSION OF NODEJS
+
+    https://nodejs.org/en/download/
+    
+    
+// 02. OPEN FOLDER "./SmartContracts/" IN A TEXT EDITOR (EX. VISUAL STUDIO CODE)
+
+
+// 03. OPEN FOLDER "./SmartContracts/" IN A TERMINAL FOR COMMAND LINE 
+
+
+// 04. INSTALL HARDHAT via COMMAND LINE WITHIN FOLDER OF "MyHardHat"
+
+    npm install --save-dev hardhat
+    
+
+// 05. INSTALL DEPENDENCIES via COMMAND LINE (EACH LINE IS A SEPARATE COMMAND)
+
+    npm install --save-dev @nomicfoundation/hardhat-toolbox
+
+    npm i -D @openzeppelin/contracts
+
+
+// 06. VERIFY INSTALL via COMMAND LINE. COMMAND FINISHES WITH NO RED ERRORS = SUCCESS :)
+
+    npx hardhat 
+
+
+// 07. DELETE FILE(S) WITHIN "./MyHardHat/contracts/"
+
+
+// 08. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/contracts/" TO
+
+    "./MyHardHat/contracts/" 
+
+
+// 09. DELETE FILE(S) WITHIN "./MyHardHat/scripts/"
+
+
+// 10. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/scripts/" TO
+
+    "./MyHardHat/scripts/" 
+
+
+// 11. COPY THE CONTENTS OF "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/hardhat.config.js" INTO 
+
+    "./MyHardHat/hardhat.config.js" 
+   
+
+// 12. IN "./hardhat.config.js", ADD THESE FIELDS BEFORE "module.exports" part:
+
+    const PRIVATE_KEY = "";           // Populate from MetaMask, after sign-in
+    const POLYGONSCAN_API_KEY = "";   // Populate from polygonscan.com, after sign-in
+    const MUMBAI_NETWORK_URL = "";    // Populate as described below
+
+    UPDATE: Since the creation of this repo and related videos there has been a technical change. 
+            Now, populate the MUMBAI_NETWORK_URL from the value you set up on https://moralis.io/largenodes. 
+            For more information, see https://github.com/MoralisWeb3/changelog/blob/main/2022-07-11-speedy-node-removal.md
+
+
+// 13. CLEAN SMART CONTRACT via COMMAND LINE
+
+    npx hardhat clean
+
+
+// 14. COMPILE SMART CONTRACT via COMMAND LINE
+    
+    npx hardhat compile
+
+
+// 15. DEPLOY SMART CONTRACT via COMMAND LINE
+
+    npx hardhat run scripts/deployGreeter.js --network mumbai
+        
+        
+// 16. UPON SUCCESS SEE OUTPUT via COMMAND LINE WHICH RESEMBLES "deployed to: {YourContractAddress}"
+
+    Visit "https://mumbai.polygonscan.com/address/{YourContractAddress}#code" in the browser to find {YourContractAddress} and {YourABI}.
+     
+
+// 17. PASTE {YourContractAddress} and the {YourABI} WITHIN
+
+    "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/Scripts/Runtime/Data/GreeterContractData.cs
+ 
+
+ // 18. RUN THE RELEVANT SCENE IN UNITY
+
+    Congratulations, you are done!
+
+
+///////////////////////////////////////////////////////////
+

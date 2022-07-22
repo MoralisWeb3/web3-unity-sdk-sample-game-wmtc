@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ReadMe
   m_EditorClassIdentifier: 
   icon: {fileID: 2800000, guid: 3f2157c8e2f264c4c8eeba93b9b7bfd2, type: 3}
-  title: My Sample Game
+  title: Web3 Magic Treasure Chest
   sections:
   - heading: What is Moralis?
     subheading: Moralis
@@ -28,9 +28,9 @@ MonoBehaviour:
     url: https://docs.moralis.io/unity
   - heading: 
     subheading: Web3 Unity SDK Examples
-    text: This suite of standalone Unity example scenes showcases key features of the Web3 Unity SDK.
-    linkText: github.com/MoralisWeb3/web3-unity-sdk-sample-game-template
-    url: https://github.com/MoralisWeb3/web3-unity-sdk-sample-game-template
+    text: This sample game demonstrates the Moralis Web3 Unity SDK and randomly rewarding the player with crypto currency and NFTs.
+    linkText: github.com/MoralisWeb3/web3-unity-sdk-sample-game-wmtc
+    url: https://github.com/MoralisWeb3/web3-unity-sdk-sample-game-wmtc
   - heading: Getting Started
     subheading: 1. Get the Configuration
     text: Setup the server and copy the config
@@ -58,8 +58,15 @@ MonoBehaviour:
     openMenuName: Load Moralis Layout (10x16)
     openMenuNameId: Tools/Moralis Web3 Unity SDK/Examples/Web3 Unity SDK Examples/Load Moralis Layout (10x16)
   - heading: 
-    subheading: 5. Open Any Example Scene
-    text: Play this scene or choose your own
+    subheading: 5. Set Up Web3 Contract(s)
+    text: Follow additional instructions
+    linkText: 
+    url: 
+    pingObjectName: SmartContracts.txt
+    pingObjectGuid: 9587f3903fca13447a01d13bf713926b
+  - heading: 
+    subheading: 6. Open Any Example Scene
+    text: Play this scene or choose your ownS
     linkText: 
     url: 
     pingObjectName: Scene01_Intro
