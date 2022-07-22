@@ -1,6 +1,6 @@
 <img src="https://github.com/MoralisWeb3/web3-unity-sdk-examples/blob/ef346891d0f2a1c4568c7509be2165cab912cd37/Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Examples/Documentation/Images/ReadMeBanner.png" />
 
-# Lucky Treasure Chest Sample Game (Update This Page)
+# Web3 Magic Treasure Chest (Update This Page)
 
 This suite of standalone Unity example scenes showcases key features of the [Moralis](https://moralis.io/) Web3 Unity SDK.
 
