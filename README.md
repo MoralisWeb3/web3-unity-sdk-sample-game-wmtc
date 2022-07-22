@@ -2,7 +2,7 @@
 
 # Web3 Magic Treasure Chest (Update This Page)
 
-This suite of standalone Unity example scenes showcases key features of the [Moralis](https://moralis.io/) Web3 Unity SDK.
+This sample game demonstrates the Moralis Web3 Unity SDK and randomly rewarding the player with crypto currencies and NFTs.
 
 **Getting Started**
 1. Download this repo (*.zip or *.git)
