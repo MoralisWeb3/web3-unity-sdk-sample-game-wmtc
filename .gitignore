@@ -9,6 +9,8 @@
 /Unity/[Bb]uilds/
 /Unity/[Ll]ogs/
 /Unity/[Uu]ser[Ss]ettings/
+/[Ss]mart[Cc]ontracts/[Hh]ardhat/artifacts/
+/[Ss]mart[Cc]ontracts/[Hh]ardhat/cache/
 /[Ss]mart[Cc]ontracts/[Hh]ardhat/node_modules/
 /[Ss]mart[Cc]ontracts/[Hh]ardhat/.env.*
 
