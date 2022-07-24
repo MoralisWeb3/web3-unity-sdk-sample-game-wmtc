@@ -1,5 +1,5 @@
 ﻿
-namespace MoralisUnity.Samples.MySampleGame
+namespace MoralisUnity.Samples.Web3MagicTreasureChest
 {
     /// <summary>
     /// Helper Methods

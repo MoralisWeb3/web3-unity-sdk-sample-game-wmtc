@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MoralisUnity.Samples.MySampleGame.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.Scenes
 {
     /// <summary>
     /// Replace with comments...

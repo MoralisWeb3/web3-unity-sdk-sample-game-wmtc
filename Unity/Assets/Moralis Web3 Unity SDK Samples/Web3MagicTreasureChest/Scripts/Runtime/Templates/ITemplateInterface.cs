@@ -1,4 +1,4 @@
-namespace MoralisUnity.Samples.MySampleGame.Templates
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.Templates
 {
 	/// <summary>
 	/// Replace with comments...
