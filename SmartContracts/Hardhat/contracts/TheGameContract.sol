@@ -5,18 +5,17 @@ pragma solidity ^0.8.9;
 ///////////////////////////////////////////////////////////
 // IMPORTS
 ///////////////////////////////////////////////////////////
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "hardhat/console.sol";
+import "contracts/Gold.sol";
 
 
 ///////////////////////////////////////////////////////////
 // CLASS
-//      *   Description         :   Each contract instance 
-//                                  manages CRUD for its 
-//                                  greeting text message
+//      *   Description         :   The proxy contact
+//                                  for all other contracts
 //      *   Deployment Address  :   
 ///////////////////////////////////////////////////////////
-contract Gold is ERC20 
+contract TheGameContract
 {
 
     ///////////////////////////////////////////////////////////
@@ -26,22 +25,23 @@ contract Gold is ERC20
 
 
     // User address who owns this contract instance
-    address _owner;
+    address _goldContractAddress;
 
 
     ///////////////////////////////////////////////////////////
     // CONSTRUCTOR
     //      *   Runs when contract is executed
     ///////////////////////////////////////////////////////////
-    constructor() ERC20 ("Gold", "GOLD") 
+    constructor(address goldContractAddress) 
     {
-        _owner = msg.sender;
+        _goldContractAddress = goldContractAddress;
 
         console.log(
-            "Gold.constructor() _owner = %s",
-            _owner
+            "TheGameContract.constructor() goldContractAddress = %s, ",
+            goldContractAddress
         );
     }
+
 
     ///////////////////////////////////////////////////////////
     // FUNCTION: CRUD
@@ -54,7 +54,7 @@ contract Gold is ERC20
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // require(msg.sender == _owner);
 
-        balance = balanceOf(msg.sender);
+        balance = Gold(_goldContractAddress).getGold();
     }
 
     ///////////////////////////////////////////////////////////
@@ -68,7 +68,7 @@ contract Gold is ERC20
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // require(msg.sender == _owner);
 
-        _mint(msg.sender, amount);
+        Gold(_goldContractAddress).addGold(amount);
     }
 
     ///////////////////////////////////////////////////////////
@@ -82,8 +82,9 @@ contract Gold is ERC20
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // require(msg.sender == _owner);
 
-        _burn(msg.sender, amount);
+        Gold(_goldContractAddress).removeGold(amount);
     }
+    
 }
 
 
