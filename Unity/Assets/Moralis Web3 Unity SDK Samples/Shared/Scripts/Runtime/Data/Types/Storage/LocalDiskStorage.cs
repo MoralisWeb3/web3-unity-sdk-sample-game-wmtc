@@ -5,7 +5,7 @@ using MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.CustomSing
 using UnityEngine;
 
 #pragma warning disable CS0414
-namespace MoralisUnity.Examples.Sdk.Shared.Data.Types.Storage
+namespace MoralisUnity.Samples.Shared.Data.Types.Storage
 {
     public class LocalDiskStorage: CustomSingleton<LocalDiskStorage>, ICustomSingletonParent
     {

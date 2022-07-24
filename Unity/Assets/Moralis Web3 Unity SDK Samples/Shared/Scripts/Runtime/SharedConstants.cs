@@ -1,8 +1,7 @@
 ﻿using MoralisUnity.Sdk.Constants;
 
-namespace MoralisUnity.Examples.Sdk.Shared
+namespace MoralisUnity.Samples.Shared
 {
-
     //TODO: Remove the unused from here
     
     /// <summary>

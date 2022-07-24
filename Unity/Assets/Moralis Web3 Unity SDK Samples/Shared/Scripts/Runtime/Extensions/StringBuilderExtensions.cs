@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Text;
-using MoralisUnity.Examples.Sdk.Shared.Data.Types;
 
-namespace MoralisUnity.Examples.Sdk.Shared
+namespace MoralisUnity.Samples.Shared
 {
     /// <summary>
     /// Helper methods for this class

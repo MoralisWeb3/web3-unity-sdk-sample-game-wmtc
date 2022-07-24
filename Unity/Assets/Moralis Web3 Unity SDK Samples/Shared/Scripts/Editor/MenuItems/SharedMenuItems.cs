@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
+using MoralisUnity.Samples.Shared;
+using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using UnityEditor;
 using MoralisUnity.Sdk.Constants;
 using MoralisUnity.Sdk.UI.ReadMe;
 using UnityEngine;
-using System.IO;
-using MoralisUnity.Examples.Sdk.Shared.Data.Types.Storage;
-using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using MoralisUnity.Samples.Shared.Utilities;
 
-namespace MoralisUnity.Examples.Sdk.Shared.MenuItems
+namespace MoralisUnity.Samples.Shared.MenuItems
 {
 	/// <summary>
 	/// The MenuItem attribute allows you to add menu items to the main menu and inspector context menus.

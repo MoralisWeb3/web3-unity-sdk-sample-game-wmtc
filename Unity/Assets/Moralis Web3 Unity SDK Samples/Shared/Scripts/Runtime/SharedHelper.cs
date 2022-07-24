@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-namespace MoralisUnity.Examples.Sdk.Shared
+namespace MoralisUnity.Samples.Shared
 {
     /// <summary>
     /// This helper hides complex-but-required code

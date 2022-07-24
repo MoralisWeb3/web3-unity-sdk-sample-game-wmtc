@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.Events;
 
-namespace MoralisUnity.Examples.Sdk.Shared
+namespace MoralisUnity.Samples.Shared
 {
     /// <summary>
     /// See <see cref="UnityEvent{T0}"/> invoked

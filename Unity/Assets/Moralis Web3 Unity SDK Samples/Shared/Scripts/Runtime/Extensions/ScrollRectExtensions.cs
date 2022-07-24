@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace MoralisUnity.Examples.Sdk.Shared
+namespace MoralisUnity.Samples.Shared
 {
     /// <summary>
     /// Helper methods for this class
