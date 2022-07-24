@@ -13,19 +13,26 @@ async function main()
   ///////////////////////////////////////////////////////////
   // DEPLOYMENT
   ///////////////////////////////////////////////////////////
-  const Greeter = await hre.ethers.getContractFactory("Greeter");
-  const greeter = await Greeter.deploy();
-  await greeter.deployed();
+
+  // Gold
+  const Gold = await hre.ethers.getContractFactory("Gold");
+  const gold = await Gold.deploy();
+  await gold.deployed();
+
+  // TheGameContract
+  const TheGameContract = await hre.ethers.getContractFactory("TheGameContract");
+  const thegamecontract = await TheGameContract.deploy(gold.address);
+  await thegamecontract.deployed();
 
 
   ///////////////////////////////////////////////////////////
   // UNITY-FRIENDLY OUTPUT
   ///////////////////////////////////////////////////////////
-  const abiFile = JSON.parse(fs.readFileSync('./artifacts/contracts/Greeter.sol/Greeter.json', 'utf8'));
+  const abiFile = JSON.parse(fs.readFileSync('./artifacts/contracts/TheGameContract.sol/TheGameContract.json', 'utf8'));
   const abi = JSON.stringify(abiFile.abi).replaceAll ('"','\\"',);
   console.log("\n");
   console.log("DEPLOYMENT COMPLETE");
-  console.log("		public const string Address  = \"%s\";", greeter.address);
+  console.log("		public const string Address  = \"%s\";", thegamecontract.address);
   console.log("		public const string Abi  = \"%s\";", abi);
   console.log("\n");
 
@@ -34,14 +41,14 @@ async function main()
   ///////////////////////////////////////////////////////////
   console.log("WAIT...");
   console.log("\n");
-  await greeter.deployTransaction.wait(7);
+  await thegamecontract.deployTransaction.wait(7);
 
 
   ///////////////////////////////////////////////////////////
   // VERIFY
   ///////////////////////////////////////////////////////////
   await hre.run("verify:verify", {
-    address: greeter.address,
+    address: thegamecontract.address,
     constructorArguments: [],
   });
 

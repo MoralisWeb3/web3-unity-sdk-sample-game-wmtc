@@ -17,7 +17,7 @@ const PRIVATE_KEY = "2f6009cddf4c79754af198995fd9db86f0c4ced09e5e33b8f0d701362f8
   solidity: "0.8.9",
   networks: {
     mumbai: {
-      url: process.env.MUMBAI_NETWORK_URL,
+      url: "https://nd-316-787-845.p2pify.com/a821626ba4dc9a6bb7578106ee0615c0",
       accounts: [PRIVATE_KEY]
     }
   },
