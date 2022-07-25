@@ -42,25 +42,15 @@ namespace MoralisUnity.Samples.Shared.PropertyDrawers
 			position.height = LineHeight + Pad;
 			SerializedProperty _scene = property.FindPropertyRelative("_scene");
 
-			if (_scene == null)
-			{
-				Debug.LogError("Cant find _sceneName. Fix target class");
-				return;
-			}
-			
 			EditorGUI.PropertyField(position, _scene, new GUIContent (property.displayName));
 			position.y += LineHeight + Pad; 
 
 			// Update string to match object
 			SerializedProperty _sceneName = property.FindPropertyRelative("_sceneName");
 			
-			if (_sceneName == null)
-			{
-				Debug.LogError("Cant find _sceneName. Fix target class");
-				return;
-			}
 
-			if (_sceneName.stringValue != _scene.objectReferenceValue.name)
+			if (_scene != null  && _sceneName != null && _scene.objectReferenceValue != null &&
+				_sceneName.stringValue != _scene.objectReferenceValue.name)
 			{
 				_sceneName.stringValue = _scene.objectReferenceValue.name;
 				property.serializedObject.ApplyModifiedProperties();

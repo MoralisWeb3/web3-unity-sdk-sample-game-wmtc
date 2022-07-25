@@ -13,7 +13,7 @@ namespace MoralisUnity.Samples.Shared.UI
 	///		<item><see cref="Scene04_GameUI"/></item>
 	/// </list>
 	/// </summary>
-	public class BaseSceneUI : MonoBehaviour
+	public class Scene_BaseUI : MonoBehaviour
 	{
 		// Properties -------------------------------------
 		

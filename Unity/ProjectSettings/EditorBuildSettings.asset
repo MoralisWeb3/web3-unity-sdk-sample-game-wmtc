@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene01_Intro.unity
     guid: e86d776073058a543aa040dcc9919139
   - enabled: 1
-    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene02_Game.unity
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene02_Authentication.unity
+    guid: ca546dd0d1969bd40a7697c47f795e3b
+  - enabled: 1
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene03_Settings.unity
+    guid: 278f33f90fa8d0b4f9fd9e633bcf25c5
+  - enabled: 1
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene04_DeveloperConsole.unity
+    guid: ac53ae3f1bb9af04f9798d1537b52ce7
+  - enabled: 1
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene05_ViewCollection.unity
+    guid: 29854980199059146ac836780e4dfd37
+  - enabled: 1
+    path: Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/Scene06_Game.unity
     guid: b5b386d0b9ddcdf44bef8a21c690a845
   m_configObjects: {}

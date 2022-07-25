@@ -2,8 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Components;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
+using MoralisUnity.Samples.Shared.UI;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
@@ -15,9 +14,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 	public class TheGameView : MonoBehaviour
 	{
 		// Properties -------------------------------------
-		public TheGameConfiguration TheGameConfiguration { get { return _theGameConfiguration; } }
 		public SceneManagerComponent SceneManagerComponent { get { return _sceneManagerComponent;}}
-		public BaseScreenCoverUI BaseScreenCoverUI { get { return _baseScreenCoverUI;}}
+		public BaseScreenMessageUI BaseScreenCoverUI { get { return _baseScreenMessageUI; }}
 		
 		
 		// Fields -----------------------------------------
@@ -26,11 +24,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		private SceneManagerComponent _sceneManagerComponent = null;
 		
 		[SerializeField] 
-		private BaseScreenCoverUI _baseScreenCoverUI = null;
+		private BaseScreenMessageUI _baseScreenMessageUI = null;
 
-		[Header("References (Project)")] 
-		[SerializeField]
-		private TheGameConfiguration _theGameConfiguration = null;
+		//[Header("References (Project)")] 
 	
 		// General Methods --------------------------------
 		/// <summary>

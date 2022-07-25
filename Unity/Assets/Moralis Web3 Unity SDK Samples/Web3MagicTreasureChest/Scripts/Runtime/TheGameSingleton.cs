@@ -83,7 +83,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 		
 		public async UniTask ResetAllDataAsync()
 		{
-			await _theGameController.DeleteAllPropertyDatasAsync();
 			_theGameModel.ResetAllData();
 		}
 		

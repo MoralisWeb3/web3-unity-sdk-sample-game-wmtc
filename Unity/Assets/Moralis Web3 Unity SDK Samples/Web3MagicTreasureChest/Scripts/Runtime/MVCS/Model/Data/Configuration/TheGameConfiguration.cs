@@ -15,33 +15,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
     {
         // Properties -------------------------------------
         public TheGameView TheGameViewPrefab { get { return _theGameViewPrefab; } }
-        public SceneData IntroSceneData { get { return _introSceneData;}}
-        public SceneData AuthenticationSceneData { get { return _authenticationSceneData;}}
-        public SceneData SettingsSceneData { get { return _settingsSceneData;}}
-        public SceneData GameSceneData { get { return _gameSceneData;}}
+        public SceneData IntroSceneData { get { return _sceneDatas[0];}}
+        public SceneData AuthenticationSceneData { get { return _sceneDatas[1];}}
+        public SceneData SettingsSceneData { get { return _sceneDatas[2];}}
+        public SceneData DeveloperConsoleSceneData { get { return _sceneDatas[3];}}
+        public SceneData ViewCollectionSceneData { get { return _sceneDatas[4];}}
+        public SceneData GameSceneData { get { return _sceneDatas[5]; } }
+
         public TheGameServiceType TheGameServiceType { get { return _theGameServiceType;}}
 
-        [SerializeField]
-        private List<SceneData> _sceneDatas = null;
 
         // Fields -----------------------------------------
-        public const string Title = TheGameConstants.ProjectName + " Configuration";
+        public const string Title = "TheGameConfiguration";
         
         [Header("References (Project)")]
         [SerializeField]
         private TheGameView _theGameViewPrefab = null;
 
-        [SerializeField] 
-        private SceneData _introSceneData = null;
+        [SerializeField]
+        private List<SceneData> _sceneDatas = null;
 
-        [SerializeField] 
-        private SceneData _authenticationSceneData = null;
-
-        [SerializeField] 
-        private SceneData _settingsSceneData = null;
-
-        [SerializeField] 
-        private SceneData _gameSceneData = null;
 
         [Header("Settings (Edit-Time Only)")]
         

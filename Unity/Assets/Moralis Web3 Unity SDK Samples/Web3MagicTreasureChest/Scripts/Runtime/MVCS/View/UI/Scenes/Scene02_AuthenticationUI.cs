@@ -1,3 +1,5 @@
+using MoralisUnity.Kits.AuthenticationKit;
+using MoralisUnity.Samples.Shared.UI;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
@@ -5,34 +7,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 	/// <summary>
 	/// Replace with comments...
 	/// </summary>
-	public class Scene02_Game : MonoBehaviour
+	public class Scene02_AuthenticationUI : Scene_BaseUI
 	{
 		//  Properties ------------------------------------
-		public string SamplePublicText { get { return _samplePublicText; } set { _samplePublicText = value; }}
+		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
+		public AuthenticationKit AuthenticationKit { get { return _authenticationKit; } }
 
 		
 		//  Fields ----------------------------------------
-		private string _samplePublicText;
+		[SerializeField]
+		private BaseButtonUI _backButtonUI = null;
+
+		[SerializeField]
+		private AuthenticationKit _authenticationKit = null;
 
 		
 		//  Unity Methods----------------------------------
-		protected void Start()
-		{
-			Debug.Log("Scene02_Game.Start()");
-		}
 
 
 		//  General Methods -------------------------------
-		public string SamplePublicMethod(string message)
-		{
-			return message;
-		}
 
 		
 		//  Event Handlers --------------------------------
-		public void Target_OnCompleted(string message)
-		{
-
-		}
+		
 	}
 }

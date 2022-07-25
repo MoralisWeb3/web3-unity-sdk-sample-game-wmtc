@@ -73,7 +73,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
 
-			string sceneName = _theGameView.TheGameConfiguration.IntroSceneData.SceneName;
+			string sceneName = _theGameModel.TheGameConfiguration.IntroSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
 		
@@ -83,27 +83,44 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
 
-			string sceneName = _theGameView.TheGameConfiguration.AuthenticationSceneData.SceneName;
+			string sceneName = _theGameModel.TheGameConfiguration.AuthenticationSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
-		
-		
+
+
+		public async void LoadViewCollectionSceneAsync()
+		{
+			// Wait, So click sound is audible
+			await UniTask.Delay(100);
+
+			string sceneName = _theGameModel.TheGameConfiguration.ViewCollectionSceneData.SceneName;
+			_theGameView.SceneManagerComponent.LoadScene(sceneName);
+		}
+
 		public async void LoadSettingsSceneAsync()
 		{
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
 
-			string sceneName = _theGameView.TheGameConfiguration.SettingsSceneData.SceneName;
+			string sceneName = _theGameModel.TheGameConfiguration.SettingsSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
-		
-		
+
+		public async void LoadDeveloperConsoleSceneAsync()
+		{
+			// Wait, So click sound is audible
+			await UniTask.Delay(100);
+
+			string sceneName = _theGameModel.TheGameConfiguration.DeveloperConsoleSceneData.SceneName;
+			_theGameView.SceneManagerComponent.LoadScene(sceneName);
+		}
+
 		public async void LoadGameSceneAsync()
 		{
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
 
-			string sceneName = _theGameView.TheGameConfiguration.GameSceneData.SceneName;
+			string sceneName = _theGameModel.TheGameConfiguration.GameSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
 
@@ -130,33 +147,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 		// Related To: Service
 		///////////////////////////////////////////
-		public async UniTask<List<PropertyData>> LoadPropertyDatasAsync()
-		{
-			List<PropertyData> propertyDatas = await _theGameService.LoadPropertyDatasAsync();
-
-			_theGameModel.PropertyDatas = propertyDatas;
-
-			return _theGameModel.PropertyDatas;
-		}
-
-		
-		public async UniTask<PropertyData> SavePropertyDataAsync (PropertyData propertyData)
-		{
-			return await _theGameService.SavePropertyDataAsync(propertyData);
-		}
-		
-		
-		public async UniTask DeletePropertyDataAsync(PropertyData propertyData)
-		{
-			await _theGameService.DeletePropertyDataAsync(propertyData);
-		}
-		
-		
-		public async UniTask DeleteAllPropertyDatasAsync()
-		{
-			List<PropertyData> propertyDatas = _theGameModel.PropertyDatas;
-			await _theGameService.DeleteAllPropertyDatasAsync(propertyDatas);
-		}
 
 
 		// Event Handlers ---------------------------------

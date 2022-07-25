@@ -9,7 +9,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
     public static class TheGameConstants
     {
         // Fields -----------------------------------------
-        public const string ProjectName = "Sim City Web3";
+        public const string ProjectName = "Web3 Magic Treasure Chest";
         public const string PathCreateAssetMenu = MoralisConstants.PathMoralisSamplesCreateAssetMenu + "/" + ProjectName;
         
         // Display Text

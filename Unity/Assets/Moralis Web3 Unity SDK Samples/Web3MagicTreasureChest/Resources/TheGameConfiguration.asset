@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 32
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1a99b9a9bc47da8c2bc37da397e4cf, type: 3}
+  m_Name: TheGameConfiguration
+  m_EditorClassIdentifier: 
+  _theGameViewPrefab: {fileID: 7658312415067987870, guid: 58ebf062fbd0bf54a90ceb725ac64508, type: 3}
+  _sceneDatas:
+  - _scene: {fileID: 102900000, guid: e86d776073058a543aa040dcc9919139, type: 3}
+    _sceneName: Scene01_Intro
+  - _scene: {fileID: 102900000, guid: ca546dd0d1969bd40a7697c47f795e3b, type: 3}
+    _sceneName: Scene02_Authentication
+  - _scene: {fileID: 102900000, guid: 278f33f90fa8d0b4f9fd9e633bcf25c5, type: 3}
+    _sceneName: Scene03_Settings
+  - _scene: {fileID: 102900000, guid: ac53ae3f1bb9af04f9798d1537b52ce7, type: 3}
+    _sceneName: Scene04_DeveloperConsole
+  - _scene: {fileID: 102900000, guid: 29854980199059146ac836780e4dfd37, type: 3}
+    _sceneName: Scene05_ViewCollection
+  - _scene: {fileID: 102900000, guid: b5b386d0b9ddcdf44bef8a21c690a845, type: 3}
+    _sceneName: Scene06_Game
+  _theGameServiceType: 2

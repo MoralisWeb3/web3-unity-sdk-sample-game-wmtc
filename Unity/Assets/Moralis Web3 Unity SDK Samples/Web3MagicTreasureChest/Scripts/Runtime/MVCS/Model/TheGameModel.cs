@@ -11,11 +11,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 	public class TheGameModel 
 	{
 		// Properties -------------------------------------
-		public List<PropertyData> PropertyDatas { get { return _propertyDatas; } set { _propertyDatas = value; } }
+		public TheGameConfiguration TheGameConfiguration { get { return TheGameConfiguration.Instance; }  }
 
-		
+
 		// Fields -----------------------------------------
-		private List<PropertyData> _propertyDatas = new List<PropertyData>();
 
 		
 		// Initialization Methods -------------------------
@@ -27,24 +26,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		// General Methods --------------------------------
 		public bool HasAnyData()
 		{
-			return PropertyDatas.Count > 0;
+			return false;
 		}
 		
 		
 		public void ResetAllData()
 		{
-			_propertyDatas.Clear();
 		}
 		
 		
 		public void AddPropertyData(PropertyData propertyData)
 		{
-			PropertyDatas.Add(propertyData);
 		}
 		
 		public void RemovePropertyData(PropertyData propertyData)
 		{
-			PropertyDatas.Remove(propertyData);
 		}
 		
 		// Event Handlers ---------------------------------

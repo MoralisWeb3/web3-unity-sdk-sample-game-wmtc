@@ -90,7 +90,7 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		// Assets Menu
 		///////////////////////////////////////////
 
-		[MenuItem( SharedConstants.PathMoralisExamplesAssetsMenu + "/" + "Copy Guid", false,
+		[MenuItem( SharedConstants.PathMoralisSamplesAssetsMenu + "/" + "Copy Guid", false,
 			SharedConstants.PriorityMoralisAssets_Examples)]
 		public static void CopyGuidToClipboard()
 		{
@@ -109,7 +109,7 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		}
 		
 		
-		[MenuItem( SharedConstants.PathMoralisExamplesAssetsMenu + "/" + "Copy Guid", true,
+		[MenuItem( SharedConstants.PathMoralisSamplesAssetsMenu + "/" + "Copy Guid", true,
 			SharedConstants.PriorityMoralisAssets_Examples)]
 		public static bool CopyGuidToClipboard_ValidationFunction()
 		{
