@@ -25,16 +25,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
             _scene01_IntroUI.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
             _scene01_IntroUI.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
             
+            RefreshUI();
+            
         }
 
 
         //  General Methods -------------------------------
-
+        private async void RefreshUI()
+        {
+            bool isAuthenticated = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
+            _scene01_IntroUI.PlayGameButtonUI.IsInteractable = isAuthenticated;
+            _scene01_IntroUI.ViewCollectionButtonUI.IsInteractable = isAuthenticated;
+            _scene01_IntroUI.SettingsButtonUI.IsInteractable = isAuthenticated;
+            _scene01_IntroUI.AuthenticationButtonUI.IsInteractable = true;
+            
+        }
 
         //  Event Handlers --------------------------------
         private void AuthenticationButtonUI_OnClicked()
         {
-            TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync();
+            bool checkIfNeeded = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
+            TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
+            
+            Debug.Log("here");
         }
    
         

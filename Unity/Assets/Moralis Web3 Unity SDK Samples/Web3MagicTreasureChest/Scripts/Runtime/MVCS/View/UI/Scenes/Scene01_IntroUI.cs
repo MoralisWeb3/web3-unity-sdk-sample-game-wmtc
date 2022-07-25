@@ -11,7 +11,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		//  Properties ------------------------------------
 		public BaseButtonUI PlayGameButtonUI { get { return _playGameButtonUI; } }
 		public BaseButtonUI ViewCollectionButtonUI { get { return _viewCollectionButtonUI; } }
-		public BaseButtonUI AuthenticationButtonUI { get { return _authenticationButtonUI; } }
+		public AuthenticationButtonUI AuthenticationButtonUI { get { return _authenticationButtonUI; } }
 		public BaseButtonUI SettingsButtonUI { get { return _settingsButtonUI; } }
 
 		
@@ -23,7 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		private BaseButtonUI _viewCollectionButtonUI = null;
 
 		[SerializeField]
-		private BaseButtonUI _authenticationButtonUI = null;
+		private AuthenticationButtonUI _authenticationButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _settingsButtonUI = null;

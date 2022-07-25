@@ -583,6 +583,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene02_AuthenticationUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6545466352100835706, guid: 14612a0e2cea4a641af67faf95aa0230, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6545466352100835709, guid: 14612a0e2cea4a641af67faf95aa0230, type: 3}
       propertyPath: m_Pivot.x
       value: 0

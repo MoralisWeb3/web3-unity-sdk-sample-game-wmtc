@@ -20,6 +20,9 @@ namespace MoralisUnity.Samples.Shared
         public const string PathMoralisSharedCreateAssetMenu = Moralis + " " + MoralisConstants.Web3UnitySDK + "/Shared/" + Web3UnitySDKExamples + "/";
         public const string PathMoralisSamplesAssetsMenu = "Assets/Moralis Web3 Unity SDK/Samples";
         
+        
+        
+        
         ///////////////////////////////////////////
         // MenuItem Priority
         ///////////////////////////////////////////
@@ -48,7 +51,6 @@ namespace MoralisUnity.Samples.Shared
         public const string Success = "Success!";
         public const string PendingTransactionMessage ="Please confirm transaction in your MOBILE wallet." ; 
         public const string NothingAvailable = "Nothing available";
-        public const string Authenticate = "Authenticate";
         public const string Results = "Results";
         public const string Type = "Type";
         public const string LogOut = "Log Out";
@@ -66,6 +68,10 @@ namespace MoralisUnity.Samples.Shared
         public static readonly string BodyTextAuthenticate = $"Click '{Authenticate}' to log in.";
         public static readonly string DialogBodyTextAuthenticate = $"Click '{Ok}' to {TopPanelBodyTextMustLogInFirst1}";
         public const string DialogTitleAddress = "Address";
+        
+        // Display Text
+        public const string Authenticate = "Authenticate";
+        public const string Logout = "Logout";
         //
         public const string Ok = "Ok";
         public const string Cancel = "Cancel";

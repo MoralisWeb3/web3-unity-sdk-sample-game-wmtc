@@ -16,10 +16,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 
         //  Unity Methods----------------------------------
-        protected void Start()
+        protected async void Start()
         {
             _scene02_AuthenticationUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
+            bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            if (hasMoralisUserAsync)
+            {
+                _scene02_AuthenticationUI.AuthenticationKit.OnDisconnected.AddListener(AuthenticationUI_OnDisconnected);
+            }
+            else
+            {
+                _scene02_AuthenticationUI.AuthenticationKit.OnConnected.AddListener(AuthenticationUI_OnConnected);
+            }
         }
 
 
@@ -29,8 +38,23 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         //  Event Handlers --------------------------------
         private void BackButtonUI_OnClicked()
         {
-
+            // Stop any processess
+            Destroy(_scene02_AuthenticationUI.gameObject);
+            
+            // Leave
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
+        }
+        
+        private void AuthenticationUI_OnConnected()
+        {
+            Debug.Log("AuthenticationUI_OnConnected");
+            BackButtonUI_OnClicked();
+        }
+
+        private void AuthenticationUI_OnDisconnected()
+        {
+            Debug.Log("AuthenticationUI_OnConnected");
+            BackButtonUI_OnClicked();
         }
 
     }

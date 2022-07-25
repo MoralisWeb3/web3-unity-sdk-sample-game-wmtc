@@ -66,6 +66,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 		
 		public async UniTask<bool> HasMoralisUserAsync()
 		{
+			// HasMoralisUserAsync may be called early. So ensure this is called
+			Moralis.Start();
+			
 			// Determines if Moralis is logged in with an active user.
 			MoralisUser moralisUser = await GetMoralisUserAsync();
 			return moralisUser != null;
