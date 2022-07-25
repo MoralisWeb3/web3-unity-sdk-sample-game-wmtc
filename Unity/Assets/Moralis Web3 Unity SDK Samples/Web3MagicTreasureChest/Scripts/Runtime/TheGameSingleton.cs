@@ -5,6 +5,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
+using MoralisUnity.Web3Api.Models;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 {
@@ -74,20 +75,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 			return moralisUser != null;
 		}
 		
+		
 		public async UniTask<MoralisUser> GetMoralisUserAsync()
 		{
 			return await Moralis.GetUserAsync();
 		}
+		
 		
 		public bool HasAnyData()
 		{
 			return _theGameModel.HasAnyData();
 		}
 		
+		
 		public async UniTask ResetAllDataAsync()
 		{
 			_theGameModel.ResetAllData();
 		}
+		
 		
 		public bool WasActiveSceneLoadedDirectly()
 		{

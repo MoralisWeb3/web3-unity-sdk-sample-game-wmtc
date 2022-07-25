@@ -38,7 +38,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         //  Event Handlers --------------------------------
         private void BackButtonUI_OnClicked()
         {
-            // Stop any processess
+            // Stop any processes
             Destroy(_scene02_AuthenticationUI.gameObject);
             
             // Leave
