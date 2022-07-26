@@ -63,7 +63,27 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
         }
 
+        protected async void Update()
+        {
 
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                Debug.Log("Debug");
+                await _treasureChestUI.TakeDamage();
+            }
+
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("Debug");
+                await _treasureChestUI.Open(false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Debug.Log("Debug");
+                await _treasureChestUI.BounceWhileOpen();
+            }
+        }
 
 
         //  General Methods -------------------------------
@@ -73,7 +93,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         }
 
         //  Event Handlers --------------------------------
-        private void ObservableGameState_OnValueChanged(GameState gameState)
+        private async void ObservableGameState_OnValueChanged(GameState gameState)
         {
             switch (gameState)
             {
@@ -95,18 +115,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
                     _observableGameState.Value = GameState.TreasureChestIdle;
                     break;
                 case GameState.TreasureChestIdle:
+
+                    await _treasureChestUI.TakeDamage();
+                    
                     _observableGameState.Value = GameState.TreasureChestOpening;
                     break;
                 case GameState.TreasureChestOpening:
+
+                    bool willSkipWait = false;
+                    await _treasureChestUI.Open(willSkipWait);
                     _observableGameState.Value = GameState.TreasureChestOpened;
                     break;
                 case GameState.TreasureChestOpened:
                     _observableGameState.Value = GameState.CardsEntering;
-                    _cardsUI.CreateCards(_cardStartRP, _cardEndRPs);
+                    
                     break;
                 
                 case GameState.CardsEntering:
                     _observableGameState.Value = GameState.CardsIdle;
+
+                    // Don't await this
+                    _treasureChestUI.BounceWhileOpen();
+
+                    await _cardsUI.CreateCards(_cardStartRP, _cardEndRPs);
                     break;
             }
         }

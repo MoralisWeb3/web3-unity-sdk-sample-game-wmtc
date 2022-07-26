@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 8459485709729815962}
+  _raysParticleSystem: {fileID: 7745913517991503577}
+  _bubblesParticleSystem: {fileID: 7745913519269308031}
 --- !u!1001 &2552208229634323495
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -273,9 +275,19 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 1a6aac9e874e17646831952da99205e3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
+--- !u!198 &7745913517991503577 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5193847269512254206, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
+  m_PrefabInstance: {fileID: 2552208229634323495}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7745913519269308029 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5193847269176103514, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
+  m_PrefabInstance: {fileID: 2552208229634323495}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &7745913519269308031 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5193847269176103512, guid: 1083f87f08232f541942f4a22a00127e, type: 3}
   m_PrefabInstance: {fileID: 2552208229634323495}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8459485709720432218 stripped

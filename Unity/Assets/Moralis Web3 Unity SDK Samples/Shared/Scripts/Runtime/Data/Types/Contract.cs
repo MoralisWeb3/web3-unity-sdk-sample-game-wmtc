@@ -17,6 +17,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 		public string Abi { get { return _abi; } }
 
 		
+
 		// Fields -----------------------------------------
 		protected string _address;
 		protected string _abi;

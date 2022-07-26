@@ -116,8 +116,8 @@ namespace MoralisUnity.Samples.Shared.Helpers
       /// <summary>
       /// Scales a <see cref="GameObject"/>
       /// </summary>
-      public static TweenerCore<Vector3, Vector3, VectorOptions> TransformDoScale(GameObject targetGo, Vector3 fromScale, Vector3 toScale, 
-          float duration, float delayStart)
+      public static TweenerCore<Vector3, Vector3, VectorOptions> TransformDoScale(GameObject targetGo, 
+          Vector3 fromScale, Vector3 toScale,  float duration, float delayStart)
       {
          targetGo.transform.localScale = fromScale;
 
@@ -125,7 +125,16 @@ namespace MoralisUnity.Samples.Shared.Helpers
             .SetDelay(delayStart);
       }
 
-      public static TweenerCore<Vector3, Vector3, VectorOptions> GameObjectFallsIntoPosition(GameObject go, Vector3 initialPositionOffset, float duration)
+        public static TweenerCore<Quaternion, Vector3, QuaternionOptions> TransformDORotate(GameObject targetGo, 
+            Vector3 fromRotation, Vector3 toRotation, float duration, float delayStart)
+        {
+            targetGo.transform.rotation = Quaternion.Euler(fromRotation);
+
+            return targetGo.transform.DORotate(toRotation, duration)
+               .SetDelay(delayStart);
+        }
+
+        public static TweenerCore<Vector3, Vector3, VectorOptions> GameObjectFallsIntoPosition(GameObject go, Vector3 initialPositionOffset, float duration)
       {
          Vector3 fromPosition = go.transform.position + initialPositionOffset;
          

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5193847269176103512}
   - component: {fileID: 5193847269176103513}
   m_Layer: 0
-  m_Name: Animated PBR Chest _Fx_D
+  m_Name: BubbleEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
