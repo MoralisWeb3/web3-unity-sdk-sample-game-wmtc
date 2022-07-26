@@ -21,6 +21,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
             _scene02_AuthenticationUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
+
+            Debug.Log("hasMoralisUserAsync: " + hasMoralisUserAsync);
+
             if (hasMoralisUserAsync)
             {
                 _scene02_AuthenticationUI.AuthenticationKit.OnDisconnected.AddListener(AuthenticationUI_OnDisconnected);

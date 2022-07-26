@@ -1,3 +1,4 @@
+using MoralisUnity.Platform.Objects;
 using System.Threading.Tasks;
 
 namespace MoralisUnity.Samples.Shared.UI
@@ -16,14 +17,16 @@ namespace MoralisUnity.Samples.Shared.UI
         //  Unity Methods  --------------------------------
         public async void Start()
         {
-            await CheckState();
+            await CheckHasMoralisUserAsync();
         }
         
         //  General Methods -------------------------------
-        private async Task CheckState()
+        private async Task CheckHasMoralisUserAsync()
         {
-            //_hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            //await RefreshUI();
+            Moralis.Start();
+            MoralisUser moralisUser = await Moralis.GetUserAsync();
+            _hasMoralisUserAsync = moralisUser != null;
+            await RefreshUI();
         }
         
         private async Task RefreshUI()

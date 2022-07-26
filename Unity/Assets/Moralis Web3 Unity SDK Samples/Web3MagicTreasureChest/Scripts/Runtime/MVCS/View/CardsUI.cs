@@ -53,7 +53,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 
 
 
-		private UniTask CreateCard(ReferencePoint cardStartReferencePoint, ReferencePoint cardReferencePoint, int index)
+		private async UniTask CreateCard(ReferencePoint cardStartReferencePoint, ReferencePoint cardReferencePoint, int index)
 		{
 			CardUI cardUI = TheGameHelper.InstantiatePrefab<CardUI>(_cardUIPrefab, transform, cardReferencePoint.transform.position);
 
@@ -61,7 +61,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			float delay = 0.25f * index;
 
 			TweenHelper.TransformDoScale(cardUI.gameObject, new Vector3(0, 0, 0), new Vector3(1, 1, 1), duration, delay);
-			TweenHelper.TransformDORotate(cardUI.gameObject, new Vector3(90, 0, 0), new Vector3(0, 0, 0), duration, delay);
+			TweenHelper.TransformDORotate(cardUI.gameObject, new Vector3(90, 180, 0), new Vector3(0, 180, 0), duration, delay);
 
 			bool isWaiting = true;
 			TweenHelper.TransformDOBlendableMoveBy(cardUI.gameObject, cardStartReferencePoint.transform.position,
@@ -70,7 +70,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 				isWaiting = false;
 			};
 
-			return UniTask.WaitWhile(() => isWaiting); ;
+			await UniTask.WaitWhile(() => isWaiting);
+
+
+			delay = delay + 1.5f;
+			TweenHelper.TransformDORotate(cardUI.gameObject, new Vector3(0, 180, 0), new Vector3(0, 0, 0), duration, delay);
+
+			return;
 		}
 
         // Event Handlers ---------------------------------

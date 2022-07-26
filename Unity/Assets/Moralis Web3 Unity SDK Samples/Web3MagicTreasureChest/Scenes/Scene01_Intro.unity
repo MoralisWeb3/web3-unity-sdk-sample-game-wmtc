@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657773, g: 0.49641502, b: 0.57481706, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -208,7 +208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &378399349
 Light:
   m_ObjectHideFlags: 0
@@ -221,7 +221,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.45
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -435,6 +435,74 @@ PrefabInstance:
     - target: {fileID: 3832587852262705844, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011023299638, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011023299638, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011023299638, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011364091851, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011417956402, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011766217643, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011944304037, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388011988303348, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012343497655, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012423141016, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012483707047, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012631728793, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012692376504, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012739524321, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012864704405, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012888390400, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3861388012904866627, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5436da2b2fd469c4d9fc73aa1e898b70, type: 3}

@@ -16,20 +16,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		
         //  Unity Methods----------------------------------
-        protected void Start()
+        protected async void Start()
         {
-            Debug.Log("Scene01_Intro.Start()");
-            
             _scene01_IntroUI.PlayGameButtonUI.Button.onClick.AddListener(PlayGameButtonUI_OnClicked);
             _scene01_IntroUI.ViewCollectionButtonUI.Button.onClick.AddListener(ViewCollectionButtonUI_OnClicked);
             _scene01_IntroUI.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
             _scene01_IntroUI.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
-            
+
             RefreshUI();
             
         }
 
-
+        
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
@@ -46,8 +44,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         {
             bool checkIfNeeded = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
             TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
-            
-            Debug.Log("here");
         }
    
         

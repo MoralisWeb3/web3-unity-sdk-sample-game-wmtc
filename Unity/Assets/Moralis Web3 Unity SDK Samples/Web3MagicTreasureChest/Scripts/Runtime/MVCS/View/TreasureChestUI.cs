@@ -58,6 +58,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 	
 			await UniTask.Delay(2000 * m);
 
+			if (_raysParticleSystem == null) return;
 			TweenHelper.TransformDoScale(_raysParticleSystem.gameObject, new Vector3(.1f, .1f, .1f), new Vector3(1, 1, 1), 1, 0.1f);
 
 			await UniTask.Delay(500 * m);

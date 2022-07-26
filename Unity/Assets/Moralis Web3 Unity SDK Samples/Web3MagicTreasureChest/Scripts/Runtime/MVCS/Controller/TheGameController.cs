@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
@@ -156,7 +157,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			{
 				_theGameView.BaseScreenCoverUI.IsVisible = false;
 			}
-		
+
+
+			if (DOTween.TotalPlayingTweens() > 0)
+			{
+				// Keep warning for a bit in case of undesirable results
+				Debug.LogWarning("DOTween.KillAll();");
+				DOTween.KillAll();
+				//var tweens = DOTween.PlayingTweens();
+				//for (int i = 0; i < tweens.Count; i++)
+				//{
+				//	tweens[i]?.Kill();
+				//}
+			}
+
 		}
 		
 		private void SceneManagerComponent_OnSceneLoadedEvent(SceneManagerComponent sceneManagerComponent)

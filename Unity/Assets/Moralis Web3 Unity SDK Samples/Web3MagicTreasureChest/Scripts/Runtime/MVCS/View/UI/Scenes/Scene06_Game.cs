@@ -48,13 +48,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         //  Unity Methods----------------------------------
         protected async void Start()
         {
+ 
+            // 1. Listen to back button
+            _scene06_GameUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            _scene06_GameUI.ReplayButtonUI.Button.onClick.AddListener(ReplayButtonUI_OnClicked);
+
+            // 2. Check for user
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
                 throw new Exception("find existing user error");
             }
-            
-            _scene06_GameUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+
 
             _observableGameState.OnValueChanged.AddListener(ObservableGameState_OnValueChanged);
             _observableGameState.Value = GameState.Null;
@@ -100,7 +105,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
                 case GameState.Null:
                     _observableGameState.Value = GameState.TreasureChestEntering;
                     TweenHelper.TransformMoveTo(_treasureChestUI.gameObject, _treasureChestStartRP.transform.position);
-              
                     break;
                 case GameState.TreasureChestEntering:
                     
@@ -128,12 +132,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
                     break;
                 case GameState.TreasureChestOpened:
                     _observableGameState.Value = GameState.CardsEntering;
-                    
                     break;
-
-
-
-                
                 case GameState.CardsEntering:
                     _observableGameState.Value = GameState.CardsIdle;
 
@@ -148,6 +147,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         private void BackButtonUI_OnClicked()
         {
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
+        }
+
+        private void ReplayButtonUI_OnClicked()
+        {
+            // For debugging
+            TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
         }
     }
 }
