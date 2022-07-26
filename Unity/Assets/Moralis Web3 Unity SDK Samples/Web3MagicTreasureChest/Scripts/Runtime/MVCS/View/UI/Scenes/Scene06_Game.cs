@@ -130,6 +130,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
                     _observableGameState.Value = GameState.CardsEntering;
                     
                     break;
+
+
+
                 
                 case GameState.CardsEntering:
                     _observableGameState.Value = GameState.CardsIdle;

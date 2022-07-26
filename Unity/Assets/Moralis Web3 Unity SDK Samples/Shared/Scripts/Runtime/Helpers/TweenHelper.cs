@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
+using MoralisUnity.Samples.Shared;
 
 namespace MoralisUnity.Samples.Shared.Helpers
 {
@@ -15,48 +14,48 @@ namespace MoralisUnity.Samples.Shared.Helpers
    /// </summary>
    public static class TweenHelper
    {
-      //  Other Methods --------------------------------
+        //  Other Methods --------------------------------
 
-      /// <summary>
-      /// Fades opacity of a list of 2D objects over time, in series.
-      /// </summary>
-      public static void CanvasGroupsDoFade(List<CanvasGroup> canvasGroups, float fromAlpha, float toAlpha, 
-               float duration, float delayStart, float delayDelta)
-      {
+        /// <summary>
+        /// Fades opacity of a list of 2D objects over time, in series.
+        /// </summary>
+      //  public static void CanvasGroupsDoFade(List<CanvasGroup> canvasGroups, float fromAlpha, float toAlpha,
+      //           float duration, float delayStart, float delayDelta)
+      //  {
 
-         float delay = delayStart;
+      //      float delay = delayStart;
 
-         foreach (CanvasGroup canvasGroup in canvasGroups)
-         {
-            // Fade out immediately
-            canvasGroup.DOFade(fromAlpha, 0);
+      //      foreach (CanvasGroup canvasGroup in canvasGroups)
+      //      {
+      //          Fade out immediately
+      //         canvasGroup.DOFade(fromAlpha, 0);
 
-            // Fade in slowly
-            canvasGroup.DOFade(toAlpha, duration)
-               .SetDelay(delay);
+      //          Fade in slowly
+      //         canvasGroup.DOFade(toAlpha, duration)
+      //         .SetDelay(delay);
 
-            delay += delayDelta;
-         }
-      }
+      //          delay += delayDelta;
+      //      }
+      //  }
 
       /// <summary>
       /// Fades 2D Image
       /// </summary>
-      public static void ImageDoFade(Image image, float fromAlpha, float toAlpha, 
-         float duration, float delayStart)
-      {
-         // Fade out immediately
-         image.DOFade(fromAlpha, 0);
-         
-         // Fade in slowly
-         image.DOFade(toAlpha, duration)
-            .SetDelay(delayStart);
-      }
-      
-      /// <summary>
-      /// Fades opacity of a 3D Renderer via <see cref="Renderer"/> 
-      /// </summary>
-      public static void RenderersDoFade(List<Renderer> renderers, float fromAlpha, float toAlpha, 
+      //public static void ImageDoFade(Image image, float fromAlpha, float toAlpha,
+      //   float duration, float delayStart)
+      //  {
+      //      Fade out immediately
+      //   image.DOFade(fromAlpha, 0);
+
+      //      Fade in slowly
+      //   image.DOFade(toAlpha, duration)
+      //      .SetDelay(delayStart);
+      //  }
+
+        /// <summary>
+        /// Fades opacity of a 3D Renderer via <see cref="Renderer"/> 
+        /// </summary>
+        public static void RenderersDoFade(List<Renderer> renderers, float fromAlpha, float toAlpha, 
          float duration, float delayStart)
       {
          foreach (Renderer r in renderers)

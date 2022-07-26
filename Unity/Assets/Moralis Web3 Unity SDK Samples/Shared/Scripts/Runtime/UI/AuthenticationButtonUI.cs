@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS;
 
 namespace MoralisUnity.Samples.Shared.UI
 {
@@ -23,8 +22,8 @@ namespace MoralisUnity.Samples.Shared.UI
         //  General Methods -------------------------------
         private async Task CheckState()
         {
-            _hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            await RefreshUI();
+            //_hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            //await RefreshUI();
         }
         
         private async Task RefreshUI()

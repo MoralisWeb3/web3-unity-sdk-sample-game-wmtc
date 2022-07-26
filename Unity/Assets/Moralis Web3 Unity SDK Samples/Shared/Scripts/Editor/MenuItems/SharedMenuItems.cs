@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using UnityEditor;
 using MoralisUnity.Sdk.Constants;
 using MoralisUnity.Sdk.UI.ReadMe;
 using UnityEngine;
-using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using MoralisUnity.Samples.Shared.Utilities;
 
 namespace MoralisUnity.Samples.Shared.MenuItems
