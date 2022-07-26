@@ -1,5 +1,7 @@
 ﻿using System;
+using MoralisUnity.Samples.Shared.Attributes;
 using MoralisUnity.Sdk.Events;
+using UnityEngine;
 
 namespace MoralisUnity.Samples.Shared.Data.Types
 {
@@ -27,6 +29,11 @@ namespace MoralisUnity.Samples.Shared.Data.Types
         }
 
         //  Fields ----------------------------------------
+        [InspectorComment("Note: Value shown for debugging. Do not edit via inspector.")]
+        [SerializeField]
+        private string _dummyInspectorComment = "";
+        
+        [SerializeField]
         private T _value;
         
         //  Constructor Methods ---------------------------

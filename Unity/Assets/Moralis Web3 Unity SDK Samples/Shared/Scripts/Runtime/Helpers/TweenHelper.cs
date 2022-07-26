@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 namespace MoralisUnity.Samples.Shared.Helpers
 {
@@ -90,6 +92,15 @@ namespace MoralisUnity.Samples.Shared.Helpers
          }
       }
 
+            
+      /// <summary>
+      /// Moves a <see cref="GameObject"/>
+      /// </summary>
+      public static void TransformMoveTo(GameObject gameObject, Vector3 position)
+      {
+         gameObject.transform.position = position;
+      }
+      
       /// <summary>
       /// Moves a <see cref="GameObject"/>
       /// </summary>
@@ -137,5 +148,7 @@ namespace MoralisUnity.Samples.Shared.Helpers
          return TransformDoScale(go, fromScale,new Vector3(0,0,0), duration, 0)
             .SetEase(Ease.OutBounce);
       }
+
+
    }
 }

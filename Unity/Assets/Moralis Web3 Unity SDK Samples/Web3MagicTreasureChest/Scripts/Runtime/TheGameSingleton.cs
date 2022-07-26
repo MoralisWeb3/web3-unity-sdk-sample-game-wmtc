@@ -4,8 +4,9 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
-using MoralisUnity.Web3Api.Models;
+using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 {
@@ -45,7 +46,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 			
 			// View
 			TheGameView prefab = TheGameConfiguration.Instance.TheGameViewPrefab;
-			_theGameView = TheGameHelper.InstantiatePrefab (prefab, transform);
+			_theGameView = TheGameHelper.InstantiatePrefab(prefab, transform, new Vector3(0, 0, 0));
 			
 			// Service
 			TheGameServiceType theGameServiceType = 

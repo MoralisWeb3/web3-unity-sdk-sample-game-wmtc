@@ -5,7 +5,7 @@ using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.UI;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
 	/// <summary>
 	/// Handles the UI for the game

@@ -21,13 +21,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Fields -----------------------------------------
 		private readonly PendingMessage _pendingMessageForDeletion = new PendingMessage("Please confirm transaction in your wallet", 0);
 		private readonly PendingMessage _pendingMessageForSave = new PendingMessage("Please confirm transaction in your wallet", 0);
-		private readonly PropertyContract _propertyContract = null;
+		private readonly TheGameContract _theGameContract = null;
 
 
 		// Initialization Methods -------------------------
 		public TheGameContractService()
 		{
-			_propertyContract = new PropertyContract();
+			_theGameContract = new TheGameContract();
 		}
 		
 		
@@ -47,7 +47,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			
 			// Get NFT Info
 			NftOwnerCollection nftOwnerCollection = await Moralis.Web3Api.Token.GetNFTOwners(
-				_propertyContract.Address,
+				_theGameContract.Address,
 				ChainList.mumbai);
 			
 			// Create Method Return Value
@@ -68,7 +68,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		public async UniTask<PropertyData> SavePropertyDataAsync(PropertyData propertyData)
 		{
 			// Mint the NFT
-			string newTokenIdString = await _propertyContract.MintPropertyNftAsync(propertyData);
+			string newTokenIdString = await _theGameContract.MintPropertyNftAsync(propertyData);
 			
 			// Update Method Return Value
 			propertyData = PropertyData.CreateNewPropertyDataFromMetadata(propertyData.OwnerAddress, newTokenIdString, propertyData.GetMetadata());
@@ -81,7 +81,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		public async UniTask DeletePropertyDataAsync(PropertyData propertyData)
 		{
 			// Burn the NFT
-			string result = await _propertyContract.BurnPropertyNftAsync(propertyData);
+			string result = await _theGameContract.BurnPropertyNftAsync(propertyData);
 			Debug.Log($"DeletePropertyDataAsync() Result = {result}");
 		}
 
@@ -89,7 +89,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		public async UniTask DeleteAllPropertyDatasAsync(List<PropertyData> propertyDatas)
 		{
 			// Burn the NFT List
-			string result = await _propertyContract.BurnPropertyNftsAsync(propertyDatas);
+			string result = await _theGameContract.BurnPropertyNftsAsync(propertyDatas);
 			Debug.Log($"DeleteAllPropertyDatasAsync() result = {result}");
 	
 		}
