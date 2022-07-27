@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
@@ -12,9 +13,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		public TMP_Text Text { get { return _text; }}
 
 		// Fields -----------------------------------------
+		[Header("References (Project)")]
+		[SerializeField]
+		private Sprite _iconSprite = null;
+
 		[Header("References (Scene)")] 
 		[SerializeField] 
 		private TMP_Text _text = null;
+
+		[SerializeField]
+		private Image _iconImage = null;
 
 		//[Header("References (Project)")] 
 
@@ -23,7 +31,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		{
 
 		}
-		
+
+		protected void OnValidate()
+		{
+			if (_iconImage.sprite != _iconSprite)
+            {
+				_iconImage.sprite = _iconSprite;
+			}
+		}
+
 		protected void Update()
 		{
 

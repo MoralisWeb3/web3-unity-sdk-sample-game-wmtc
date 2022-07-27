@@ -38,8 +38,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _scene04_DeveloperConsoleUI.RegisterUserButtonUI.Button.onClick.AddListener(RegisterUserButtonUI_OnClicked);
             _scene04_DeveloperConsoleUI.AddGoldButtonUI.Button.onClick.AddListener(AddGoldButtonUI_OnClicked);
             _scene04_DeveloperConsoleUI.SpendGoldButtonUI.Button.onClick.AddListener(SpendGoldButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasureButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.SellTreasureButtonUI.Button.onClick.AddListener(SellTreasureButtonUI_OnClicked);
+            _scene04_DeveloperConsoleUI.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasurePrizeButtonUI_OnClicked);
+            _scene04_DeveloperConsoleUI.SellTreasureButtonUI.Button.onClick.AddListener(SellTreasurePrizeButtonUI_OnClicked);
             _scene04_DeveloperConsoleUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
             RefreshUI();
@@ -55,12 +55,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _scene04_DeveloperConsoleUI.Text.text = _outputTextStringBuilder.ToString();
         }
 
+        private async UniTask<bool> EnsureIsRegistered()
+        {
+            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+            if (!isRegistered)
+            {
+                _outputTextStringBuilder.Clear();
+                _outputTextStringBuilder.AppendHeaderLine($"EnsureIsRegistered(). Failed.");
+                await RefreshUI();
+            }
+
+            return isRegistered;
+        }
+
         //  Event Handlers --------------------------------
         private async void OnModelChanged(TheGameModel theGameModel)
         {
             _scene04_DeveloperConsoleUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
             _scene04_DeveloperConsoleUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
 
+            _outputTextStringBuilder.Clear();
+            _outputTextStringBuilder.AppendHeaderLine($"OnModelChanged()");
+            _outputTextStringBuilder.AppendHeaderLine($"Gold = {theGameModel.Gold.Value}");
+            _outputTextStringBuilder.AppendHeaderLine($"TreasurePrizeDtos.Count = {theGameModel.TreasurePrizeDtos.Value.Count}");
             await RefreshUI();
         }
 
@@ -101,24 +118,65 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             await RefreshUI();
         }
 
-        private void AddGoldButtonUI_OnClicked()
+        private async void AddGoldButtonUI_OnClicked()
         {
+            if (!await EnsureIsRegistered())
+            {
+                return;
+            }
 
+            await TheGameSingleton.Instance.TheGameController.AddGold(1);
+
+            _outputTextStringBuilder.AppendHeaderLine($"AddGold()");
+
+            await RefreshUI();
         }
 
-        private void SpendGoldButtonUI_OnClicked()
-        {
 
+
+        private async void SpendGoldButtonUI_OnClicked()
+        {
+            if (!await EnsureIsRegistered())
+            {
+                return;
+            }
+
+            await TheGameSingleton.Instance.TheGameController.SpendGold(1);
+
+            _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
+
+            await RefreshUI();
         }
 
-        private void AddTreasureButtonUI_OnClicked()
+        private async void AddTreasurePrizeButtonUI_OnClicked()
         {
+            if (!await EnsureIsRegistered())
+            {
+                return;
+            }
 
+            TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto("Blah again");
+
+            await TheGameSingleton.Instance.TheGameController.AddTreasurePrize(treasurePrizeDto);
+
+            _outputTextStringBuilder.AppendHeaderLine($"AddTreasurePrize()");
+ 
+            await RefreshUI();
         }
 
-        private void SellTreasureButtonUI_OnClicked()
+        private async void SellTreasurePrizeButtonUI_OnClicked()
         {
+            if (!await EnsureIsRegistered())
+            {
+                return;
+            }
 
+            TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto("Blah to delete, pull from existing list");
+            await TheGameSingleton.Instance.TheGameController.SellTreasurePrize(treasurePrizeDto);
+
+            _outputTextStringBuilder.AppendHeaderLine($"SellTreasurePrize()");
+
+            await RefreshUI();
         }
 
 

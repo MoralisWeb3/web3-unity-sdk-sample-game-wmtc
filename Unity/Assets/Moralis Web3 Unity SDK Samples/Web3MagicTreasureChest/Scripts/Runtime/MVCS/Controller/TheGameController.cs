@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -24,8 +25,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
 		// Properties -------------------------------------
-		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageForDeletion; }}
-		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessageForSave; }}
+		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageForDeletion; } }
+		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessageForSave; } }
 
 
 		// Fields -----------------------------------------
@@ -36,8 +37,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
 
-        // Initialization Methods -------------------------
-        public TheGameController(
+		// Initialization Methods -------------------------
+		public TheGameController(
 			TheGameModel theGameModel,
 			TheGameView theGameView,
 			ITheGameService theGameService)
@@ -45,7 +46,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel = theGameModel;
 			_theGameView = theGameView;
 			_theGameService = theGameService;
-			
+
 			_theGameView.SceneManagerComponent.OnSceneLoadingEvent.AddListener(SceneManagerComponent_OnSceneLoadingEvent);
 			_theGameView.SceneManagerComponent.OnSceneLoadedEvent.AddListener(SceneManagerComponent_OnSceneLoadedEvent);
 
@@ -55,13 +56,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
 		// General Methods --------------------------------
-		
+
 		///////////////////////////////////////////
 		// Related To: Model
 		///////////////////////////////////////////
 
 
-		
+
 		///////////////////////////////////////////
 		// Related To: View
 		///////////////////////////////////////////
@@ -69,8 +70,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		{
 			_theGameView.PlayAudioClipClick();
 		}
-		
-		
+
+
 		public async void LoadIntroSceneAsync()
 		{
 			// Wait, So click sound is audible
@@ -79,8 +80,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			string sceneName = _theGameModel.TheGameConfiguration.IntroSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
-		
-		
+
+
 		public async void LoadAuthenticationSceneAsync()
 		{
 			// Wait, So click sound is audible
@@ -91,7 +92,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 
 
-        public async void LoadViewCollectionSceneAsync()
+		public async void LoadViewCollectionSceneAsync()
 		{
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
@@ -127,7 +128,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
 		}
 
-		
+
 		public async void LoadPreviousSceneAsync()
 		{
 			// Wait, So click sound is audible before scene changes
@@ -135,16 +136,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 			_theGameView.SceneManagerComponent.LoadScenePrevious();
 		}
-		
-		
+
+
 		public async UniTask ShowLoadingDuringMethodAsync(
-			bool isVisibleInitial, 
-			bool isVisibleFinal, 
-			string message, 
+			bool isVisibleInitial,
+			bool isVisibleFinal,
+			string message,
 			Func<UniTask> task)
 		{
 			await _theGameView.ShowLoadingDuringMethodAsync(isVisibleInitial, isVisibleFinal, message, task);
 		}
+
 
 
 		///////////////////////////////////////////
@@ -163,6 +165,35 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		public async UniTask RegisterUserAsync()
 		{
 			await _theGameService.RegisterUserAsync();
+		}
+
+
+		public async UniTask<int> AddGold(int delta)
+		{
+			int gold = await _theGameService.AddGold(delta);
+			_theGameModel.Gold.Value = gold;
+			return gold;
+		}
+
+		public async UniTask<int> SpendGold(int delta)
+		{
+			int gold = await _theGameService.SpendGold(delta);
+			_theGameModel.Gold.Value = gold;
+			return gold;
+		}
+
+		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		{
+			List <TreasurePrizeDto> treasurePrizeDtos = await _theGameService.AddTreasurePrize(treasurePrizeDto);
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			return treasurePrizeDtos;
+		}
+
+		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		{
+			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.SellTreasurePrize(treasurePrizeDto);
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			return treasurePrizeDtos;
 		}
 
 

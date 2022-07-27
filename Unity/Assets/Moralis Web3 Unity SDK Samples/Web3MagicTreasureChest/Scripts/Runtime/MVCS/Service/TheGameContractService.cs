@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
 using UnityEngine;
@@ -35,12 +36,32 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             throw new System.NotImplementedException();
         }
 
-        public UniTask RegisterUserAsync()
+        public UniTask<bool> RegisterUserAsync()
         {
             throw new System.NotImplementedException();
         }
 
-        public UniTask UnregisterUserAsync()
+        public UniTask<bool> UnregisterUserAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<int> AddGold(int delta)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<int> SpendGold(int delta)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
         {
             throw new System.NotImplementedException();
         }

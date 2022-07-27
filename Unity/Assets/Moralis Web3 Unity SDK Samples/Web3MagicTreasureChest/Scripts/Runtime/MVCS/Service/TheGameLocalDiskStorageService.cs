@@ -91,30 +91,80 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return theGameLocalDiskStorage.IsRegistered;
 		}
 
-        public async UniTask RegisterUserAsync()
+        public async UniTask<bool> RegisterUserAsync()
         {
 			await UniTask.Delay(SimulatedDelay);
 
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = true;
-			Debug.Log("theGameLocalDiskStorage.IsRegistered is : " + theGameLocalDiskStorage.IsRegistered);
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.IsRegistered;
 		}
 
-        public async UniTask UnregisterUserAsync()
+        public async UniTask<bool> UnregisterUserAsync()
         {
 			await UniTask.Delay(SimulatedDelay);
 
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = false;
-			Debug.Log("theGameLocalDiskStorage.IsRegistered is : " + theGameLocalDiskStorage.IsRegistered);
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.IsRegistered;
+		}
+
+        public async UniTask<int> AddGold(int delta)
+        {
+			await UniTask.Delay(SimulatedDelay);
+
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+			theGameLocalDiskStorage.Gold += delta;
+			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.Gold;
+		}
+
+        public async UniTask<int> SpendGold(int delta)
+        {
+			await UniTask.Delay(SimulatedDelay);
+
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+			theGameLocalDiskStorage.Gold -= delta;
+			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.Gold;
 		}
 
 
+		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		{
+			await UniTask.Delay(SimulatedDelay);
 
-        // Event Handlers ---------------------------------
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 
-    }
+			//TODO: Check if list contains?
+			theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeDto);
+			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.TreasurePrizeDtos;
+		}
+
+		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		{
+			await UniTask.Delay(SimulatedDelay);
+
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+
+			//TODO: Check if list contains?
+			theGameLocalDiskStorage.TreasurePrizeDtos.Remove(treasurePrizeDto);
+			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+			return theGameLocalDiskStorage.TreasurePrizeDtos;
+		}
+
+
+		// Event Handlers ---------------------------------
+
+	}
 
 }
