@@ -23,11 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		// Initialization Methods -------------------------
 		public TheGameModel()
 		{
-			_gold.Value = 10;
-
-			_treasurePrizeDtos.Value.Add(new TreasurePrizeDto("prize 1"));
-			_treasurePrizeDtos.Value.Add(new TreasurePrizeDto("prize 2"));
-			_treasurePrizeDtos.Value.Add(new TreasurePrizeDto("prize 55"));
+			ResetAllData();
 		}
 
 		
@@ -40,6 +36,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		
 		public void ResetAllData()
 		{
+			_gold.Value = 0;
+			_treasurePrizeDtos.Value = new List<TreasurePrizeDto>();
 		}
 		
 		

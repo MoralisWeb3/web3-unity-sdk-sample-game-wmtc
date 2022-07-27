@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
  
         //  Fields ----------------------------------------
         [SerializeField]
-        private Scene03_SettingsUI _scene03_SettingsUI;
+        private Scene03_SettingsUI _ui;
 
         //  Unity Methods----------------------------------
         protected async void Start()
@@ -24,8 +25,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 throw new Exception("find existing user error");
             }
             
-            _scene03_SettingsUI.DeveloperConsoleButtonUI.Button.onClick.AddListener(DeveloperConsoleButtonUI_OnClicked);
-            _scene03_SettingsUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            _ui.DeveloperConsoleButtonUI.Button.onClick.AddListener(DeveloperConsoleButtonUI_OnClicked);
+            _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
+
             RefreshUI();
             
         }
@@ -34,11 +39,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
-            _scene03_SettingsUI.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
         }
 
         //  Event Handlers --------------------------------
-   
+        private void OnModelChanged(TheGameModel theGameModel)
+        {
+            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
+            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
+        }
+
         private void DeveloperConsoleButtonUI_OnClicked()
         {
             TheGameSingleton.Instance.TheGameController.LoadDeveloperConsoleSceneAsync();

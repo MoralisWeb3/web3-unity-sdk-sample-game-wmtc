@@ -17,8 +17,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
  
         //  Fields ----------------------------------------
         [SerializeField]
-        private Scene04_DeveloperConsoleUI _scene04_DeveloperConsoleUI;
+        private Scene04_DeveloperConsoleUI _ui;
 
+        private StringBuilder _titleTextBuilder = new StringBuilder();
         private StringBuilder _outputTextStringBuilder = new StringBuilder();
 
         //  Unity Methods----------------------------------
@@ -31,16 +32,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
 
 
+            _titleTextBuilder.AppendLine("~The Developer Console~");
+            _titleTextBuilder.AppendLine();
+
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
 
-            _scene04_DeveloperConsoleUI.UnregisterUserButtonUI.Button.onClick.AddListener(UnregisterUserButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.RegisterUserButtonUI.Button.onClick.AddListener(RegisterUserButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.AddGoldButtonUI.Button.onClick.AddListener(AddGoldButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.SpendGoldButtonUI.Button.onClick.AddListener(SpendGoldButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasurePrizeButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.SellTreasureButtonUI.Button.onClick.AddListener(SellTreasurePrizeButtonUI_OnClicked);
-            _scene04_DeveloperConsoleUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            _ui.UnregisterUserButtonUI.Button.onClick.AddListener(UnregisterUserButtonUI_OnClicked);
+            _ui.RegisterUserButtonUI.Button.onClick.AddListener(RegisterUserButtonUI_OnClicked);
+            _ui.AddGoldButtonUI.Button.onClick.AddListener(AddGoldButtonUI_OnClicked);
+            _ui.SpendGoldButtonUI.Button.onClick.AddListener(SpendGoldButtonUI_OnClicked);
+            _ui.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasurePrizeButtonUI_OnClicked);
+            _ui.SellTreasureButtonUI.Button.onClick.AddListener(SellTreasurePrizeButtonUI_OnClicked);
+            _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
             RefreshUI();
             
@@ -50,9 +54,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  General Methods -------------------------------
         private async UniTask RefreshUI()
         {
-            _scene04_DeveloperConsoleUI.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
 
-            _scene04_DeveloperConsoleUI.Text.text = _outputTextStringBuilder.ToString();
+            _ui.Text.text = _titleTextBuilder.ToString() + _outputTextStringBuilder.ToString();
         }
 
         private async UniTask<bool> EnsureIsRegistered()
@@ -71,8 +75,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Event Handlers --------------------------------
         private async void OnModelChanged(TheGameModel theGameModel)
         {
-            _scene04_DeveloperConsoleUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
-            _scene04_DeveloperConsoleUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
+            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
+            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
 
             _outputTextStringBuilder.Clear();
             _outputTextStringBuilder.AppendHeaderLine($"OnModelChanged()");

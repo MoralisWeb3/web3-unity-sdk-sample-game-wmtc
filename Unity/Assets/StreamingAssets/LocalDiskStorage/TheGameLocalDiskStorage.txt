@@ -1,4 +1,4 @@
 {
     "IsRegistered": true,
-    "Gold": 7
+    "Gold": 5
 }

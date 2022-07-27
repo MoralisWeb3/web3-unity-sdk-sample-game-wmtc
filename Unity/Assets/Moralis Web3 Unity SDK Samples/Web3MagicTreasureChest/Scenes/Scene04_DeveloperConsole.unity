@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53249b10c3165354a99e2b098d142220, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scene04_DeveloperConsoleUI: {fileID: 1038310889}
+  _ui: {fileID: 841784906}
 --- !u!4 &119563792
 Transform:
   m_ObjectHideFlags: 0
@@ -628,6 +628,30 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020508877822328042, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7348983251759573018, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -731,9 +755,9 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5107167720336447257, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
   m_PrefabInstance: {fileID: 841784903}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1038310889 stripped
+--- !u!114 &841784906 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4782470449035639686, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4164549310606728800, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
   m_PrefabInstance: {fileID: 841784903}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

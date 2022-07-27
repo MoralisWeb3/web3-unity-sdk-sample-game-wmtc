@@ -282,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cea03dbf9efb7204f8db0d239e29898a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scene02_AuthenticationUI: {fileID: 1772082994}
+  _ui: {fileID: 1772082994}
 --- !u!1 &685064862
 GameObject:
   m_ObjectHideFlags: 0

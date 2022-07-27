@@ -16,15 +16,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		
         //  Fields ----------------------------------------
         [SerializeField]
-        private Scene01_IntroUI _scene01_IntroUI;
+        private Scene01_IntroUI _ui;
 
         //  Unity Methods----------------------------------
         protected async void Start()
         {
-            _scene01_IntroUI.PlayGameButtonUI.Button.onClick.AddListener(PlayGameButtonUI_OnClicked);
-            _scene01_IntroUI.ViewCollectionButtonUI.Button.onClick.AddListener(ViewCollectionButtonUI_OnClicked);
-            _scene01_IntroUI.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
-            _scene01_IntroUI.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
+            _ui.PlayGameButtonUI.Button.onClick.AddListener(PlayGameButtonUI_OnClicked);
+            _ui.ViewCollectionButtonUI.Button.onClick.AddListener(ViewCollectionButtonUI_OnClicked);
+            _ui.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
+            _ui.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
 
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
@@ -32,7 +32,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
   
             RefreshUI();
 
-            bool isAuthenticated = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
+            bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
             if (isAuthenticated)
             {
                 bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
@@ -51,24 +51,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
-            bool isAuthenticated = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
-            _scene01_IntroUI.PlayGameButtonUI.IsInteractable = isAuthenticated;
-            _scene01_IntroUI.ViewCollectionButtonUI.IsInteractable = isAuthenticated;
-            _scene01_IntroUI.SettingsButtonUI.IsInteractable = isAuthenticated;
-            _scene01_IntroUI.AuthenticationButtonUI.IsInteractable = true;
+            bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
+            _ui.PlayGameButtonUI.IsInteractable = isAuthenticated;
+            _ui.ViewCollectionButtonUI.IsInteractable = isAuthenticated;
+            _ui.SettingsButtonUI.IsInteractable = isAuthenticated;
+            _ui.AuthenticationButtonUI.IsInteractable = true;
             
         }
 
         //  Event Handlers --------------------------------
         private void OnModelChanged(TheGameModel theGameModel)
         {
-            _scene01_IntroUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
-            _scene01_IntroUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
+            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
+            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
         }
 
         private void AuthenticationButtonUI_OnClicked()
         {
-            bool checkIfNeeded = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
+            bool checkIfNeeded = _ui.AuthenticationButtonUI.IsAuthenticated;
             TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
         }
    

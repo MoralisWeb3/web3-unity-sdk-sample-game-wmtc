@@ -192,7 +192,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene05_ViewCollectionUI
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1311502181586583996, guid: a78ee32d09cf0cf4b9eebc4f4ec17b14, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a78ee32d09cf0cf4b9eebc4f4ec17b14, type: 3}
 --- !u!224 &533124322670971293 stripped
 RectTransform:

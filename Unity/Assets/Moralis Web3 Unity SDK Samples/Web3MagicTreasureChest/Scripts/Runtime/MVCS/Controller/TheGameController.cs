@@ -160,11 +160,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		public async UniTask UnregisterUserAsync()
 		{
 			await _theGameService.UnregisterUserAsync();
+			_theGameModel.ResetAllData();
 		}
 
 		public async UniTask RegisterUserAsync()
 		{
 			await _theGameService.RegisterUserAsync();
+			_theGameModel.ResetAllData();
 		}
 
 

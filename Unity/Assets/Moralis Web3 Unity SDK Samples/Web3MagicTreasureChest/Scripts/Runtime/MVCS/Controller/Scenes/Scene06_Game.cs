@@ -25,7 +25,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         [Header("References (Scene)")]
         [SerializeField]
-        private Scene06_GameUI _scene06_GameUI;
+        private Scene06_GameUI _ui;
 
    
         [SerializeField] 
@@ -53,8 +53,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         {
  
             // 1. Listen to back button
-            _scene06_GameUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-            _scene06_GameUI.ReplayButtonUI.Button.onClick.AddListener(ReplayButtonUI_OnClicked);
+            _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            _ui.ReplayButtonUI.Button.onClick.AddListener(ReplayButtonUI_OnClicked);
 
             // 2. Check for user
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
@@ -99,14 +99,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
-            _scene06_GameUI.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
         }
 
         //  Event Handlers --------------------------------
         private void OnModelChanged(TheGameModel theGameModel)
         {
-            _scene06_GameUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
-            _scene06_GameUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
+            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
+            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
         }
 
         private async void ObservableGameState_OnValueChanged(GameState gameState)

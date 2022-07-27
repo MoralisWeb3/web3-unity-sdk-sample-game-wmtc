@@ -78,6 +78,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return isSuccess;
 		}
 
+		public static bool ClearTheGameLocalDiskStorage()
+		{
+			///////////////////////////////////////////
+			// Execute: Save
+			///////////////////////////////////////////
+			TheGameLocalDiskStorage theGameLocalDiskStorage = new TheGameLocalDiskStorage();
+			bool isSuccess = LocalDiskStorage.Instance.Save<TheGameLocalDiskStorage>(theGameLocalDiskStorage);
+			return isSuccess;
+		}
+
 		//  General Methods --------------------------------
 
 		public async UniTask<bool> IsRegisteredUserAsync()
@@ -95,10 +105,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 			await UniTask.Delay(SimulatedDelay);
 
+			ClearTheGameLocalDiskStorage();
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = true;
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-
 			return theGameLocalDiskStorage.IsRegistered;
 		}
 
@@ -106,6 +116,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 			await UniTask.Delay(SimulatedDelay);
 
+			ClearTheGameLocalDiskStorage();
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = false;
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
