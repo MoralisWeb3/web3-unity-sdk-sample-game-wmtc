@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Helpers;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
@@ -62,6 +63,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 throw new Exception("find existing user error");
             }
 
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
 
             _observableGameState.OnValueChanged.AddListener(ObservableGameState_OnValueChanged);
             _observableGameState.Value = GameState.Null;
@@ -100,6 +103,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
+        private void OnModelChanged(TheGameModel theGameModel)
+        {
+            _scene06_GameUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
+            _scene06_GameUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
+        }
+
         private async void ObservableGameState_OnValueChanged(GameState gameState)
         {
             switch (gameState)
@@ -136,12 +145,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _observableGameState.Value = GameState.CardsEntering;
                     break;
                 case GameState.CardsEntering:
-                    _observableGameState.Value = GameState.CardsIdle;
+                    _observableGameState.Value = GameState.CardsEntered;
 
                     // Don't await this
                     _treasureChestUI.BounceWhileOpen();
 
                     await _cardsUI.CreateCards(_cardStartRP, _cardEndRPs);
+                    break;
+                case GameState.CardsEntered:
+                    _observableGameState.Value = GameState.CardsIdle;
+
+                    break;
+
+                case GameState.CardsIdle:
+
+                    TheGameSingleton.Instance.TheGameController.GiveRewards();
                     break;
             }
         }

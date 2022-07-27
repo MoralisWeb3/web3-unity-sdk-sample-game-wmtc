@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
@@ -17,9 +18,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		PendingMessage PendingMessageForSave { get; }
 		
 		// General Methods --------------------------------
-		UniTask<List<PropertyData>> LoadPropertyDatasAsync();
-		UniTask<PropertyData> SavePropertyDataAsync(PropertyData propertyData);
-		UniTask DeletePropertyDataAsync(PropertyData propertyData);
-		UniTask DeleteAllPropertyDatasAsync(List<PropertyData> propertyDatas);
-	}
+
+        UniTask<bool> IsRegisteredUserAsync();
+        UniTask RegisterUserAsync();
+		UniTask UnregisterUserAsync();
+    }
 }

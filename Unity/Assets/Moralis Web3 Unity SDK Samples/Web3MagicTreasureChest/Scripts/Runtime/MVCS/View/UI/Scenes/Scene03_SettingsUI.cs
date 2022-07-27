@@ -1,19 +1,22 @@
 using MoralisUnity.Samples.Shared.UI;
 using UnityEngine;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 {
 	/// <summary>
-	/// Replace with comments...
+	/// The UI for <see cref="Scene03_Settings"/>
 	/// </summary>
 	public class Scene03_SettingsUI : Scene_BaseUI
 	{
 		//  Properties ------------------------------------
 		public BaseButtonUI DeveloperConsoleButtonUI { get { return _developerConsoleButtonUI; } }
 		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
-		
-	
+
+
 		//  Fields ----------------------------------------
+		[Header("References (Scene)")]
+
 		[SerializeField]
 		private BaseButtonUI _developerConsoleButtonUI = null;
 

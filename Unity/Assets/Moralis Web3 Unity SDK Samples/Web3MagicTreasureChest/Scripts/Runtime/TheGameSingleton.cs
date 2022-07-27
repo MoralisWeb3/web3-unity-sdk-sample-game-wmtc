@@ -7,9 +7,16 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 {
+	//TODO: Move this
+	public class TheGameModelUnityEvent : UnityEvent<TheGameModel>
+	{
+
+	}
+
 	/// <summary>
 	/// The main entry point for the whole game
 	/// <para />
@@ -23,6 +30,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 	/// </summary>
 	public class TheGameSingleton : SingletonMonobehaviour<TheGameSingleton>
 	{
+
 		// Properties -------------------------------------
 		private TheGameModel TheGameModel  { get { return _theGameModel; }}
 		private TheGameView TheGameView  { get { return _theGameView; }}
@@ -43,7 +51,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 			
 			// Model
 			_theGameModel = new TheGameModel();
-			
+
 			// View
 			TheGameView prefab = TheGameConfiguration.Instance.TheGameViewPrefab;
 			_theGameView = TheGameHelper.InstantiatePrefab(prefab, transform, new Vector3(0, 0, 0));

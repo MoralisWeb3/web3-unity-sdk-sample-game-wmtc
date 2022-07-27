@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 1625120218062974244}
   - component: {fileID: 1625120218062974245}
   - component: {fileID: 1625120218062974246}
+  - component: {fileID: 1311502181586583996}
   m_Layer: 5
   m_Name: BaseSceneUI
   m_TagString: Untagged
@@ -287,6 +288,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1311502181586583996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625120218062974247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01d3fba1253a04b4582f0379b730057a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _topUI: {fileID: 0}
+  _text: {fileID: 0}
+  _registerUserButtonUI: {fileID: 0}
+  _addGoldButtonUI: {fileID: 0}
+  _spendGoldButtonUI: {fileID: 0}
+  _addTreasureButtonUI: {fileID: 0}
+  _sellTreasureButtonUI: {fileID: 0}
+  _backButtonUI: {fileID: 0}
 --- !u!1 &1625120218473720652
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2013874873168586286}
   m_Layer: 5
-  m_Name: CornersTop
+  m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

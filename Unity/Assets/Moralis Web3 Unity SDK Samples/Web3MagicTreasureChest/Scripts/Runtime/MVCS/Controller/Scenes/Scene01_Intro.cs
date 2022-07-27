@@ -1,5 +1,8 @@
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
@@ -15,7 +18,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField]
         private Scene01_IntroUI _scene01_IntroUI;
 
-		
         //  Unity Methods----------------------------------
         protected async void Start()
         {
@@ -24,11 +26,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _scene01_IntroUI.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
             _scene01_IntroUI.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
 
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
+            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
+
+  
             RefreshUI();
-            
+
+            bool isAuthenticated = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;
+            if (isAuthenticated)
+            {
+                bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+
+                if (!isRegistered)
+                {
+                    await TheGameSingleton.Instance.TheGameController.RegisterUserAsync();
+                }
+            }
+
         }
 
-        
+
+
+
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
@@ -41,6 +60,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
+        private void OnModelChanged(TheGameModel theGameModel)
+        {
+            _scene01_IntroUI.TopUI.GoldCornerUI.Text.text = $"Gold {theGameModel.Gold.Value}/100";
+            _scene01_IntroUI.TopUI.CollectionUI.Text.text = $"Treasure {theGameModel.TreasurePrizeDtos.Value.Count}/10";
+        }
+
         private void AuthenticationButtonUI_OnClicked()
         {
             bool checkIfNeeded = _scene01_IntroUI.AuthenticationButtonUI.IsAuthenticated;

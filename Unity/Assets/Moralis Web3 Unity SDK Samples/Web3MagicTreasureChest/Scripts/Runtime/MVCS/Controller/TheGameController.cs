@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using MoralisUnity.Samples.Shared.Components;
@@ -17,6 +18,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 	/// </summary>
 	public class TheGameController
 	{
+		// Events -----------------------------------------
+		public TheGameModelUnityEvent OnTheGameModelChanged = new TheGameModelUnityEvent();
+		public void OnTheGameModelChangedRefresh() { OnTheGameModelChanged.Invoke(_theGameModel); }
+
+
 		// Properties -------------------------------------
 		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageForDeletion; }}
 		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessageForSave; }}
@@ -28,8 +34,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		private readonly ITheGameService _theGameService = null;
 
 
-		// Initialization Methods -------------------------
-		public TheGameController(
+
+
+        // Initialization Methods -------------------------
+        public TheGameController(
 			TheGameModel theGameModel,
 			TheGameView theGameView,
 			ITheGameService theGameService)
@@ -40,6 +48,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			
 			_theGameView.SceneManagerComponent.OnSceneLoadingEvent.AddListener(SceneManagerComponent_OnSceneLoadingEvent);
 			_theGameView.SceneManagerComponent.OnSceneLoadedEvent.AddListener(SceneManagerComponent_OnSceneLoadedEvent);
+
+			_theGameModel.Gold.OnValueChanged.AddListener((a) => OnTheGameModelChangedRefresh());
+			_theGameModel.TreasurePrizeDtos.OnValueChanged.AddListener((a) => OnTheGameModelChangedRefresh());
 		}
 
 
@@ -48,16 +59,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 		// Related To: Model
 		///////////////////////////////////////////
-		public void AddPropertyData(PropertyData propertyData)
-		{
-			_theGameModel.AddPropertyData(propertyData);
-		}
-		
-		
-		public void RemovePropertyData(PropertyData propertyData)
-		{
-			_theGameModel.RemovePropertyData(propertyData);
-		}
+
 
 		
 		///////////////////////////////////////////
@@ -89,7 +91,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 
 
-		public async void LoadViewCollectionSceneAsync()
+        public async void LoadViewCollectionSceneAsync()
 		{
 			// Wait, So click sound is audible
 			await UniTask.Delay(100);
@@ -144,10 +146,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameView.ShowLoadingDuringMethodAsync(isVisibleInitial, isVisibleFinal, message, task);
 		}
 
-		
+
 		///////////////////////////////////////////
 		// Related To: Service
 		///////////////////////////////////////////
+		public async UniTask<bool> IsRegisteredUserAsync()
+		{
+			return await _theGameService.IsRegisteredUserAsync();
+		}
+
+		public async UniTask UnregisterUserAsync()
+		{
+			await _theGameService.UnregisterUserAsync();
+		}
+
+		public async UniTask RegisterUserAsync()
+		{
+			await _theGameService.RegisterUserAsync();
+		}
 
 
 		// Event Handlers ---------------------------------
@@ -190,6 +206,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				Application.Quit();
 			}
 		}
-	}
+
+        public void GiveRewards()
+        {
+			Debug.Log("GiveRewards");
+
+			// Must 'set' to trigger events properly
+			_theGameModel.Gold.Value++;
+
+			// Must 'set' to trigger events properly
+			var list = _theGameModel.TreasurePrizeDtos.Value;
+			list.Add(new TreasurePrizeDto("new one"));
+			_theGameModel.TreasurePrizeDtos.Value = list;
+        }
+    }
 
 }

@@ -1,0 +1,4 @@
+{
+    "IsRegistered": true,
+    "Gold": 0
+}

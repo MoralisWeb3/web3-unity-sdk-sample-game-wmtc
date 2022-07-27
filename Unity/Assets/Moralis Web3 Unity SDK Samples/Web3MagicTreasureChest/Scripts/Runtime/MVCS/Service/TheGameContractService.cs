@@ -29,72 +29,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		{
 			_theGameContract = new TheGameContract();
 		}
-		
-		
-		// General Methods --------------------------------
-		public async UniTask<List<PropertyData>> LoadPropertyDatasAsync()
-		{
-			// Create Method Return Value
-			List<PropertyData> propertyDatas = new List<PropertyData>();
-			
-			// Check System Status
-			bool hasMoralisUser = await TheGameSingleton.Instance.HasMoralisUserAsync();
-			if (!hasMoralisUser)
-			{
-				Debug.LogError(TheGameConstants.ErrorMoralisUserRequired);
-				return null;
-			}
-			
-			// Get NFT Info
-			NftOwnerCollection nftOwnerCollection = await Moralis.Web3Api.Token.GetNFTOwners(
-				_theGameContract.Address,
-				ChainList.mumbai);
-			
-			// Create Method Return Value
-			foreach (NftOwner nftOwner in nftOwnerCollection.Result)
-			{
-				string ownerAddress = nftOwner.OwnerOf;
-				string tokenIdString = nftOwner.TokenId;
-				string metadata = nftOwner.TokenUri;
-				//Debug.Log($"nftOwner ownerAddress={ownerAddress} tokenIdString={tokenIdString} metadata={metadata}");
-				propertyDatas.Add(PropertyData.CreateNewPropertyDataFromMetadata(ownerAddress, tokenIdString, metadata));
-			}
-		
-			// Finalize Method Return Value
-			return propertyDatas;
-		}
 
-		
-		public async UniTask<PropertyData> SavePropertyDataAsync(PropertyData propertyData)
-		{
-			// Mint the NFT
-			string newTokenIdString = await _theGameContract.MintPropertyNftAsync(propertyData);
-			
-			// Update Method Return Value
-			propertyData = PropertyData.CreateNewPropertyDataFromMetadata(propertyData.OwnerAddress, newTokenIdString, propertyData.GetMetadata());
+        public UniTask<bool> IsRegisteredUserAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
-			// Finalize Method Return Value
-			return propertyData;
-		}
+        public UniTask RegisterUserAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
-		
-		public async UniTask DeletePropertyDataAsync(PropertyData propertyData)
-		{
-			// Burn the NFT
-			string result = await _theGameContract.BurnPropertyNftAsync(propertyData);
-			Debug.Log($"DeletePropertyDataAsync() Result = {result}");
-		}
+        public UniTask UnregisterUserAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
-		
-		public async UniTask DeleteAllPropertyDatasAsync(List<PropertyData> propertyDatas)
-		{
-			// Burn the NFT List
-			string result = await _theGameContract.BurnPropertyNftsAsync(propertyDatas);
-			Debug.Log($"DeleteAllPropertyDatasAsync() result = {result}");
-	
-		}
 
-		// Event Handlers ---------------------------------
+        // General Methods --------------------------------
 
-	}
+        // Event Handlers ---------------------------------
+
+    }
 }

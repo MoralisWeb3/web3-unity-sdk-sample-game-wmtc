@@ -1,14 +1,20 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Attributes;
-using MoralisUnity.Sdk.Events;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace MoralisUnity.Samples.Shared.Data.Types
 {
+    public class ObservableUnityEvent<T> : UnityEvent<T> where T : new()
+    {
+    }
+
     /// <summary>
     /// Wrapper so a type can be observable via events
     /// </summary>
-    public class Observable<T> where T : struct, IConvertible
+    public class Observable<T> where T : new()
     {
         //  Events ----------------------------------------
         public ObservableUnityEvent<T> OnValueChanged = new ObservableUnityEvent<T>();
@@ -39,7 +45,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
         //  Constructor Methods ---------------------------
         public Observable ()
         {
-            
+            _value = default(T);
         }
 
         //  Methods ---------------------------------------
