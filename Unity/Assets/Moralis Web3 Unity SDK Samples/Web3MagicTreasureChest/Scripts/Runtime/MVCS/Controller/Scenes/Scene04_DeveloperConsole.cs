@@ -1,7 +1,8 @@
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
     /// Replace with comments...

@@ -1,18 +1,19 @@
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
     /// Replace with comments...
     /// </summary>
-    public class Scene03_Settings : MonoBehaviour
+    public class Scene05_ViewCollection : MonoBehaviour
     {
         //  Properties ------------------------------------
  
         //  Fields ----------------------------------------
         [SerializeField]
-        private Scene03_SettingsUI _scene03_SettingsUI;
+        private Scene05_ViewCollectionUI _scene05_ViewCollection;
 
         //  Unity Methods----------------------------------
         protected async void Start()
@@ -23,8 +24,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
                 throw new Exception("find existing user error");
             }
             
-            _scene03_SettingsUI.DeveloperConsoleButtonUI.Button.onClick.AddListener(DeveloperConsoleButtonUI_OnClicked);
-            _scene03_SettingsUI.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            _scene05_ViewCollection.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
+            
             RefreshUI();
             
         }
@@ -33,15 +34,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
         //  General Methods -------------------------------
         private async void RefreshUI()
         {
-            _scene03_SettingsUI.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _scene05_ViewCollection.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
         }
 
         //  Event Handlers --------------------------------
    
-        private void DeveloperConsoleButtonUI_OnClicked()
-        {
-            TheGameSingleton.Instance.TheGameController.LoadDeveloperConsoleSceneAsync();
-        }
         
         private void BackButtonUI_OnClicked()
         {

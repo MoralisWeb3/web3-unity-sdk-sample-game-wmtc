@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Helpers;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
     /// Replace with comments...
