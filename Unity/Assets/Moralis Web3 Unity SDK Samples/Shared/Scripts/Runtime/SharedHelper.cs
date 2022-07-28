@@ -53,6 +53,17 @@ namespace MoralisUnity.Samples.Shared
             return sprite;
         }
 
+        /// <summary>
+        /// DontDestroyOnLoad works only if parent==null
+        /// </summary>
+        /// <param name="gameObject"></param>
+        public static void DontDestroyOnLoad(GameObject go)
+        {
+            Transform oldParent = go.transform.parent;
+            go.transform.parent = null;
+            DontDestroyOnLoad(go);
+            go.transform.SetParent(oldParent);
+        }
 
         public static Image CreateNewImageUnderParentAsLastSibling(Transform parent, Vector2 preferredSize)
         {

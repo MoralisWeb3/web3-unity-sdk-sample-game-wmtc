@@ -1,4 +1,5 @@
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
 using UnityEngine;
@@ -66,27 +67,30 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
         }
 
-        private void AuthenticationButtonUI_OnClicked()
+        private async void AuthenticationButtonUI_OnClicked()
         {
-            bool checkIfNeeded = _ui.AuthenticationButtonUI.IsAuthenticated;
+            await _ui.DungeonUI.TweenTo(DungeonArea.Authentication);
             TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
         }
    
         
-        private void ViewCollectionButtonUI_OnClicked()
+        private async void ViewCollectionButtonUI_OnClicked()
         {
+            await _ui.DungeonUI.TweenTo(DungeonArea.ViewCollection);
             TheGameSingleton.Instance.TheGameController.LoadViewCollectionSceneAsync();
         }
         
         
-        private void SettingsButtonUI_OnClicked()
+        private async void SettingsButtonUI_OnClicked()
         {
+            await _ui.DungeonUI.TweenTo(DungeonArea.Settings);
             TheGameSingleton.Instance.TheGameController.LoadSettingsSceneAsync();
         }
 
 
-        private void PlayGameButtonUI_OnClicked()
+        private async void PlayGameButtonUI_OnClicked()
         {
+            await _ui.DungeonUI.TweenTo(DungeonArea.Game);
             TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
         }
     }
