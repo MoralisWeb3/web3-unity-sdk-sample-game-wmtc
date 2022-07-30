@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
@@ -22,9 +23,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
-                throw new Exception("find existing user error");
+                // Sometimes, ONLY warn
+                Debug.LogWarning(new RequiredMoralisUserException().Message);
             }
-            
+
+
             _ui.DeveloperConsoleButtonUI.Button.onClick.AddListener(DeveloperConsoleButtonUI_OnClicked);
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 

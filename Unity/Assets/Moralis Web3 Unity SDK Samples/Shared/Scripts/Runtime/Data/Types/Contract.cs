@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Cysharp.Threading.Tasks;
+using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Sdk.Interfaces;
 using MoralisUnity.Web3Api.Models;
@@ -79,17 +80,21 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			RequireIsInitialized();
 
+			MoralisUser moralisUser = await Moralis.GetUserAsync();
+			if (moralisUser == null)
+			{
+				throw new RequiredMoralisUserException();
+			}
+
 
 			if (WalletConnect.Instance == null)
 			{
-				throw new Exception(
-					$"ExecuteContractFunction() failed. " +
-					$"WalletConnect.Instance must not be null. " +
-					$"Add the WalletConnect.prefab to your scene.");
+				throw new NullReferenceException("ExecuteContractFunction() failed. " + SharedConstants.WalletConnectNullReferenceException);
 			}
 
 			await Moralis.SetupWeb3();
-			
+
+
 			// Estimate the gas
 			HexBigInteger value = new HexBigInteger(0);
 			HexBigInteger gas = new HexBigInteger(0);

@@ -64,7 +64,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 
 		// General Methods --------------------------------
-		public async UniTask<string> getGold()
+		public async UniTask<string> getTest()
 		{
 			
 			object[] args = null;
@@ -74,7 +74,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			return result;
 		}
 
-		
+		public async UniTask<string> getGold()
+		{
+
+			object[] args =
+			{
+				"ok"
+			};
+
+			string result = await RunContractFunction("getGold", args, IsLogging);
+
+			return result;
+		}
+
+
 		public async UniTask<string> MintPropertyNftAsync (PropertyData propertyData)
 		{
 			string metadata = propertyData.GetMetadata();

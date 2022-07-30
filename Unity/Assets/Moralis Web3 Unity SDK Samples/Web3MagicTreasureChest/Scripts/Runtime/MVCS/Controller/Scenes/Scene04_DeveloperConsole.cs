@@ -135,9 +135,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             TheGameContract theGameContract = new TheGameContract();
 
             //await TheGameSingleton.Instance.TheGameController.AddGold(1);
-            string result = await theGameContract.getGold();
+            string result = await theGameContract.getTest();
 
-            _outputTextStringBuilder.AppendHeaderLine($"AddGold()");
+            _outputTextStringBuilder.AppendHeaderLine($"getTest()");
             _outputTextStringBuilder.AppendBullet($"result = {result}");
 
             await RefreshUI();
@@ -152,7 +152,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.SpendGold(1);
+            //await TheGameSingleton.Instance.TheGameController.SpendGold(1);
+
+            TheGameContract theGameContract = new TheGameContract();
+
+            //await TheGameSingleton.Instance.TheGameController.AddGold(1);
+            string result = await theGameContract.getGold();
+
+            _outputTextStringBuilder.AppendHeaderLine($"getGold()");
+            _outputTextStringBuilder.AppendBullet($"result = {result}");
 
             _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
 

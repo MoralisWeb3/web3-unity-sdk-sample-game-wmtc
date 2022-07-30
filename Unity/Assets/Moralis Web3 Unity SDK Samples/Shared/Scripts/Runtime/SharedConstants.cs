@@ -92,8 +92,6 @@ namespace MoralisUnity.Samples.Shared
         // A random account (not mine) with much history for testing - https://etherscan.io/address/0xda9dfa130df4de4673b89022ee50ff26f6ea73cf
         public const string AddressForTesting = "0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf";
         public const string TokenAddressForTesting = "0x00000000219ab540356cbb839cbe05303d7705fa";
-        public static string MissingWalletConnectPrefab = "Method failed. WalletConnect.Instance must not be null. Add the WalletConnect.prefab to your scene.";
-
-        
+        public static string WalletConnectNullReferenceException = $"WalletConnect.Instance must not be null. Add the WalletConnect.prefab to your scene.";
     }
 }
