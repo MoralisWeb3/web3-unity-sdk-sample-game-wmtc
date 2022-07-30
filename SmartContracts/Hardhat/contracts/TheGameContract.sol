@@ -57,32 +57,12 @@ contract TheGameContract
         balance = Gold(_goldContractAddress).getGold();
     }
 
-    ///////////////////////////////////////////////////////////
-    // FUNCTION: CRUD
-    //      *   Add gold to the calling address
-    //      *   Changes contract state, so call via 
-    //          ExecuteContractFunction
-    ///////////////////////////////////////////////////////////
-    function addGold(uint256 amount) public 
+    function getTest() public pure returns (string memory message)
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // require(msg.sender == _owner);
 
-        Gold(_goldContractAddress).addGold(amount);
-    }
-
-    ///////////////////////////////////////////////////////////
-    // FUNCTION: CRUD
-    //      *   Remove gold to the calling address
-    //      *   Changes contract state, so call via 
-    //          ExecuteContractFunction
-    ///////////////////////////////////////////////////////////
-    function removeGold(uint256 amount) public 
-    {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == _owner);
-
-        Gold(_goldContractAddress).removeGold(amount);
+        message = "hello world!";
     }
     
 }

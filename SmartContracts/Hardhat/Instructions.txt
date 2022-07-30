@@ -26,6 +26,14 @@
 
     npm i -D @openzeppelin/contracts
 
+    npm install --save-dev @nomiclabs/hardhat-etherscan@^3.1.0 //TODO: Needed?
+
+    npm install --save-dev @cronos-labs/hardhat-cronoscan //TODO: Needed?
+
+    npm install --save-dev solidity-coverage //TODO: Needed?
+
+    npm install --save-dev hardhat-gas-reporter //TODO: Needed?
+
 
 // 06. DELETE FILE(S) WITHIN "./MyHardHat/contracts/"
 
@@ -74,19 +82,26 @@
     npx hardhat compile
 
 
+// 15. (OPTIONAL): TEST SMART CONTRACT via COMMAND LINE
+    
+    npx hardhat coverage
+
+    npx hardhat test
+
+
 // 15. DEPLOY SMART CONTRACT via COMMAND LINE
 
-    npx hardhat run scripts/deployGreeter.js --network mumbai
+    npx hardhat run scripts/deployTheGameContract.js --network cronosTestnet
         
         
 // 16. UPON SUCCESS SEE OUTPUT via COMMAND LINE WHICH RESEMBLES "deployed to: {YourContractAddress}"
 
-    Visit "https://mumbai.polygonscan.com/address/{YourContractAddress}#code" in the browser to find {YourContractAddress} and {YourABI}.
+    Visit "https://testnet.cronoscan.com/{YourContractAddress}" to see 
      
 
 // 17. PASTE {YourContractAddress} and the {YourABI} WITHIN
 
-    "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/Scripts/Runtime/Data/GreeterContractData.cs
+    "./Unity/Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scripts/Runtime/MVCS/Model/Data/Types/TheGameContract.cs
  
 
  // 18. RUN THE RELEVANT SCENE IN UNITY

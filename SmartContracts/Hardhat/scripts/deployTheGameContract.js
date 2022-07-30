@@ -21,35 +21,42 @@ async function main()
 
   // TheGameContract
   const TheGameContract = await hre.ethers.getContractFactory("TheGameContract");
-  const thegamecontract = await TheGameContract.deploy(gold.address);
-  await thegamecontract.deployed();
+  const theGameContract = await TheGameContract.deploy(gold.address);
+  await theGameContract.deployed();
 
 
   ///////////////////////////////////////////////////////////
   // UNITY-FRIENDLY OUTPUT
   ///////////////////////////////////////////////////////////
   const abiFile = JSON.parse(fs.readFileSync('./artifacts/contracts/TheGameContract.sol/TheGameContract.json', 'utf8'));
+  const address = theGameContract.address;
   const abi = JSON.stringify(abiFile.abi).replaceAll ('"','\\"',);
   console.log("\n");
-  console.log("DEPLOYMENT COMPLETE");
-  console.log("		public const string Address  = \"%s\";", thegamecontract.address);
-  console.log("		public const string Abi  = \"%s\";", abi);
+  console.log("DEPLOYMENT COMPLETE: COPY TO UNITY...");
+  console.log("\n");
+  console.log("protected override void SetContractDetails()");
+  console.log("{\n");
+  console.log(" _address  = \"%s\";", address);
+  console.log(" _abi      = \"%s\";", abi);
+  console.log("\n}\n");
   console.log("\n");
 
   ///////////////////////////////////////////////////////////
   // WAIT
   ///////////////////////////////////////////////////////////
-  console.log("WAIT...");
+  console.log("WAIT ...");
   console.log("\n");
-  await thegamecontract.deployTransaction.wait(7);
+  await theGameContract.deployTransaction.wait(7);
 
 
   ///////////////////////////////////////////////////////////
   // VERIFY
   ///////////////////////////////////////////////////////////
+  console.log("VERIFICATION ...");
+  console.log("\n");
   await hre.run("verify:verify", {
-    address: thegamecontract.address,
-    constructorArguments: [],
+    address: theGameContract.address,
+    constructorArguments: [gold.address],
   });
 
 

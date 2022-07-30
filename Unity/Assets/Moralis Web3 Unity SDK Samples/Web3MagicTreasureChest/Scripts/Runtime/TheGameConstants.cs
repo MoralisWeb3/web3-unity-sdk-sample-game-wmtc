@@ -12,9 +12,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
         public const string ProjectName = "Web3 Magic Treasure Chest";
         public const string PathCreateAssetMenu = MoralisConstants.PathMoralisSamplesCreateAssetMenu + "/" + ProjectName;
         
-        // Errors
-        public static string ErrorMoralisUserRequired = "MoralisUser is required for this Scene. Stop this Scene. Choose another Scene.";
-        
         ///////////////////////////////////////////
         // MenuItem Path
         ///////////////////////////////////////////

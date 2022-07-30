@@ -1,31 +1,71 @@
 ///////////////////////////////////////////////////////////
 // REQUIRES
 ///////////////////////////////////////////////////////////
-require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config();
+require("@nomicfoundation/hardhat-toolbox");
+require("hardhat-gas-reporter");
 
-// TODO: MOve this to env
-const PRIVATE_KEY = "2f6009cddf4c79754af198995fd9db86f0c4ced09e5e33b8f0d701362f8231d5"; 
+///////////////////////////////////////////////////////////
+// HELPERS
+///////////////////////////////////////////////////////////
+const getHDWallet = () => 
+{
+  const { MNEMONIC, PRIVATE_KEY } = process.env;
+
+  if (MNEMONIC && MNEMONIC !== "") 
+  {
+    return 
+    {
+      mnemonic: MNEMONIC
+    }
+  }
+
+  if (PRIVATE_KEY && PRIVATE_KEY !== "") 
+  {
+    return [PRIVATE_KEY]
+  }
+  throw Error("Private Key Not Set! Please set up .env");
+}
+
 
 ///////////////////////////////////////////////////////////
 // EXPORTS
 ///////////////////////////////////////////////////////////
+
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- module.exports = {
-  solidity: "0.8.9",
+module.exports = {
   networks: {
-    mumbai: {
-      url: "https://nd-316-787-845.p2pify.com/a821626ba4dc9a6bb7578106ee0615c0",
-      accounts: [PRIVATE_KEY]
+    hardhat: {},
+    cronosTestnet: {
+      url: "https://evm-t3.cronos.org/", //Cronos Testnet
+      chainId: 338,
+      accounts: getHDWallet(),
+      gasPrice: 5000000000000
     }
   },
   etherscan: {
-    apiKey: process.env.POLYGONSCAN_API_KEY 
-  }
+    apiKey:  {
+      cronosTestnet: process.env.CRONOSCAN_TESTNET_API_KEY
+    },
+    customChains: [
+      {
+        network: "cronosTestnet",
+        chainId: 338,
+        urls: {
+          apiURL: "https://api-rinkeby.etherscan.io/api",
+          browserURL: "https://rinkeby.etherscan.io"
+        }
+      }
+    ]
+  },
+  gasReporter: {
+    currency: 'USD',
+    enabled: true
+  },
+  solidity: "0.8.9",
 };
-
 
 ///////////////////////////////////////////////////////////
 // TASKS

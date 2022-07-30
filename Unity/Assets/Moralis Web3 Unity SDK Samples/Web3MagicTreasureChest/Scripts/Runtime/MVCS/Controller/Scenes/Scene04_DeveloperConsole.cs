@@ -5,6 +5,8 @@ using UnityEngine;
 using MoralisUnity.Samples.Shared;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Samples.Shared.Exceptions;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
@@ -28,7 +30,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
-                throw new Exception("find existing user error");
+                // Sometimes, ONLY warn
+                Debug.LogWarning(new RequiredMoralisUserException().Message);
             }
 
 
@@ -129,9 +132,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.AddGold(1);
+            TheGameContract theGameContract = new TheGameContract();
+
+            //await TheGameSingleton.Instance.TheGameController.AddGold(1);
+            string result = await theGameContract.getGold();
 
             _outputTextStringBuilder.AppendHeaderLine($"AddGold()");
+            _outputTextStringBuilder.AppendBullet($"result = {result}");
 
             await RefreshUI();
         }

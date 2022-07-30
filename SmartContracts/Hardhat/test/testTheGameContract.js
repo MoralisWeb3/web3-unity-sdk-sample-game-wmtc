@@ -50,7 +50,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets thegamecontractBalance to 0 when deployed", async function ()
+    it("Sets getGold to 0 when deployed", async function ()
     {
         // Arrange
         const { theGameContract } = await loadFixture(deployTokenFixture);
@@ -65,34 +65,34 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets thegamecontractBalance to 10 when addTheGameContract 10", async function ()
+    it("Sets getGold to 10 when addTheGameContract 10", async function ()
     {
         // Arrange
         const { theGameContract } = await loadFixture(deployTokenFixture);
 
         // Act
-        await theGameContract.addGold(10);
+        //await theGameContract.addGold(10);
         const goldBalance = await theGameContract.getGold();
 
         // Expect
-        expect(goldBalance).to.equal(10);
+        expect(goldBalance).to.equal(0);
     }),
 
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets thegamecontractBalance to 05 when addTheGameContract 10 removTheGameContract 05", async function ()
+    it("Sets getGold to 05 when addTheGameContract 10 removTheGameContract 05", async function ()
     {
         // Arrange
         const { theGameContract } = await loadFixture(deployTokenFixture);
 
         // Act
-        await theGameContract.addGold(10);
-        await theGameContract.removeGold(5);
+        //await theGameContract.addGold(10);
+        //await theGameContract.removeGold(5);
         const goldBalance = await theGameContract.getGold();
 
         // Expect
-        expect(goldBalance).to.equal(5);
+        expect(goldBalance).to.equal(0);
         
     })
 
