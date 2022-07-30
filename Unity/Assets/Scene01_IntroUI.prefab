@@ -1016,11 +1016,11 @@ PrefabInstance:
     - target: {fileID: 248703259118314802, guid: 94dc7d38763e29047876a941b33d1c64, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 108ca3e7dda90d945b0914bf9259ec94, type: 3}
+      objectReference: {fileID: 21300000, guid: fc9d7ac77b80e424d9c6d2890f9af52b, type: 3}
     - target: {fileID: 1156831668452142175, guid: 94dc7d38763e29047876a941b33d1c64, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2d089513ae4adfc48a683c362ad9992c, type: 3}
+      objectReference: {fileID: 21300000, guid: 87ffe403ed1efd9458e0e74d12890012, type: 3}
     - target: {fileID: 4919868813258097030, guid: 94dc7d38763e29047876a941b33d1c64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1369,6 +1369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topUI: {fileID: 4055174784349646844}
+  _cameraUI: {fileID: 0}
   _playGameButtonUI: {fileID: 478855075496982873}
   _viewCollectionButtonUI: {fileID: 6928410366627151110}
   _authenticationButtonUI: {fileID: 5717686843619703185}
