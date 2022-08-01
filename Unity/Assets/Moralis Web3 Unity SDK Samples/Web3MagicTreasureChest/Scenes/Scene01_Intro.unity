@@ -220,8 +220,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.45
+  m_Color: {r: 0.993916, g: 1, b: 0.83396226, a: 1}
+  m_Intensity: 0.54
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1085,8 +1085,16 @@ PrefabInstance:
       value: DungeonUI
       objectReference: {fileID: 0}
     - target: {fileID: 2053428036182423014, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2053428036182423014, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085963780093912132, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2085963780093912132, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1115,6 +1123,10 @@ PrefabInstance:
     - target: {fileID: 2817371538393035924, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2895554581046963172, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2895554581046963172, guid: 850e38776470e8043b59ec10d7c7e8cf, type: 3}
       propertyPath: m_StaticEditorFlags
