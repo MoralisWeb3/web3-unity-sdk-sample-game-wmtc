@@ -57,12 +57,20 @@ contract TheGameContract
         balance = Gold(_goldContractAddress).getGold();
     }
 
-    function getTest() public pure returns (string memory message)
+    function getMessage01() public pure returns (string memory message)
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // require(msg.sender == _owner);
 
         message = "hello world!";
+    }
+
+    function getMessage02() public pure returns (string memory message)
+    {
+        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
+        // require(msg.sender == _owner);
+
+        message = message;
     }
     
 }

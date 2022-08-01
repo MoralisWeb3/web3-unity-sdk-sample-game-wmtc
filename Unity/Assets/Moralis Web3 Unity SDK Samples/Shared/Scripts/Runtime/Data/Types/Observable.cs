@@ -5,6 +5,7 @@ using MoralisUnity.Samples.Shared.Attributes;
 using UnityEngine;
 using UnityEngine.Events;
 
+#pragma warning disable 0414
 namespace MoralisUnity.Samples.Shared.Data.Types
 {
     public class ObservableUnityEvent<T> : UnityEvent<T> where T : new()

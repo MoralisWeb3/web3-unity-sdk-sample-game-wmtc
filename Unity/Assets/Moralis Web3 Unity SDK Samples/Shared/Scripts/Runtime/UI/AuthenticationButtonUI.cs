@@ -1,6 +1,7 @@
 using MoralisUnity.Platform.Objects;
 using System.Threading.Tasks;
 
+#pragma warning disable 1998
 namespace MoralisUnity.Samples.Shared.UI
 {
     /// <summary>

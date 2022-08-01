@@ -17,7 +17,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		//  Unity Methods----------------------------------
 		protected void Awake()
 		{
-			SharedHelper.SafeDontDestroyOnLoad(gameObject);
+			//SharedHelper.SafeDontDestroyOnLoad(gameObject);
 		
 		}
 

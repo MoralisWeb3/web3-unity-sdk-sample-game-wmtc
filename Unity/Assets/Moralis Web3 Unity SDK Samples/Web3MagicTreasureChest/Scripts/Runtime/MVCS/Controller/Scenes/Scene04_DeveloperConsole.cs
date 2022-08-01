@@ -76,6 +76,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             return isRegistered;
         }
 
+        private async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
+        {
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            true,
+            false,
+            SharedConstants.Loading,
+            async delegate ()
+            {
+                await task();
+            });
+        }
+
         //  Event Handlers --------------------------------
         private async void OnModelChanged(TheGameModel theGameModel)
         {
@@ -133,15 +145,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            TheGameContract theGameContract = new TheGameContract();
+            await ShowLoadingDuringMethodAsync(
+                async delegate ()
+                {
+                    TheGameContract theGameContract = new TheGameContract();
 
-            //await TheGameSingleton.Instance.TheGameController.AddGold(1);
-            string result = await theGameContract.getTest();
+                    //await TheGameSingleton.Instance.TheGameController.AddGold(1);
+                    string result = await theGameContract.getMessage01();
 
-            _outputTextStringBuilder.AppendHeaderLine($"getTest()");
-            _outputTextStringBuilder.AppendBullet($"result = {result}");
+                    _outputTextStringBuilder.AppendHeaderLine($"getTest()");
+                    _outputTextStringBuilder.AppendBullet($"result = {result}");
 
-            await RefreshUI();
+                    await RefreshUI();
+                });
+   
         }
 
 
@@ -153,19 +170,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            //await TheGameSingleton.Instance.TheGameController.SpendGold(1);
 
-            TheGameContract theGameContract = new TheGameContract();
+            await ShowLoadingDuringMethodAsync(
+                async delegate ()
+                {
+                    //await TheGameSingleton.Instance.TheGameController.SpendGold(1);
 
-            //await TheGameSingleton.Instance.TheGameController.AddGold(1);
-            string result = await theGameContract.getGold();
+                    TheGameContract theGameContract = new TheGameContract();
 
-            _outputTextStringBuilder.AppendHeaderLine($"getGold()");
-            _outputTextStringBuilder.AppendBullet($"result = {result}");
+                    //await TheGameSingleton.Instance.TheGameController.AddGold(1);
+                    string result = await theGameContract.getMessage02();
 
-            _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
+                    _outputTextStringBuilder.AppendHeaderLine($"getGold()");
+                    _outputTextStringBuilder.AppendBullet($"result = {result}");
 
-            await RefreshUI();
+                    _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
+
+                    await RefreshUI();
+                });
+
+ 
         }
 
         private async void AddTreasurePrizeButtonUI_OnClicked()

@@ -52,7 +52,12 @@ async function main()
   ///////////////////////////////////////////////////////////
   // VERIFY
   ///////////////////////////////////////////////////////////
-  console.log("VERIFICATION ...");
+  console.log("VERIFICATION - MANUAL ...");
+  console.log("https://testnet.cronoscan.com/address/" + address);
+  console.log("\n");
+
+
+  console.log("VERIFICATION - AUTOMATIC ...");
   console.log("\n");
   await hre.run("verify:verify", {
     address: theGameContract.address,

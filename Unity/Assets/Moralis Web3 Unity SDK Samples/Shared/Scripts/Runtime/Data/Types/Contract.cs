@@ -130,7 +130,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			return result;
 		}
 
-		public async UniTask<string> RunContractFunction(string functionName, object[] args, bool isLogging)
+		public async UniTask<string> RunContractFunctionAsync(string functionName, object[] args, bool isLogging)
 		{
 
 			RequireIsInitialized();
@@ -141,18 +141,32 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			RunContractDto runContractDto = new RunContractDto()
 			{
 				Abi = abi,
-				Params = null
+				Params = args
 			};
 
 			if (isLogging)
 			{
+				int abiLength = 0;
+				if (runContractDto.Abi != null)
+                {
+					abiLength = runContractDto.Abi.ToString().Length;
+                }
+
+				int paramsLength = 0;
+				if (runContractDto.Params != null)
+				{
+					paramsLength = runContractDto.Params.ToString().Length;
+				}
+
+				Debug.Log("runContractDto: " + runContractDto.ToJson());
+
 				StringBuilder stringBuilder = new StringBuilder();
 				stringBuilder.AppendLine($"Contract.RunContractFunction()...");
 				stringBuilder.AppendLine($"");
 				stringBuilder.AppendLine($"\taddress		= {_address}");
 				stringBuilder.AppendLine($"\tfunctionName	= {functionName}");
-				stringBuilder.AppendLine($"\trunContractDto.Abi.Length	= {runContractDto.Abi}");
-				stringBuilder.AppendLine($"\trunContractDto.Params	= {runContractDto.Params}");
+				stringBuilder.AppendLine($"\trunContractDto.Abi.Length	= {abiLength}");
+				stringBuilder.AppendLine($"\trunContractDto.Params.Length	= {paramsLength}");
 				stringBuilder.AppendLine($"\tchainList	= {ChainList}");
 				Debug.Log($"{stringBuilder.ToString()}");
 

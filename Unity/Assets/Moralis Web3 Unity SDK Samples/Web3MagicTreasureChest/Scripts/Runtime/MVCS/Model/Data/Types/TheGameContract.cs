@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 {
+	public class MessageHolder
+    {
+		public string message = "";
+    }
+
 	/// <summary>
 	/// Wrapper class for a Web3API Eth Contract.
 	/// </summary>
@@ -26,10 +31,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		protected override void SetContractDetails()
 		{
 
-			_address = "0xD60fa6C3083d3df7Be7D9C58d1a4b1Fe97AE5066";
-			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTest\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}]";
+			_address = "0xB6d9A56eF58fFC434eA494425671d032bd1a7f6c";
+			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMessage01\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMessage02\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}]";
 
 		}
+
 
 		/// <summary>
 		/// Format for ABI:
@@ -38,54 +44,75 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		/// </summary>
 		/// <returns></returns>
 		protected override object[] GetAbiObject()
-		{
-			object[] newAbi = new object[3];
+        {
+			ContractAbi contractAbi = new ContractAbi();
 
-			// constructor
-			object[] cInputParams = new object[1];
-			cInputParams[0] = new { internalType = "address", name = "goldContractAddress", type = "address" };
-			newAbi[0] = new { inputs = cInputParams, name = "", stateMutability = "nonpayable", type = "constructor" };
+			List<object> cInputParams = new List<object>();
+			cInputParams.Add(new { internalType = "address", name = "goldContractAddress", type = "address" });
+			contractAbi.AddConstructor(cInputParams);
 
 			// getGold
-			object[] ggInputParams = new object[0];
-			object[] ggOutputParams = new object[1];
-			ggOutputParams[0] = new { internalType = "uint256", name = "balance", type = "uint256" };
-			newAbi[1] = new { inputs = ggInputParams, outputs = ggOutputParams, name = "getGold", stateMutability = "view", type = "function" };
+			List<object> ggInputParams = new List<object>();
+			List<object> ggOutputParams = new List<object>();
+			ggOutputParams.Add(new { internalType = "uint256", name = "balance", type = "uint256" });
+			contractAbi.AddFunction("getGold", "view", ggInputParams, ggOutputParams);
 
-			// getTest
-			object[] gtInputParams = new object[0];
-			object[] gtOutputParams = new object[1];
-			gtOutputParams[0] = new { internalType = "string", name = "message", type = "string" };
-			newAbi[1] = new { inputs = gtInputParams, outputs = gtOutputParams, name = "getTest", stateMutability = "pure", type = "function" };
+			// getMessage01
+			List<object> gtInputParams = new List<object>();
+			List<object> gtOutputParams = new List<object>();
+			gtOutputParams.Add(new { internalType = "string", name = "message", type = "string" });
+			contractAbi.AddFunction("getMessage01", "pure", gtInputParams, gtOutputParams);
 
-
-			return newAbi;
+			// getMessage02
+			List<object> gt2InputParams = new List<object>();
+			List<object> gt2OutputParams = new List<object>();
+			gt2InputParams.Add(new { internalType = "string", name = "message", type = "string" });
+			gt2OutputParams.Add(new { internalType = "string", name = "message", type = "string" });
+			contractAbi.AddFunction("getMessage02", "view", gt2InputParams, gt2OutputParams);
+			return contractAbi.ToObjectArray();
 		}
 
 
 		// General Methods --------------------------------
-		public async UniTask<string> getTest()
+		/*
+		 * LEARNINGS. 
+		 * 
+		 * 1. WHEN null is expected for ExecuteContractFunctionAsync, both of these work...
+		 * object[] args = null;
+		 * 
+		 * object[] args =
+		 * {
+		 * };
+		 * 
+		 * 
+		 * 
+		 */
+
+		public async UniTask<string> getMessage01()
 		{
-			
-			object[] args = null;
-			
-			string result = await ExecuteContractFunctionAsync("getTest", args, IsLogging);
-
-			return result;
-		}
-
-		public async UniTask<string> getGold()
-		{
-
 			object[] args =
 			{
-				"ok"
 			};
 
-			string result = await RunContractFunction("getGold", args, IsLogging);
+			string result = await RunContractFunctionAsync("getMessage01", args, IsLogging);
 
 			return result;
 		}
+
+		public async UniTask<string> getMessage02()
+		{
+			string message = "hello 02";
+			object[] args =
+			{
+				message
+			};
+
+			string result = await RunContractFunctionAsync("getMessage02", args, IsLogging);
+
+			return result;
+		}
+
+
 
 
 		public async UniTask<string> MintPropertyNftAsync (PropertyData propertyData)
