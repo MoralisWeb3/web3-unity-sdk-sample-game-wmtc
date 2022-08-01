@@ -28,7 +28,7 @@ contract TheGameContract
     address _goldContractAddress;
 
     // Determines if the player has registered yet
-    mapping (address => uint256) _isRegistered;
+    mapping (address => bool) _isRegistered;
 
 
     ///////////////////////////////////////////////////////////
@@ -49,7 +49,7 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: REGISTRATION
     ///////////////////////////////////////////////////////////
-    function isRegistered() public view returns (uint256 isPlayerRegistered)
+    function isRegistered() public view returns (bool isPlayerRegistered)
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
@@ -60,14 +60,14 @@ contract TheGameContract
 
     function register() public
     {
-        _isRegistered[msg.sender] = 1;
+        _isRegistered[msg.sender] = true;
         setGold(99);
     }
 
 
     function unregister() public
     {
-        _isRegistered[msg.sender] = 0;
+        _isRegistered[msg.sender] = false;
         setGold(0);
     }
 
