@@ -7,7 +7,7 @@ pragma solidity ^0.8.9;
 ///////////////////////////////////////////////////////////
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "hardhat/console.sol";
-
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 ///////////////////////////////////////////////////////////
 // CLASS
@@ -45,16 +45,55 @@ contract Gold is ERC20
 
     ///////////////////////////////////////////////////////////
     // FUNCTION: CRUD
-    //      *   Add gold to the calling address
+    //      *   Get gold amount for the calling address
     //      *   Changes no contract state, so call via 
     //          RunContractFunction
     ///////////////////////////////////////////////////////////
     function getGold() public view returns (uint256 balance)
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == _owner);
-
         balance = balanceOf(msg.sender);
+    }
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTION: CRUD
+    //      *   Set gold amount for the calling address
+    //      *   Changes contract state, so call via 
+    //          ExecuteContractFunction
+    ///////////////////////////////////////////////////////////
+    function setGold(uint256 targetBalance) public 
+    {
+        uint256 oldBalance = getGold();
+        int delta = int(targetBalance) - int(oldBalance);
+        
+        if (delta > 0)
+        {
+            // console.log ('delta %s POS ', uint256(delta));
+            addGold (uint256(delta));
+        }
+        else if (delta < 0)
+        {
+            //console.log ('delta %s NEG ', uint256(-delta));
+            removeGold (uint256(-delta));
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTION: CRUD
+    //      *   Set gold amount for the calling address
+    //      *   Changes contract state, so call via 
+    //          ExecuteContractFunction
+    ///////////////////////////////////////////////////////////
+    function setGoldBy(int deltaBalance) public
+    {
+        if (deltaBalance > 0)
+        {
+            addGold (uint256(deltaBalance));
+        }
+        else if (deltaBalance < 0)
+        {
+            removeGold (uint256(-deltaBalance));
+        }
     }
 
     ///////////////////////////////////////////////////////////
@@ -63,11 +102,8 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function addGold(uint256 amount) public 
+    function addGold(uint256 amount) private 
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == _owner);
-
         _mint(msg.sender, amount);
     }
 
@@ -77,11 +113,8 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function removeGold(uint256 amount) public 
+    function removeGold(uint256 amount) private 
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == _owner);
-
         _burn(msg.sender, amount);
     }
 }

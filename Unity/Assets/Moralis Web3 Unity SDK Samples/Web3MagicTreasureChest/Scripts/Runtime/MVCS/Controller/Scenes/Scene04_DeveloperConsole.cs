@@ -42,8 +42,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
             TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
 
-            _ui.UnregisterUserButtonUI.Button.onClick.AddListener(UnregisterUserButtonUI_OnClicked);
-            _ui.RegisterUserButtonUI.Button.onClick.AddListener(RegisterUserButtonUI_OnClicked);
+            
+            _ui.IsRegisteredButtonUI.Button.onClick.AddListener(IsRegisteredButtonUI_OnClicked);
+            _ui.UnregisterButtonUI.Button.onClick.AddListener(UnregisterUserButtonUI_OnClicked);
+            _ui.RegisterButtonUI.Button.onClick.AddListener(RegisterUserButtonUI_OnClicked);
             _ui.AddGoldButtonUI.Button.onClick.AddListener(AddGoldButtonUI_OnClicked);
             _ui.SpendGoldButtonUI.Button.onClick.AddListener(SpendGoldButtonUI_OnClicked);
             _ui.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasurePrizeButtonUI_OnClicked);
@@ -101,6 +103,35 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             await RefreshUI();
         }
 
+        
+        private async void IsRegisteredButtonUI_OnClicked()
+        {
+            bool wasRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+            if (wasRegistered)
+            {
+                await TheGameSingleton.Instance.TheGameController.UnregisterUserAsync();
+            }
+
+            await ShowLoadingDuringMethodAsync(
+              async delegate ()
+              {
+                  TheGameContract theGameContract = new TheGameContract();
+
+                  bool result1 = await theGameContract.isRegistered();
+                  int result4 = await theGameContract.getGold();
+
+                  _outputTextStringBuilder.Clear();
+                  _outputTextStringBuilder.AppendHeaderLine($"isRegistered()");
+                  _outputTextStringBuilder.AppendHeaderLine($"result1 = {result1}");
+                  _outputTextStringBuilder.AppendHeaderLine($"result4 = {result4}");
+
+                  await RefreshUI();
+              });
+
+
+
+            await RefreshUI();
+        }
 
         private async void UnregisterUserButtonUI_OnClicked()
         {
@@ -110,12 +141,27 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 await TheGameSingleton.Instance.TheGameController.UnregisterUserAsync();
             }
 
-            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+            await ShowLoadingDuringMethodAsync(
+              async delegate ()
+              {
+                  TheGameContract theGameContract = new TheGameContract();
 
-            _outputTextStringBuilder.Clear();
-            _outputTextStringBuilder.AppendHeaderLine($"Register()");
-            _outputTextStringBuilder.AppendHeaderLine($"wasRegistered = {wasRegistered}");
-            _outputTextStringBuilder.AppendHeaderLine($"isRegistered = {isRegistered}");
+                  bool result1 = await theGameContract.isRegistered();
+                  string result2 = await theGameContract.Unregister();
+                  bool result3 = await theGameContract.isRegistered();
+                  int result4 = await theGameContract.getGold();
+
+                  _outputTextStringBuilder.Clear();
+                  _outputTextStringBuilder.AppendHeaderLine($"unregister()");
+                  _outputTextStringBuilder.AppendHeaderLine($"result1 = {result1}");
+                  _outputTextStringBuilder.AppendHeaderLine($"result2 = {result2}");
+                  _outputTextStringBuilder.AppendHeaderLine($"result3 = {result3}");
+                  _outputTextStringBuilder.AppendHeaderLine($"result4 = {result4}");
+
+                  await RefreshUI();
+              });
+
+  
 
             await RefreshUI();
         }
@@ -128,15 +174,23 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 await TheGameSingleton.Instance.TheGameController.RegisterUserAsync();
             }
 
-            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+            TheGameContract theGameContract = new TheGameContract();
+
+            bool result1 = await theGameContract.isRegistered();
+            string result2 = await theGameContract.Register();
+            bool result3 = await theGameContract.isRegistered();
+            int result4 = await theGameContract.getGold();
 
             _outputTextStringBuilder.Clear();
             _outputTextStringBuilder.AppendHeaderLine($"Register()");
-            _outputTextStringBuilder.AppendHeaderLine($"wasRegistered = {wasRegistered}");
-            _outputTextStringBuilder.AppendHeaderLine($"isRegistered = {isRegistered}");
+            _outputTextStringBuilder.AppendHeaderLine($"result1 = {result1}");
+            _outputTextStringBuilder.AppendHeaderLine($"result2 = {result2}");
+            _outputTextStringBuilder.AppendHeaderLine($"result3 = {result3}");
+            _outputTextStringBuilder.AppendHeaderLine($"result4 = {result4}");
 
             await RefreshUI();
         }
+
 
         private async void AddGoldButtonUI_OnClicked()
         {
@@ -151,10 +205,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     TheGameContract theGameContract = new TheGameContract();
 
                     //await TheGameSingleton.Instance.TheGameController.AddGold(1);
-                    string result = await theGameContract.getMessage01();
-
-                    _outputTextStringBuilder.AppendHeaderLine($"getTest()");
+                    string result = await theGameContract.setGold(10);
+                    
+                    _outputTextStringBuilder.AppendHeaderLine($"setGold()");
                     _outputTextStringBuilder.AppendBullet($"result = {result}");
+
+                    int result2 = await theGameContract.getGold();
+                    _outputTextStringBuilder.AppendBullet($"result2 = {result2}");
 
                     await RefreshUI();
                 });
@@ -179,12 +236,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     TheGameContract theGameContract = new TheGameContract();
 
                     //await TheGameSingleton.Instance.TheGameController.AddGold(1);
-                    string result = await theGameContract.getMessage02();
+                    string result = await theGameContract.setGoldBy(-5);
 
-                    _outputTextStringBuilder.AppendHeaderLine($"getGold()");
+                    _outputTextStringBuilder.AppendHeaderLine($"setGoldBy()");
                     _outputTextStringBuilder.AppendBullet($"result = {result}");
 
-                    _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
+                    int result2 = await theGameContract.getGold();
+                    _outputTextStringBuilder.AppendBullet($"result2 = {result2}");
 
                     await RefreshUI();
                 });

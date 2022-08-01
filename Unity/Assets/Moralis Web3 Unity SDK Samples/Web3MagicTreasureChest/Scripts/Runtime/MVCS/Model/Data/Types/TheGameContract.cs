@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
@@ -31,8 +32,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		protected override void SetContractDetails()
 		{
 
-			_address = "0xB6d9A56eF58fFC434eA494425671d032bd1a7f6c";
-			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMessage01\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMessage02\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"message\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"}]";
+			_address = "0x4a3ce1701895133A67b08B76E94eB15B07d88121";
+			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isRegistered\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"isPlayerRegistered\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetBalance\",\"type\":\"uint256\"}],\"name\":\"setGold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"setGoldBy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
 
 		}
 
@@ -47,72 +48,102 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
         {
 			ContractAbi contractAbi = new ContractAbi();
 
+			//NOTE: Its ONLY required here to manually recreate the methods
+			//		called by RunContractFunction
+
 			List<object> cInputParams = new List<object>();
 			cInputParams.Add(new { internalType = "address", name = "goldContractAddress", type = "address" });
 			contractAbi.AddConstructor(cInputParams);
 
 			// getGold
-			List<object> ggInputParams = new List<object>();
-			List<object> ggOutputParams = new List<object>();
-			ggOutputParams.Add(new { internalType = "uint256", name = "balance", type = "uint256" });
-			contractAbi.AddFunction("getGold", "view", ggInputParams, ggOutputParams);
+			List<object> getGold_Input = new List<object>();
+			List<object> getGold_Output = new List<object>();
+			getGold_Output.Add(new { internalType = "uint256", name = "balance", type = "uint256" });
+			contractAbi.AddFunction("getGold", "view", getGold_Input, getGold_Output);
 
-			// getMessage01
-			List<object> gtInputParams = new List<object>();
-			List<object> gtOutputParams = new List<object>();
-			gtOutputParams.Add(new { internalType = "string", name = "message", type = "string" });
-			contractAbi.AddFunction("getMessage01", "pure", gtInputParams, gtOutputParams);
+			// isRegistered
+			List<object> isRegistered_Input = new List<object>();
+			List<object> isRegistered_Output = new List<object>();
+			isRegistered_Output.Add(new { internalType = "bool", name = "isPlayerRegistered", type = "bool" });
+			contractAbi.AddFunction("isRegistered", "view", isRegistered_Input, isRegistered_Output);
 
-			// getMessage02
-			List<object> gt2InputParams = new List<object>();
-			List<object> gt2OutputParams = new List<object>();
-			gt2InputParams.Add(new { internalType = "string", name = "message", type = "string" });
-			gt2OutputParams.Add(new { internalType = "string", name = "message", type = "string" });
-			contractAbi.AddFunction("getMessage02", "view", gt2InputParams, gt2OutputParams);
 			return contractAbi.ToObjectArray();
 		}
 
 
 		// General Methods --------------------------------
-		/*
-		 * LEARNINGS. 
-		 * 
-		 * 1. WHEN null is expected for ExecuteContractFunctionAsync, both of these work...
-		 * object[] args = null;
-		 * 
-		 * object[] args =
-		 * {
-		 * };
-		 * 
-		 * 
-		 * 
-		 */
-
-		public async UniTask<string> getMessage01()
+		public async UniTask<bool> isRegistered()
 		{
 			object[] args =
 			{
 			};
 
-			string result = await RunContractFunctionAsync("getMessage01", args, IsLogging);
+			//TODO: This always returns false. its my first mapping. Problem? 
+			string result = await RunContractFunctionAsync("isRegistered", args, IsLogging);
 
-			return result;
+			//HACK: Use this instead. Its dependable
+			int goldInt = await getGold();
+
+			return goldInt != 0;
 		}
 
-		public async UniTask<string> getMessage02()
+		public async UniTask<string> Register()
 		{
-			string message = "hello 02";
 			object[] args =
 			{
-				message
 			};
 
-			string result = await RunContractFunctionAsync("getMessage02", args, IsLogging);
+			string result = await ExecuteContractFunctionAsync("register", args, IsLogging);
 
 			return result;
 		}
 
+		public async UniTask<string> Unregister()
+		{
+			object[] args =
+			{
+			};
 
+			string result = await ExecuteContractFunctionAsync("unregister", args, IsLogging);
+			return result;
+		}
+
+		public async UniTask<int> getGold()
+		{
+			object[] args =
+			{
+			};
+
+			string goldString = await RunContractFunctionAsync("getGold", args, IsLogging);
+			int goldInt = Int32.Parse(goldString);
+			return goldInt;
+		}
+
+		public async UniTask<string> setGold(int targetBalance2)
+		{
+			int targetBalance = targetBalance2;
+			object[] args =
+			{
+				targetBalance
+			};
+
+			string result = await ExecuteContractFunctionAsync("setGold", args, IsLogging);
+
+			return result;
+		}
+
+		public async UniTask<string> setGoldBy(int deltaBalance)
+		{
+			int delta = deltaBalance;
+			object[] args =
+			{
+				delta
+			};
+
+			string result = await ExecuteContractFunctionAsync("setGoldBy", args, IsLogging);
+
+			return result;
+		}
 
 
 		public async UniTask<string> MintPropertyNftAsync (PropertyData propertyData)

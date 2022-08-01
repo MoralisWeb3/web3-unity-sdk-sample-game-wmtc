@@ -28,7 +28,7 @@ describe("The Game Contract", function ()
         const TheGameContract = await ethers.getContractFactory("TheGameContract");
         const theGameContract = await TheGameContract.deploy(gold.address);
 
-        return { theGameContract };
+        return { theGameContract, addr1, addr2 };
     
     }
 
@@ -62,6 +62,7 @@ describe("The Game Contract", function ()
         expect(goldBalance).to.equal(0);
     })
 
+    
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
@@ -77,6 +78,7 @@ describe("The Game Contract", function ()
         // Expect
         expect(goldBalance).to.equal(0);
     }),
+
 
     ///////////////////////////////////////////////////////////
     // TEST
@@ -94,6 +96,88 @@ describe("The Game Contract", function ()
         // Expect
         expect(goldBalance).to.equal(0);
         
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets isRegistered to false when deployed", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+
+        // Expect
+        expect(isRegistered).to.equal(false);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets isRegistered to true when register", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        await theGameContract.connect(addr1).register();
+        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+
+        // Expect
+        expect(isRegistered).to.equal(true);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets getGold to 99 when register", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        await theGameContract.connect(addr1).register();
+        const goldBalance = await theGameContract.connect(addr1).getGold();
+
+        // Expect
+        expect(goldBalance).to.equal(99);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets getGold to 0 when register, unregister", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        await theGameContract.connect(addr1).register();
+        await theGameContract.connect(addr1).setGold(1);
+        await theGameContract.connect(addr1).unregister();
+        const goldBalance = await theGameContract.connect(addr1).getGold();
+
+        // Expect
+        expect(goldBalance).to.equal(0);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets isRegistered to true when register, unregister", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        await theGameContract.connect(addr1).register();
+        await theGameContract.connect(addr1).unregister();
+        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+
+        // Expect
+        expect(isRegistered).to.equal(false);
     })
 
 });
