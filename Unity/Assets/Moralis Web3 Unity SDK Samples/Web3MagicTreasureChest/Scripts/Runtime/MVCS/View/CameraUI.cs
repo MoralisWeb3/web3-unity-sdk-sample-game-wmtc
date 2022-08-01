@@ -60,7 +60,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 
 
 		// General Methods --------------------------------
-		public async UniTask TweenTo(CameraPosition dungeonArea)
+		public async UniTask TweenTo2(CameraPosition dungeonArea)
 		{
 
 			float duration = 0.5f;

@@ -9777,7 +9777,7 @@ GameObject:
   - component: {fileID: 6200720779110778461}
   - component: {fileID: 6200720779120667069}
   m_Layer: 0
-  m_Name: TreasureChestWithEffects
+  m_Name: TreasureChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

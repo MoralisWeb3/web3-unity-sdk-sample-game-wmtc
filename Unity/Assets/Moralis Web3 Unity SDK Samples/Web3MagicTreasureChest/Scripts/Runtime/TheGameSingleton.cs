@@ -9,6 +9,7 @@ using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviou
 using UnityEngine;
 using UnityEngine.Events;
 
+#pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 {
 	//TODO: Move this

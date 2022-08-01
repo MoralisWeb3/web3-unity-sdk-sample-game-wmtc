@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+#pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
@@ -69,28 +70,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private async void AuthenticationButtonUI_OnClicked()
         {
-            await _ui.CameraUI.TweenTo(CameraPosition.Authentication);
             TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
         }
    
         
         private async void ViewCollectionButtonUI_OnClicked()
         {
-            await _ui.CameraUI.TweenTo(CameraPosition.ViewCollection);
             TheGameSingleton.Instance.TheGameController.LoadViewCollectionSceneAsync();
         }
         
         
         private async void SettingsButtonUI_OnClicked()
         {
-            await _ui.CameraUI.TweenTo(CameraPosition.Settings);
             TheGameSingleton.Instance.TheGameController.LoadSettingsSceneAsync();
         }
 
 
         private async void PlayGameButtonUI_OnClicked()
         {
-            await _ui.CameraUI.TweenTo(CameraPosition.Game);
             TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
         }
     }

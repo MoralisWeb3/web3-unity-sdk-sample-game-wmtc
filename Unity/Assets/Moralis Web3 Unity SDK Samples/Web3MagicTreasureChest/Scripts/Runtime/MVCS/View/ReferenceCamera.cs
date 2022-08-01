@@ -1,6 +1,7 @@
 using MoralisUnity.Samples.Shared.Helpers;
 using UnityEngine;
 
+#pragma warning disable 414
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
 	/// <summary>

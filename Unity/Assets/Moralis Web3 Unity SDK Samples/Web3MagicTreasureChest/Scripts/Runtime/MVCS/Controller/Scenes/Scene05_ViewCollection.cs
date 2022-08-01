@@ -3,6 +3,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
 using UnityEngine;
 
+#pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
