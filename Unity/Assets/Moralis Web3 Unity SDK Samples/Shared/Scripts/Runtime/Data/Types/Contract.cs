@@ -103,7 +103,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			if (isLogging)
 			{
 				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.AppendLine($"Contract.ExecuteContractFunction()...");
+				stringBuilder.AppendLine($"Contract.ExecuteContractFunction({functionName})...");
 				stringBuilder.AppendLine($"");
 				stringBuilder.AppendLine($"\taddress		= {_address}");
 				stringBuilder.AppendLine($"\tabi.Length	= {_abi.Length}");
@@ -114,7 +114,6 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\tgasPrice	= {gasPrice}");
 				Debug.Log($"{stringBuilder.ToString()}");
 				
-				Debug.Log($"Moralis.ExecuteContractFunction() START");
 			}
 			
 			// Related Documentation
@@ -124,7 +123,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Debug.Log($"Moralis.ExecuteContractFunction() FINISH. result = {result}");
+				Debug.Log($"Contract.ExecuteContractFunction({functionName}) FINISH. result = {result}");
 			}
 
 			return result;
@@ -158,10 +157,10 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 					paramsLength = runContractDto.Params.ToString().Length;
 				}
 
-				Debug.Log("runContractDto: " + runContractDto.ToJson());
+				//Debug.Log("runContractDto: " + runContractDto.ToJson());
 
 				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.AppendLine($"Contract.RunContractFunction()...");
+				stringBuilder.AppendLine($"Contract.RunContractFunction({functionName})...");
 				stringBuilder.AppendLine($"");
 				stringBuilder.AppendLine($"\taddress		= {_address}");
 				stringBuilder.AppendLine($"\tfunctionName	= {functionName}");
@@ -169,8 +168,6 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\trunContractDto.Params.Length	= {paramsLength}");
 				stringBuilder.AppendLine($"\tchainList	= {ChainList}");
 				Debug.Log($"{stringBuilder.ToString()}");
-
-				Debug.Log($"Moralis.ExecuteContractFunction() START");
 			}
 
 
@@ -185,7 +182,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			if (isLogging)
 			{
 
-				Debug.Log($"Moralis.ExecuteContractFunction() FINISH. result = {result}");
+				Debug.Log($"Moralis.RunContractFunction({functionName}) FINISH. result = {result}");
 			}
 
 			return result;

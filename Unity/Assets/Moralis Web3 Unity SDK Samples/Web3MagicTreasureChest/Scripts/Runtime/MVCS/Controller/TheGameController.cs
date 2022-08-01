@@ -6,7 +6,6 @@ using DG.Tweening;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
@@ -33,8 +32,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		private readonly TheGameModel _theGameModel = null;
 		private readonly TheGameView _theGameView = null;
 		private readonly ITheGameService _theGameService = null;
-
-
+		private const int DelayAfterContractStateChange = 5000; // wait X seconds for backend to change. Based on limited trials, this Works! 
 
 
 		// Initialization Methods -------------------------
@@ -52,6 +50,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 			_theGameModel.Gold.OnValueChanged.AddListener((a) => OnTheGameModelChangedRefresh());
 			_theGameModel.TreasurePrizeDtos.OnValueChanged.AddListener((a) => OnTheGameModelChangedRefresh());
+			_theGameModel.IsRegistered.OnValueChanged.AddListener((a) => OnTheGameModelChangedRefresh());
 		}
 
 
@@ -152,48 +151,88 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 		// Related To: Service
 		///////////////////////////////////////////
-		public async UniTask<bool> IsRegisteredUserAsync()
+		public async UniTask<bool> IsRegisteredAsync()
 		{
-			return await _theGameService.IsRegisteredUserAsync();
+			bool isRegistered = await _theGameService.IsRegisteredAsync();
+			_theGameModel.IsRegistered.Value = isRegistered;
+
+			int gold = await _theGameService.GetGoldAsync();
+			_theGameModel.Gold.Value = gold;
+
+			return _theGameModel.IsRegistered.Value;
 		}
 
-		public async UniTask UnregisterUserAsync()
+		public async UniTask UnregisterAsync()
 		{
-			await _theGameService.UnregisterUserAsync();
+			await _theGameService.UnregisterAsync();
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			// Refresh data model
 			_theGameModel.ResetAllData();
+			await IsRegisteredAsync();
 		}
 
-		public async UniTask RegisterUserAsync()
+		public async UniTask RegisterAsync()
 		{
-			await _theGameService.RegisterUserAsync();
-			_theGameModel.ResetAllData();
+			await _theGameService.RegisterAsync();
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			// Refresh data model
+			await IsRegisteredAsync();
 		}
 
 
 		public async UniTask<int> AddGold(int delta)
 		{
-			int gold = await _theGameService.AddGold(delta);
+			if (delta <= 0)
+			{
+				Debug.LogError("to add, the delta must be > 0.");
+				return 0;
+			}
+
+
+			await _theGameService.SetGoldByAsync(delta);
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			int gold = await _theGameService.GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
 			return gold;
 		}
 
 		public async UniTask<int> SpendGold(int delta)
 		{
-			int gold = await _theGameService.SpendGold(delta);
+			if (delta <= 0)
+            {
+				Debug.LogError("to spend, the delta must be > 0.");
+				return 0;
+            }
+
+			await _theGameService.SetGoldByAsync(-delta);
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			int gold = await _theGameService.GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
 			return gold;
 		}
 
 		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
 		{
-			List <TreasurePrizeDto> treasurePrizeDtos = await _theGameService.AddTreasurePrize(treasurePrizeDto);
+			List <TreasurePrizeDto> treasurePrizeDtos = await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}
 
 		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
 		{
-			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.SellTreasurePrize(treasurePrizeDto);
+			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}

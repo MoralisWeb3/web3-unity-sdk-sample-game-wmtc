@@ -37,11 +37,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
             if (isAuthenticated)
             {
-                bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredUserAsync();
+                bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
                 if (!isRegistered)
                 {
-                    await TheGameSingleton.Instance.TheGameController.RegisterUserAsync();
+                    await TheGameSingleton.Instance.TheGameController.RegisterAsync();
                 }
             }
 

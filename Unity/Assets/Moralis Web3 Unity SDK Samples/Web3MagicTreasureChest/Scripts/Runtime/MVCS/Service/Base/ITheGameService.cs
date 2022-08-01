@@ -20,12 +20,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		
 		// General Methods --------------------------------
 
-        UniTask<bool> IsRegisteredUserAsync();
-        UniTask<bool> RegisterUserAsync();
-		UniTask<bool> UnregisterUserAsync();
-		UniTask<int> AddGold(int delta);
-		UniTask<int> SpendGold(int delta);
-        UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto);
-        UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto);
+		// VARIOUS RETURNS
+        UniTask<bool> IsRegisteredAsync();
+		UniTask<int> GetGoldAsync();
+
+		// STRING RETURNS
+		UniTask<string> RegisterAsync();
+		UniTask<string> UnregisterAsync();
+		
+		UniTask<string> SetGoldAsync(int targetBalance);
+		UniTask<string> SetGoldByAsync(int deltaBalance);
+        UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+        UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
     }
 }

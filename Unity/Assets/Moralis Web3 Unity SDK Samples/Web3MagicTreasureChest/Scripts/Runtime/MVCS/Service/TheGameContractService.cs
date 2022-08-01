@@ -3,8 +3,6 @@ using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using MoralisUnity.Web3Api.Models;
-using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
@@ -31,37 +29,55 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			_theGameContract = new TheGameContract();
 		}
 
-        public UniTask<bool> IsRegisteredUserAsync()
+
+        public async UniTask<bool> IsRegisteredAsync()
+        {
+            bool result = await _theGameContract.isRegistered();
+            return result;
+        }
+
+
+        public async UniTask<string> RegisterAsync()
+        {
+            string result = await _theGameContract.Register();
+            return result;
+        }
+
+
+        public async UniTask<string> UnregisterAsync()
+        {
+            string result = await _theGameContract.Unregister();
+            return result;
+        }
+
+
+        public async UniTask<int> GetGoldAsync()
+        {
+            int result = await _theGameContract.getGold();
+            return result;
+        }
+
+
+        public async UniTask<string> SetGoldAsync(int targetBalance)
+        {
+            string result = await _theGameContract.setGold(targetBalance);
+            return result;
+        }
+
+        public async UniTask<string> SetGoldByAsync(int deltaBalance)
+        {
+            string result = await _theGameContract.setGoldBy(deltaBalance);
+            return result;
+        }
+
+
+        public UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
             throw new System.NotImplementedException();
         }
 
-        public UniTask<bool> RegisterUserAsync()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public UniTask<bool> UnregisterUserAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<int> AddGold(int delta)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<int> SpendGold(int delta)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+        public UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
             throw new System.NotImplementedException();
         }

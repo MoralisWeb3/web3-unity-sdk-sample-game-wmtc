@@ -90,7 +90,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
 		//  General Methods --------------------------------
 
-		public async UniTask<bool> IsRegisteredUserAsync()
+		public async UniTask<bool> IsRegisteredAsync()
         {
 			await UniTask.Delay(SimulatedDelay);
 
@@ -147,7 +147,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 
 
-		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
 		{
 			await UniTask.Delay(SimulatedDelay);
 
@@ -160,7 +160,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return theGameLocalDiskStorage.TreasurePrizeDtos;
 		}
 
-		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
 		{
 			await UniTask.Delay(SimulatedDelay);
 
@@ -173,9 +173,39 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return theGameLocalDiskStorage.TreasurePrizeDtos;
 		}
 
+        public UniTask<int> GetGold(int delta)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		// Event Handlers ---------------------------------
+        UniTask<string> ITheGameService.RegisterAsync()
+        {
+            throw new System.NotImplementedException();
+        }
 
-	}
+        UniTask<string> ITheGameService.UnregisterAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<string> SetGoldAsync(int targetBalance)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<string> SetGoldByAsync(int deltaBalance)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<int> GetGoldAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        // Event Handlers ---------------------------------
+
+    }
 
 }
