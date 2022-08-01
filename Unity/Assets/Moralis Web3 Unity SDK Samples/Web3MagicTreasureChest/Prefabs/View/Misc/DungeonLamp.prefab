@@ -90,6 +90,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonLampLight (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7225991854032300589, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
 --- !u!4 &8468994487899094983 stripped
@@ -151,6 +155,10 @@ PrefabInstance:
     - target: {fileID: 7225991854032300589, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
       propertyPath: m_Name
       value: DungeonLampLight (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225991854032300589, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
@@ -214,6 +222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DungeonLampLight (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7225991854032300589, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64f5328f9c414f145b53128626a46b24, type: 3}
 --- !u!4 &1694171367844387580 stripped
@@ -231,6 +243,10 @@ PrefabInstance:
     - target: {fileID: 3210835056373017189, guid: cf79a7bac02194b408a87c31f47a0b48, type: 3}
       propertyPath: m_Name
       value: DungeonLampMetal
+      objectReference: {fileID: 0}
+    - target: {fileID: 3210835056373017189, guid: cf79a7bac02194b408a87c31f47a0b48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4300744443856715669, guid: cf79a7bac02194b408a87c31f47a0b48, type: 3}
       propertyPath: m_RootOrder
