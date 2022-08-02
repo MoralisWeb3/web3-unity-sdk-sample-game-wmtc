@@ -51,7 +51,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         public async UniTask<string> GetRewardsHistoryAsync()
         {
-            throw new System.NotImplementedException();
+            string result = await _theGameContract.GetRewardsHistory();
+            return result;
         }
 
 
@@ -126,15 +127,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             }
 
             // Get NFT Info
-            Debug.Log("1: " );
             MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
-            Debug.Log("2: " );
             var nftCollection = await Moralis.Web3Api.Account.GetNFTsForContract(
                 moralisUser.ethAddress,
                 _theGameContract.TreasurePrizeContractAddress,
                 _theGameContract.ChainList);
 
-            Debug.Log("3: " + nftCollection.Result.Count);
+            Debug.Log("nftCollection.Result.Count: " + nftCollection.Result.Count);
 
             // Create Method Return Value
             foreach (NftOwner nftOwner in nftCollection.Result)

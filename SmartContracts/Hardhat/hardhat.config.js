@@ -6,29 +6,6 @@ require("@nomicfoundation/hardhat-toolbox");
 require("hardhat-gas-reporter");
 
 ///////////////////////////////////////////////////////////
-// HELPERS
-///////////////////////////////////////////////////////////
-const getHDWallet = () => 
-{
-  const { MNEMONIC, PRIVATE_KEY } = process.env;
-
-  if (MNEMONIC && MNEMONIC !== "") 
-  {
-    return 
-    {
-      mnemonic: MNEMONIC
-    }
-  }
-
-  if (PRIVATE_KEY && PRIVATE_KEY !== "") 
-  {
-    return [PRIVATE_KEY]
-  }
-  throw Error("Private Key Not Set! Please set up .env");
-}
-
-
-///////////////////////////////////////////////////////////
 // EXPORTS
 ///////////////////////////////////////////////////////////
 
@@ -41,7 +18,7 @@ module.exports = {
     cronosTestnet: {
       url: "https://evm-t3.cronos.org/", //Cronos Testnet
       chainId: 338,
-      accounts: getHDWallet(),
+      accounts: [process.env.WEB3_WALLET_PRIVATE_KEY],
       gasPrice: 5000000000000
     }
   },
@@ -54,8 +31,8 @@ module.exports = {
         network: "cronosTestnet",
         chainId: 338,
         urls: {
-          apiURL: "https://api-rinkeby.etherscan.io/api",
-          browserURL: "https://rinkeby.etherscan.io"
+          apiURL: "https://api.cronoscan.com/",
+          browserURL: "https://testnet.cronoscan.com"
         }
       }
     ]

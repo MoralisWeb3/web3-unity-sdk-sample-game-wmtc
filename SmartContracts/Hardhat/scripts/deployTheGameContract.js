@@ -58,7 +58,7 @@ async function main()
   // VERIFY
   ///////////////////////////////////////////////////////////
   console.log("VERIFICATION - MANUAL ...");
-  console.log("https://testnet.cronoscan.com/address/" + address);
+  console.log("https://testnet.cronoscan.com/address/" + theGameContract.address);
   console.log("\n");
 
   console.log("VERIFICATION - AUTOMATIC ...");

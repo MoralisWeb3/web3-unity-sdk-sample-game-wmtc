@@ -26,8 +26,8 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     struct Reward 
     {
-        uint Type;
         string Title;
+        uint Type;
         uint Price;
     }
 
@@ -113,14 +113,14 @@ contract TheGameContract
         {
             // REWARD: Gold!
             theType = 1;
-            title = "gold";
+            title = "This is gold.";
             setGoldBy (int(random));
         } 
         else 
         {
             // REWARD: Prize!
             theType = 2;
-            title = "the special nft which is blah";
+            title = "This is an nft.";
 
             //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
             string memory metadata = string(abi.encodePacked("Title=", title, "|Price=", price));
@@ -129,19 +129,20 @@ contract TheGameContract
 
         _lastReward[msg.sender] = Reward (
         {
-            Type: theType,
             Title: title,
+            Type: theType,
             Price: price
         });
 
     }
 
-    function getRewardsHistory() public view returns (string memory rewardsHistory)
+    function getRewardsHistory() public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
     {
-        rewardsHistory = string(abi.encodePacked(
-            "Type=", _lastReward[msg.sender].Type,
-            "Title=", _lastReward[msg.sender].Title,
-            "Price=", _lastReward[msg.sender].Price  ));
+        require(_isRegistered[msg.sender] == true, "Must be registered to start the game.");
+
+        rewardTitle = _lastReward[msg.sender].Title;
+        rewardType = _lastReward[msg.sender].Type;
+        rewardPrice = _lastReward[msg.sender].Price;
     }
 
 

@@ -183,6 +183,49 @@ describe("The Game Contract", function ()
         // Expect
         expect(isRegistered).to.equal(false);
     }),
+    
+
+    
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets result to DEFAULTS when deployed, getRewardsHistory", async function ()
+    {
+        // Arrange
+        const { theGameContract } = await loadFixture(deployTokenFixture);
+        await theGameContract.register();
+        var goldAmount = 10;
+
+        // Act
+        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.getRewardsHistory ();
+
+
+
+        // Expect
+        expect(rewardTitle).to.equal("");
+        expect(rewardType).to.equal(0);
+        expect(rewardPrice).to.equal(0);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it.only("Sets isRegistered to true when startGameAndGiveRewards (1)", async function ()
+    {
+        // Arrange
+        const { theGameContract } = await loadFixture(deployTokenFixture);
+        await theGameContract.register();
+        var goldAmount = 10;
+
+        // Act
+        await theGameContract.startGameAndGiveRewards (goldAmount);
+        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.getRewardsHistory ();
+
+        // Expect
+        expect(rewardTitle).to.not.equal("");
+        expect(rewardType).to.not.equal(0)
+        expect(rewardPrice).to.not.equal(0)
+    }),
 
     ///////////////////////////////////////////////////////////
     // TEST

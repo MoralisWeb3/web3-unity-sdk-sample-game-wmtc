@@ -282,9 +282,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// Wait for contract values to sync so the client will see the changes
 			await UniTask.Delay(DelayAfterContractStateChange);
 
-			string reward = await _theGameService.GetRewardsHistoryAsync();
+			var result2 = await _theGameService.GetRewardsHistoryAsync();
+			Debug.Log("types... " + result2);
 
-			return result;
+			return result2;
 		}
 
 
