@@ -49,9 +49,9 @@ contract Gold is ERC20
     //      *   Changes no contract state, so call via 
     //          RunContractFunction
     ///////////////////////////////////////////////////////////
-    function getGold() public view returns (uint256 balance)
+    function getGold(address origin) public view returns (uint256 balance)
     {
-        balance = balanceOf(msg.sender);
+        balance = balanceOf(origin);
     }
 
     ///////////////////////////////////////////////////////////
@@ -60,20 +60,20 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function setGold(uint256 targetBalance) public 
+    function setGold(address origin, uint256 targetBalance) public 
     {
-        uint256 oldBalance = getGold();
+        uint256 oldBalance = getGold(origin);
         int delta = int(targetBalance) - int(oldBalance);
         
         if (delta > 0)
         {
             // console.log ('delta %s POS ', uint256(delta));
-            addGold (uint256(delta));
+            addGold (origin, uint256(delta));
         }
         else if (delta < 0)
         {
             //console.log ('delta %s NEG ', uint256(-delta));
-            removeGold (uint256(-delta));
+            removeGold (origin, uint256(-delta));
         }
     }
 
@@ -84,15 +84,15 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function setGoldBy(int deltaBalance) public
+    function setGoldBy(address origin, int deltaBalance) public
     {
         if (deltaBalance > 0)
         {
-            addGold (uint256(deltaBalance));
+            addGold (origin, uint256(deltaBalance));
         }
         else if (deltaBalance < 0)
         {
-            removeGold (uint256(-deltaBalance));
+            removeGold (origin, uint256(-deltaBalance));
         }
     }
 
@@ -102,9 +102,9 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function addGold(uint256 amount) private 
+    function addGold(address origin, uint256 amount) private 
     {
-        _mint(msg.sender, amount);
+        _mint(origin, amount);
     }
 
     ///////////////////////////////////////////////////////////
@@ -113,9 +113,9 @@ contract Gold is ERC20
     //      *   Changes contract state, so call via 
     //          ExecuteContractFunction
     ///////////////////////////////////////////////////////////
-    function removeGold(uint256 amount) private 
+    function removeGold(address origin, uint256 amount) private 
     {
-        _burn(msg.sender, amount);
+        _burn(origin, amount);
     }
 }
 

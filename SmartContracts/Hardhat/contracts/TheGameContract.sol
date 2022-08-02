@@ -163,19 +163,19 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     function getGold() public view returns (uint256 balance)
     {
-        balance = Gold(_goldContractAddress).getGold();
+        balance = Gold(_goldContractAddress).getGold(msg.sender);
     }
 
 
     function setGold(uint256 targetBalance) public
     {
-        Gold(_goldContractAddress).setGold(targetBalance);
+        Gold(_goldContractAddress).setGold(msg.sender, targetBalance);
     }
 
 
     function setGoldBy(int delta) public
     {
-        Gold(_goldContractAddress).setGoldBy(delta); 
+        Gold(_goldContractAddress).setGoldBy(msg.sender, delta); 
     }
 
 
@@ -184,7 +184,7 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     function mintNft(string memory tokenURI) public 
     {
-        TreasurePrize(_treasurePrizeContractAddress).mintNft(tokenURI);
+        TreasurePrize(_treasurePrizeContractAddress).mintNft(msg.sender, tokenURI);
     }
 
 

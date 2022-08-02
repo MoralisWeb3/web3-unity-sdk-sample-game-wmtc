@@ -50,12 +50,12 @@ contract Prize is ERC721URIStorage
     // FUNCTION: 
     //      *   Create New Prize
     ///////////////////////////////////////////////////////////
-    function mintNft(string memory tokenURI) public
+    function mintNft(address origin, string memory tokenURI) public
     {
         uint256 newItemId = _tokenIds.current();
         _tokenIds.increment();
 
-        _mint(msg.sender, newItemId);
+        _mint(origin, newItemId);
         _setTokenURI(newItemId, tokenURI);
     }
 
