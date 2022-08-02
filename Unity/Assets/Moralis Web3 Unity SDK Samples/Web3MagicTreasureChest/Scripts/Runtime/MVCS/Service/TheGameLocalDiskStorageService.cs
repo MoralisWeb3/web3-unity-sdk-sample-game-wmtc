@@ -229,6 +229,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             throw new System.NotImplementedException();
         }
 
+        public UniTask<string> GetMsgSender()
+        {
+            throw new System.NotImplementedException();
+        }
+
 
         // Event Handlers ---------------------------------
 

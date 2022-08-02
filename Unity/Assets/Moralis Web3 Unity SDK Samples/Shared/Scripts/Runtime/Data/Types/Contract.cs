@@ -81,6 +81,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			RequireIsInitialized();
 
 			MoralisUser moralisUser = await Moralis.GetUserAsync();
+
 			if (moralisUser == null)
 			{
 				throw new RequiredMoralisUserException();
@@ -103,8 +104,9 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			if (isLogging)
 			{
 				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.AppendLine($"Contract.ExecuteContractFunction({functionName})...");
+				stringBuilder.AppendLine($"{functionName} ExecuteContractFunction() START, ...");
 				stringBuilder.AppendLine($"");
+				stringBuilder.AppendLine($"\tmoralisUser.ethAddress	= {moralisUser.ethAddress}");
 				stringBuilder.AppendLine($"\taddress		= {_address}");
 				stringBuilder.AppendLine($"\tabi.Length	= {_abi.Length}");
 				stringBuilder.AppendLine($"\tfunctionName	= {functionName}");
@@ -123,7 +125,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Debug.Log($"Contract.ExecuteContractFunction({functionName}) FINISH. result = {result}");
+				Debug.Log($"{functionName} ExecuteContractFunction() FINISH, result = {result}");
 			}
 
 			return result;
@@ -133,6 +135,13 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 		{
 
 			RequireIsInitialized();
+
+			MoralisUser moralisUser = await Moralis.GetUserAsync();
+
+			if (moralisUser == null)
+			{
+				throw new RequiredMoralisUserException();
+			}
 
 			object[] abi = GetAbiObject();
 
@@ -160,8 +169,9 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				//Debug.Log("runContractDto: " + runContractDto.ToJson());
 
 				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.AppendLine($"Contract.RunContractFunction({functionName})...");
+				stringBuilder.AppendLine($"{functionName} RunContractFunction() START, ...");
 				stringBuilder.AppendLine($"");
+				stringBuilder.AppendLine($"\tmoralisUser.ethAddress	= {moralisUser.ethAddress}");
 				stringBuilder.AppendLine($"\taddress		= {_address}");
 				stringBuilder.AppendLine($"\tfunctionName	= {functionName}");
 				stringBuilder.AppendLine($"\trunContractDto.Abi.Length	= {abiLength}");
@@ -181,8 +191,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-
-				Debug.Log($"Moralis.RunContractFunction({functionName}) FINISH. result = {result}");
+				Debug.Log($"{functionName} RunContractFunction() FINISH, result = {result}");
 			}
 
 			return result;

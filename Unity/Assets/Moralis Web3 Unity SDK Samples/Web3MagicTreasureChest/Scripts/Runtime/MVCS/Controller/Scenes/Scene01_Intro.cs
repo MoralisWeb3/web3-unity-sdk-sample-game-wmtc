@@ -39,6 +39,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             {
                 bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
+                Debug.Log("isRegistered: " + isRegistered);
                 if (!isRegistered)
                 {
                     await TheGameSingleton.Instance.TheGameController.RegisterAsync();

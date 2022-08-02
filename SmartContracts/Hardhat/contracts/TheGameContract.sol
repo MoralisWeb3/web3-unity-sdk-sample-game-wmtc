@@ -43,11 +43,12 @@ contract TheGameContract
     // Stores address of the TreasurePrize contract, to be called
     address _treasurePrizeContractAddress;
 
-    // Determines if the player has registered yet
-    mapping (address => bool) _isRegistered;
+    bool _isHackyRegisteredBool = false;
+
+    mapping(address => bool) private _isRegistered;
 
     // Stores the most recent reward
-    mapping (address => Reward) _lastReward;
+    mapping (address => Reward) private _lastReward;
 
     ///////////////////////////////////////////////////////////
     // CONSTRUCTOR
@@ -67,6 +68,14 @@ contract TheGameContract
 
 
     ///////////////////////////////////////////////////////////
+    // FUNCTIONS: DEBUGGING
+    ///////////////////////////////////////////////////////////
+    function getMsgSender() public view returns (string memory msgSender)
+    {
+        msgSender = Strings.toHexString(uint256(uint160(msg.sender)), 20);
+    }
+
+    ///////////////////////////////////////////////////////////
     // FUNCTIONS: REGISTRATION
     ///////////////////////////////////////////////////////////
     function isRegistered() public view returns (bool isPlayerRegistered)
@@ -74,13 +83,14 @@ contract TheGameContract
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
         // require(msg.sender == _owner);
-        isPlayerRegistered = _isRegistered[msg.sender];
+        isPlayerRegistered = _isHackyRegisteredBool;
     }
 
 
     function register() public
     {
         _isRegistered[msg.sender] = true;
+        _isHackyRegisteredBool = true;
         setGold(99);
     }
 
@@ -88,6 +98,7 @@ contract TheGameContract
     function unregister() public
     {
         _isRegistered[msg.sender] = false;
+        _isHackyRegisteredBool = false;
         setGold(0);
     }
 
@@ -99,7 +110,7 @@ contract TheGameContract
     {
         require(goldAmount > 0, "Must send goldAmount > 0 to start the game.");
 
-        require(_isRegistered[msg.sender] == true, "Must be registered to start the game.");
+        require(_isHackyRegisteredBool, "Must be registered to start the game.");
 
         // Deduct gold
         setGoldBy(-int(goldAmount));
@@ -138,7 +149,7 @@ contract TheGameContract
 
     function getRewardsHistory() public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
     {
-        require(_isRegistered[msg.sender] == true, "Must be registered to start the game.");
+        require(_isHackyRegisteredBool, "Must be registered to start the game.");
 
         rewardTitle = _lastReward[msg.sender].Title;
         rewardType = _lastReward[msg.sender].Type;

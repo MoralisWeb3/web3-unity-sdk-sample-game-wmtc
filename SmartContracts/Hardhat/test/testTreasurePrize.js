@@ -21,7 +21,7 @@ describe("The TreasurePrize Contract", function ()
     it("Deploys with no exceptions", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
 
         // Act
@@ -37,13 +37,13 @@ describe("The TreasurePrize Contract", function ()
     it("Sets tokenId to 0 when mintNft", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
         const treasurePrize = await TreasurePrize.deploy();
         
         // Act
         const tokenUri = "myCustomTokenUri";
-        const tokenId = await treasurePrize.mintNft(tokenUri);
+        const tokenId = await treasurePrize.mintNft(addr1.address, tokenUri);
 
         // Expect
         expect(tokenId).to.not.equal(0);
@@ -55,12 +55,12 @@ describe("The TreasurePrize Contract", function ()
     it("Calls with no exception when mintNft, burnNFt", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
         const treasurePrize = await TreasurePrize.deploy();
 
         const tokenUri = "myCustomTokenUri";
-        const transaction = await treasurePrize.mintNft(tokenUri);
+        const transaction = await treasurePrize.mintNft(addr1.address, tokenUri);
 
         await ethers.provider.waitForTransaction(transaction.hash);
         const receipt = await ethers.provider.getTransactionReceipt(transaction.hash);
@@ -79,13 +79,13 @@ describe("The TreasurePrize Contract", function ()
     it("Calls with no exception when mintNft, burnNFts", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
         const treasurePrize = await TreasurePrize.deploy();
 
         // Mint 1
         const tokenUri1 = "myCustomTokenUri";
-        const transaction1 = await treasurePrize.mintNft(tokenUri1);
+        const transaction1 = await treasurePrize.mintNft(addr1.address, tokenUri1);
 
         await ethers.provider.waitForTransaction(transaction1.hash);
         const receipt1 = await ethers.provider.getTransactionReceipt(transaction1.hash);
@@ -93,7 +93,7 @@ describe("The TreasurePrize Contract", function ()
 
         // Mint 2
         const tokenUri2 = "myCustomTokenUri";
-        const transaction2 = await treasurePrize.mintNft(tokenUri2);
+        const transaction2 = await treasurePrize.mintNft(addr1.address, tokenUri2);
 
         await ethers.provider.waitForTransaction(transaction2.hash);
         const receipt2 = await ethers.provider.getTransactionReceipt(transaction2.hash);

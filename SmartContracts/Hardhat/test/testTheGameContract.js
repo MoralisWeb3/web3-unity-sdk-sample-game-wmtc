@@ -7,6 +7,7 @@ const {
 } = require("@nomicfoundation/hardhat-network-helpers");
 const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
+const { string } = require("hardhat/internal/core/params/argumentTypes");
 
 
 ///////////////////////////////////////////////////////////
@@ -210,7 +211,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it.only("Sets isRegistered to true when startGameAndGiveRewards (1)", async function ()
+    it("Sets isRegistered to true when startGameAndGiveRewards (1)", async function ()
     {
         // Arrange
         const { theGameContract } = await loadFixture(deployTokenFixture);
@@ -230,7 +231,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it.only("Sets r between min/max when randomRange (min, max, n)", async function ()
+    it("Sets r between min/max when randomRange (min, max, n)", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
@@ -246,7 +247,24 @@ describe("The Game Contract", function ()
             // Expect
             expect(r).to.greaterThanOrEqual(min).and.lessThanOrEqual(max);
         }
-    })
+    }),
 
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets result to addr1 when getMsgSender", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+
+        // Act
+        const result = await theGameContract.connect(addr1).getMsgSender();
+        
+        // Expect
+        var string1 = String (result).toLocaleLowerCase();
+        var string2 = String (addr1.address).toLocaleLowerCase();
+        var areSame = string1.localeCompare(string2) == 0;
+        expect(areSame).to.equal(true);
+    })
 });
 

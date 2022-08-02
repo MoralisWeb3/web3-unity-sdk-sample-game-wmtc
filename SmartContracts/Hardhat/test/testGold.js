@@ -21,7 +21,7 @@ describe("The Gold Contract", function ()
     it("Deploys with no exceptions", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
 
         // Act
@@ -38,7 +38,7 @@ describe("The Gold Contract", function ()
     it("Sets totalSupply to 0 when deployed", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
 
@@ -49,6 +49,23 @@ describe("The Gold Contract", function ()
         expect(totalSupply).to.equal(0);
     }),
 
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Sets totalSupply to 10 when setGoldBy 10", async function ()
+    {
+        // Arrange
+        const [owner, addr1] = await ethers.getSigners();
+        const Gold = await ethers.getContractFactory("Gold");
+        const gold = await Gold.deploy();
+        await gold.setGoldBy(addr1.address, 10);
+
+        // Act
+        const totalSupply = await gold.totalSupply();
+
+        // Expect
+        expect(totalSupply).to.equal(10);
+    }),
 
     ///////////////////////////////////////////////////////////
     // TEST
@@ -56,12 +73,12 @@ describe("The Gold Contract", function ()
     it("Sets goldBalance to 0 when deployed", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalance = await gold.getGold();
+        const goldBalance = await gold.getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(0);
@@ -73,14 +90,14 @@ describe("The Gold Contract", function ()
     it("Sets goldBalance to 10 when setGold 10", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalanceBefore = await gold.getGold();
-        await gold.setGold(goldBalanceBefore + 10);
-        const goldBalanceAfter = await gold.getGold();
+        const goldBalanceBefore = await gold.getGold(addr1.address);
+        await gold.setGold(addr1.address, goldBalanceBefore + 10);
+        const goldBalanceAfter = await gold.getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(10);
@@ -93,17 +110,17 @@ describe("The Gold Contract", function ()
     it("getGold is 05 when setGold +10 and setGold -05", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalanceBefore1 = await gold.getGold();
-        await gold.setGold(goldBalanceBefore1 + 10);
+        const goldBalanceBefore1 = await gold.getGold(addr1.address);
+        await gold.setGold(addr1.address, goldBalanceBefore1 + 10);
 
-        const goldBalanceBefore2 = await gold.getGold();
-        await gold.setGold(goldBalanceBefore2 - 5);
-        const goldBalanceAfter = await gold.getGold();
+        const goldBalanceBefore2 = await gold.getGold(addr1.address);
+        await gold.setGold(addr1.address, goldBalanceBefore2 - 5);
+        const goldBalanceAfter = await gold.getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(5);
@@ -116,14 +133,14 @@ describe("The Gold Contract", function ()
     it("getGold is 05 when setGoldBy +10 and setGoldBy -05", async function ()
     {
         // Arrange
-        const [owner] = await ethers.getSigners();
+        const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
 
         // Act
-        await gold.setGoldBy(10);
-        await gold.setGoldBy(-5);
-        const goldBalanceAfter = await gold.getGold();
+        await gold.setGoldBy(addr1.address, 10);
+        await gold.setGoldBy(addr1.address, -5);
+        const goldBalanceAfter = await gold.getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(5);

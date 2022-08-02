@@ -162,6 +162,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.Gold.Value = gold;
 
 			// Call Service. Sync Model
+			string msgSender = await _theGameService.GetMsgSender();
+			Debug.Log($"msgSender = {msgSender}");
+
+
+			// Call Service. Sync Model
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 

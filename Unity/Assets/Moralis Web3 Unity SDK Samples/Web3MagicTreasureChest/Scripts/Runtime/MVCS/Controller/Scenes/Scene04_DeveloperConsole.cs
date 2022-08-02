@@ -100,7 +100,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Event Handlers --------------------------------
         private async void OnModelChanged(TheGameModel theGameModel)
         {
-            Debug.Log("Model change");
             _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
             _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
 

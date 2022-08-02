@@ -55,6 +55,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             return result;
         }
 
+        public async UniTask<string> GetMsgSender()
+        {
+            string result = await _theGameContract.getMsgSender();
+            return result;
+        }
+
 
         // OTHER Methods -------------------------
 
@@ -151,6 +157,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             return treasurePrizeDtos;
         }
 
+ 
 
 
 
