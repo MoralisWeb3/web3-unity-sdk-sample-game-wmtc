@@ -1,8 +1,13 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Web3Api.Models;
+using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
@@ -30,6 +35,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 
 
+        // CORE Methods -------------------------
         public async UniTask<bool> IsRegisteredAsync()
         {
             bool result = await _theGameContract.isRegistered();
@@ -40,6 +46,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         public async UniTask<string> RegisterAsync()
         {
             string result = await _theGameContract.Register();
+            return result;
+        }
+
+        public async UniTask<string> GetRewardsHistoryAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        // OTHER Methods -------------------------
+
+        public async UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
+        {
+            string result = await _theGameContract.StartGameAndGiveRewards(goldAmount);
             return result;
         }
 
@@ -71,16 +91,68 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
 
 
-        public UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        public async UniTask<string> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            throw new System.NotImplementedException();
+            string result = await _theGameContract.MintNftAsync(treasurePrizeDto);
+            return result;
         }
 
 
-        public UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        public async UniTask<string> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            throw new System.NotImplementedException();
+            string result = await _theGameContract.BurnNftAsync(treasurePrizeDto);
+            return result;
         }
+
+        public async UniTask<string> BurnAllTreasurePrizeAsync(List<TreasurePrizeDto> treasurePrizeDtos)
+        {
+            string result = await _theGameContract.BurnNftsAsync(treasurePrizeDtos);
+            return result;
+        }
+
+
+
+        public async Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+        {
+            // Create Method Return Value
+            List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
+
+            // Check System Status
+            bool hasMoralisUser = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            if (!hasMoralisUser)
+            {
+                // Sometimes, ONLY warn
+                throw new RequiredMoralisUserException();
+            }
+
+            // Get NFT Info
+            Debug.Log("1: " );
+            MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
+            Debug.Log("2: " );
+            var nftCollection = await Moralis.Web3Api.Account.GetNFTsForContract(
+                moralisUser.ethAddress,
+                _theGameContract.TreasurePrizeContractAddress,
+                _theGameContract.ChainList);
+
+            Debug.Log("3: " + nftCollection.Result.Count);
+
+            // Create Method Return Value
+            foreach (NftOwner nftOwner in nftCollection.Result)
+            {
+                string ownerAddress = nftOwner.OwnerOf;
+                string tokenIdString = nftOwner.TokenId;
+                string metadata = nftOwner.TokenUri;
+                Debug.Log($"nftOwner ownerAddress={ownerAddress} tokenIdString={tokenIdString} metadata={metadata}");
+                TreasurePrizeDto treasurePrizeDto = TreasurePrizeDto.CreateNewFromMetadata(ownerAddress, tokenIdString, metadata) as TreasurePrizeDto;
+                Debug.Log("created :  " + treasurePrizeDto);
+                treasurePrizeDtos.Add(treasurePrizeDto);
+            }
+
+            // Finalize Method Return Value
+            return treasurePrizeDtos;
+        }
+
+
 
 
         // General Methods --------------------------------

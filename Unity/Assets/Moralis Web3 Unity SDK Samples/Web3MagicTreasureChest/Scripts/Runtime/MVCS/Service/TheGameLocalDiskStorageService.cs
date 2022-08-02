@@ -6,6 +6,7 @@ using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
+using System.Threading.Tasks;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
@@ -199,6 +200,31 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
 
         public UniTask<int> GetGoldAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        UniTask<string> ITheGameService.AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        UniTask<string> ITheGameService.SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public UniTask<string> GetRewardsHistoryAsync()
         {
             throw new System.NotImplementedException();
         }

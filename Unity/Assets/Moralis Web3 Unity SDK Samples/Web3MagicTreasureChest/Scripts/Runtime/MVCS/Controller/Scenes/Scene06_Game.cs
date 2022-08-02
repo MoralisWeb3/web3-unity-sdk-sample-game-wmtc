@@ -160,7 +160,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
                 case GameState.CardsIdle:
 
-                    TheGameSingleton.Instance.TheGameController.GiveRewards();
+                    int goldAmount = 33;
+                    await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(goldAmount);
                     break;
             }
         }

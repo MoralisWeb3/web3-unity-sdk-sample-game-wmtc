@@ -7,6 +7,8 @@ using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Shared.Exceptions;
+using System.Collections.Generic;
+using MoralisUnity.Platform.Objects;
 
 #pragma warning disable 1998, 4014
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -44,8 +46,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             
             _ui.IsRegisteredButtonUI.Button.onClick.AddListener(IsRegisteredButtonUI_OnClicked);
-            _ui.UnregisterButtonUI.Button.onClick.AddListener(UnregisterButtonUI_OnClicked);
             _ui.RegisterButtonUI.Button.onClick.AddListener(RegisterButtonUI_OnClicked);
+            _ui.RewardPrizesButtonUI.Button.onClick.AddListener(RewardPrizesButtonUI_OnClicked);
+            
+
+            //
+             _ui.UnregisterButtonUI.Button.onClick.AddListener(UnregisterButtonUI_OnClicked);
             _ui.AddGoldButtonUI.Button.onClick.AddListener(AddGoldButtonUI_OnClicked);
             _ui.SpendGoldButtonUI.Button.onClick.AddListener(SpendGoldButtonUI_OnClicked);
             _ui.AddTreasureButtonUI.Button.onClick.AddListener(AddTreasurePrizeButtonUI_OnClicked);
@@ -67,15 +73,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private async UniTask<bool> EnsureIsRegistered()
         {
-            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-            if (!isRegistered)
+            // Use the cached here so its quick
+            bool isRegisteredCached = TheGameSingleton.Instance.TheGameController.IsRegisteredCached();
+            if (!isRegisteredCached)
             {
                 _outputTextStringBuilder.Clear();
                 _outputTextStringBuilder.AppendHeaderLine($"EnsureIsRegistered(). Failed.");
                 await RefreshUI();
             }
 
-            return isRegistered;
+            return isRegisteredCached;
         }
 
         private async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
@@ -178,6 +185,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         }
 
+        
+
+        private async void RewardPrizesButtonUI_OnClicked()
+        {
+            if (!await EnsureIsRegistered())
+            {
+                return;
+            }
+
+            await ShowLoadingDuringMethodAsync(
+                async delegate ()
+                {
+                    int goldAmount = 22;
+                    string result = await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(goldAmount);
+
+                    _outputTextStringBuilder.Clear();
+                    _outputTextStringBuilder.AppendHeaderLine($"StartGameAndGiveRewards()");
+                    _outputTextStringBuilder.AppendBullet($"result = {result}");
+
+                    await RefreshUI();
+                });
+
+        }
 
         private async void AddGoldButtonUI_OnClicked()
         {
@@ -231,12 +261,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto("Blah again");
-
-            await TheGameSingleton.Instance.TheGameController.AddTreasurePrize(treasurePrizeDto);
+            MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
+            TreasurePrizeMetadata treasurePrizeMetadata = new TreasurePrizeMetadata
+            {
+                Title = "test 123",
+                Price = 10
+            };
+            string metadata = TreasurePrizeDto.ConvertMetadataObjectToString(treasurePrizeMetadata);
+            TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto(moralisUser.ethAddress, metadata);
+            List <TreasurePrizeDto> treasurePrizeDtos = await TheGameSingleton.Instance.TheGameController.AddTreasurePrizeAsync(treasurePrizeDto);
 
             _outputTextStringBuilder.AppendHeaderLine($"AddTreasurePrize()");
- 
+            _outputTextStringBuilder.AppendBullet($"result.Count = {treasurePrizeDtos.Count}");
+
+            
+
             await RefreshUI();
         }
 
@@ -247,10 +286,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto("Blah to delete, pull from existing list");
-            await TheGameSingleton.Instance.TheGameController.SellTreasurePrize(treasurePrizeDto);
+            List<TreasurePrizeDto> treasurePrizeDtos = await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
+
+            if (treasurePrizeDtos.Count == 0)
+            {
+                Debug.LogWarning("Nothing to sell. That is ok.");
+                return;
+            }
+
+            // Sell the most recent
+            TreasurePrizeDto treasurePrizeDto = treasurePrizeDtos[treasurePrizeDtos.Count-1];
+            List<TreasurePrizeDto> treasurePrizeDtosAfter = await TheGameSingleton.Instance.TheGameController.SellTreasurePrizeAsync(treasurePrizeDto);
 
             _outputTextStringBuilder.AppendHeaderLine($"SellTreasurePrize()");
+            _outputTextStringBuilder.AppendBullet($"result.Count was = {treasurePrizeDtos.Count}");
+            _outputTextStringBuilder.AppendBullet($"result.Count is  = {treasurePrizeDtosAfter.Count}");
 
             await RefreshUI();
         }

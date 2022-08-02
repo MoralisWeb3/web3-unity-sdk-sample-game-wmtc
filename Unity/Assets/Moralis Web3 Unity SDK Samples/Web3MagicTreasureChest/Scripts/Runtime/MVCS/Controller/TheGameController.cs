@@ -153,14 +153,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 		public async UniTask<bool> IsRegisteredAsync()
 		{
+			// Call Service. Sync Model
 			bool isRegistered = await _theGameService.IsRegisteredAsync();
 			_theGameModel.IsRegistered.Value = isRegistered;
 
+			// Call Service. Sync Model
 			int gold = await _theGameService.GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
 
+			// Call Service. Sync Model
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+
 			return _theGameModel.IsRegistered.Value;
 		}
+
+		public bool IsRegisteredCached()
+		{
+			return _theGameModel.IsRegistered.Value;
+		}
+
 
 		public async UniTask UnregisterAsync()
 		{
@@ -174,6 +186,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await IsRegisteredAsync();
 		}
 
+
 		public async UniTask RegisterAsync()
 		{
 			await _theGameService.RegisterAsync();
@@ -186,7 +199,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 
 
-		public async UniTask<int> AddGold(int delta)
+        public async UniTask<int> AddGold(int delta)
 		{
 			if (delta <= 0)
 			{
@@ -205,13 +218,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return gold;
 		}
 
+
 		public async UniTask<int> SpendGold(int delta)
 		{
 			if (delta <= 0)
-            {
+			{
 				Debug.LogError("to spend, the delta must be > 0.");
 				return 0;
-            }
+			}
 
 			await _theGameService.SetGoldByAsync(-delta);
 
@@ -223,19 +237,56 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return gold;
 		}
 
-		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+
+		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
 		{
-			List <TreasurePrizeDto> treasurePrizeDtos = await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
+			string result = await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}
 
-		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrize(TreasurePrizeDto treasurePrizeDto)
+
+		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
 		{
-			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
+			string result = await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}
+
+
+		public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+		{
+			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.GetTreasurePrizesAsync();
+			return treasurePrizeDtos;
+		}
+
+		public async UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
+		{
+			if (goldAmount > _theGameModel.Gold.Value)
+            {
+				Debug.LogWarning("Not enough gold to play. Cancel. That is ok. Go sell nfts or unregister.");
+				return "";
+            }
+			string result = await _theGameService.StartGameAndGiveRewardsAsync(goldAmount);
+
+			// Wait for contract values to sync so the client will see the changes
+			await UniTask.Delay(DelayAfterContractStateChange);
+
+			string reward = await _theGameService.GetRewardsHistoryAsync();
+
+			return result;
+		}
+
 
 
 		// Event Handlers ---------------------------------
@@ -249,18 +300,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 			if (DOTween.TotalPlayingTweens() > 0)
 			{
-				// Keep warning for a bit in case of undesirable results
 				Debug.LogWarning("DOTween.KillAll();");
 				DOTween.KillAll();
-				//var tweens = DOTween.PlayingTweens();
-				//for (int i = 0; i < tweens.Count; i++)
-				//{
-				//	tweens[i]?.Kill();
-				//}
 			}
-
 		}
-		
+
 		private void SceneManagerComponent_OnSceneLoadedEvent(SceneManagerComponent sceneManagerComponent)
 		{
 			// Do anything?
@@ -278,19 +322,5 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				Application.Quit();
 			}
 		}
-
-        public void GiveRewards()
-        {
-			Debug.Log("GiveRewards");
-
-			// Must 'set' to trigger events properly
-			_theGameModel.Gold.Value++;
-
-			// Must 'set' to trigger events properly
-			var list = _theGameModel.TreasurePrizeDtos.Value;
-			list.Add(new TreasurePrizeDto("new one"));
-			_theGameModel.TreasurePrizeDtos.Value = list;
-        }
-    }
-
+	}
 }

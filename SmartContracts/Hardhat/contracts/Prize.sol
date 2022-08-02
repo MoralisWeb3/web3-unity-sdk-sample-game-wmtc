@@ -50,30 +50,33 @@ contract Prize is ERC721URIStorage
     // FUNCTION: 
     //      *   Create New Prize
     ///////////////////////////////////////////////////////////
-    function mintPropertyNft(string memory tokenURI) public returns (uint256)
+    function mintNft(string memory tokenURI) public
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == owner);
-
         uint256 newItemId = _tokenIds.current();
+        _tokenIds.increment();
+
         _mint(msg.sender, newItemId);
         _setTokenURI(newItemId, tokenURI);
-
-        _tokenIds.increment();
-        return newItemId;
     }
 
     ///////////////////////////////////////////////////////////
     // FUNCTION: 
     //      *   Delete Existing Prize
     ///////////////////////////////////////////////////////////
-    function burnPropertyNft(uint256 tokenId) public returns (string memory) 
+    function burnNft (uint256 tokenId) public
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == owner);
-
         _burn(tokenId);
-        return "Success!";
+    }
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTION: 
+    //      *   Delete Existing Prizes
+    ///////////////////////////////////////////////////////////
+    function burnNfts(uint256[] calldata tokenIds) public 
+    {
+        for (uint i=0; i<tokenIds.length; i++) {
+            burnNft (tokenIds[i]);
+        }
     }
 }
 

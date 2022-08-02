@@ -17,6 +17,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		public BaseButtonUI IsRegisteredButtonUI { get { return _isRegisteredButtonUI; } }
 		public BaseButtonUI UnregisterButtonUI { get { return _unregisterButtonUI; } }
 		public BaseButtonUI RegisterButtonUI { get { return _registerButtonUI; } }
+		public BaseButtonUI RewardPrizesButtonUI { get { return _rewardPrizesButtonUI; } }
 		public BaseButtonUI AddGoldButtonUI { get { return _addGoldButtonUI; } }
 		public BaseButtonUI SpendGoldButtonUI { get { return _spendGoldButtonUI; } }
 		public BaseButtonUI AddTreasureButtonUI { get { return _addTreasureButtonUI; } }
@@ -41,6 +42,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		[SerializeField]
 		private BaseButtonUI _registerButtonUI = null;
+
+		[SerializeField]
+		private BaseButtonUI _rewardPrizesButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _addGoldButtonUI = null;

@@ -22,29 +22,34 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 		// Properties -------------------------------------
 		public override ChainList ChainList { get { return ChainList.cronos_testnet; } }
-
+		public string TreasurePrizeContractAddress { get { return _treasurePrizeContractAddress; }
+}
 
 		// Fields -----------------------------------------
 		private const bool IsLogging = true;
+		private string _treasurePrizeContractAddress = "";
 
 
 		// Initialization Methods -------------------------
 		protected override void SetContractDetails()
 		{
 
-			_address = "0xe1e5f29a45abcC5631C8533A486fed6637D19dB8";
-			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isPlayerRegistered\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetBalance\",\"type\":\"uint256\"}],\"name\":\"setGold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"setGoldBy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
+			_treasurePrizeContractAddress = "0x06D6F997E8117EBef85aE20a181e4943B634F0b5";
+			_address = "0xbC09875D82c38112f1FfF8E5438dFdB83412472d";
+			_abi = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"treasurePrizeContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"burnNft\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"burnNfts\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"isRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isPlayerRegistered\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tokenURI\",\"type\":\"string\"}],\"name\":\"mintNft\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetBalance\",\"type\":\"uint256\"}],\"name\":\"setGold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"setGoldBy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
 
 		}
 
 
-		/// <summary>
-		/// Format for ABI:
-		///		*  ExecuteContractFunction - requires string
-		///		*  RunContractFunction - requires object[]. This must be manually created from the string
-		/// </summary>
-		/// <returns></returns>
-		protected override object[] GetAbiObject()
+
+
+        /// <summary>
+        /// Format for ABI:
+        ///		*  ExecuteContractFunction - requires string
+        ///		*  RunContractFunction - requires object[]. This must be manually created from the string
+        /// </summary>
+        /// <returns></returns>
+        protected override object[] GetAbiObject()
         {
 			ContractAbi contractAbi = new ContractAbi();
 
@@ -70,9 +75,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			return contractAbi.ToObjectArray();
 		}
 
+ 
 
-		// General Methods --------------------------------
-		public async UniTask<bool> isRegistered()
+
+        // General Methods --------------------------------
+        public async UniTask<bool> isRegistered()
 		{
 			object[] args =
 			{
@@ -119,6 +126,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			return goldInt;
 		}
 
+		public async UniTask<string> GetRewardsHistory()
+		{
+			object[] args =
+			{
+			};
+
+			string result = await RunContractFunctionAsync("getRewardsHistory", args, IsLogging);
+			return result;
+		}
+
+
 		public async UniTask<string> setGold(int targetBalance2)
 		{
 			int targetBalance = targetBalance2;
@@ -146,26 +164,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		}
 
 
-		public async UniTask<string> MintPropertyNftAsync (PropertyData propertyData)
+		public async UniTask<string> MintNftAsync (TreasurePrizeDto treasurePrizeDto)
 		{
-			string metadata = propertyData.GetMetadata();
+			string metadata = treasurePrizeDto.Metadata;
 			object[] args =
 			{
 				metadata
 			};
 			
-			string result = await ExecuteContractFunctionAsync("mintPropertyNft", args, IsLogging);
+			string result = await ExecuteContractFunctionAsync("mintNft", args, IsLogging);
 			return result;
 		}
 		
 
-		public async UniTask<string> BurnPropertyNftAsync (PropertyData propertyData)
+		public async UniTask<string> BurnNftAsync(TreasurePrizeDto treasurePrizeDto)
 		{
-			int tokenId = propertyData.TokenId;
+			int tokenId = treasurePrizeDto.TokenId;
 			
-			if (tokenId == PropertyData.NullTokenAddress)
+			if (tokenId == TreasurePrizeDto.NullTokenId)
 			{
-				Debug.Log("BurnPropertyNftAsync() failed. tokenId must be NOT null. " +
+				Debug.Log("BurnNftAsync() failed. tokenId must be NOT null. " +
 				          "Was this NFT just created? Leave and return to Scene so it gets loaded from online");
 				return "";
 			}
@@ -176,36 +194,52 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			};
 			
 			const bool isLogging = true;
-			return await ExecuteContractFunctionAsync("burnPropertyNft", args, isLogging);
+			return await ExecuteContractFunctionAsync("burnNft", args, isLogging);
 		}
 
 
-		// Event Handlers ---------------------------------
-		public async Task<string> BurnPropertyNftsAsync(List<PropertyData> propertyDatas)
+		public async Task<string> BurnNftsAsync(List<TreasurePrizeDto> treasurePrizeDtos)
 		{
-			int[] tokenIds = new int[propertyDatas.Count];
-			for  (int i = 0; i < propertyDatas.Count; i++)
+			int[] tokenIds = new int[treasurePrizeDtos.Count];
+			for (int i = 0; i < treasurePrizeDtos.Count; i++)
 			{
-				int tokenId = propertyDatas[i].TokenId;
-			
-				if (tokenId == PropertyData.NullTokenAddress)
+				int tokenId = treasurePrizeDtos[i].TokenId;
+
+				if (tokenId == TreasurePrizeDto.NullTokenId)
 				{
-					Debug.Log("BurnPropertyNftsAsync() failed. tokenId must be NOT null. " +
-					          "Was this NFT just created? Leave and return to Scene so it gets loaded from online");
+					Debug.Log("BurnNftsAsync() failed. tokenId must be NOT null. " +
+							  "Was this NFT just created? Leave and return to Scene so it gets loaded from online");
 					return "";
 				}
-			
+
 				tokenIds[i] = tokenId;
 			}
-			
+
 			object[] args =
 			{
 				tokenIds
 			};
-			
+
 			const bool isLogging = true;
-			string result = await ExecuteContractFunctionAsync("burnPropertyNfts", args, isLogging);
+			string result = await ExecuteContractFunctionAsync("burnNfts", args, isLogging);
 			return result;
 		}
+
+
+		public async Task<string> StartGameAndGiveRewards(int goldAmount)
+		{
+			object[] args =
+			{
+				goldAmount
+			};
+
+			string result = await ExecuteContractFunctionAsync("startGameAndGiveRewards", args, IsLogging);
+			return result;
+		}
+
+
+
+		// Event Handlers ---------------------------------
+		
 	}
 }

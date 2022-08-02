@@ -17,20 +17,25 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Properties -------------------------------------
 		PendingMessage PendingMessageForDeletion { get; }
 		PendingMessage PendingMessageForSave { get; }
-		
+
 		// General Methods --------------------------------
 
-		// VARIOUS RETURNS
-        UniTask<bool> IsRegisteredAsync();
-		UniTask<int> GetGoldAsync();
+		// Web3 API Call - Various Return Types
+		Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync();
 
-		// STRING RETURNS
+		// RunContractFunction - Various Return Types
+		UniTask<bool> IsRegisteredAsync();
+		UniTask<int> GetGoldAsync();
+		UniTask<string> GetRewardsHistoryAsync();
+
+		// ExecuteContractFunction - Must Be String Return Type
 		UniTask<string> RegisterAsync();
 		UniTask<string> UnregisterAsync();
-		
 		UniTask<string> SetGoldAsync(int targetBalance);
 		UniTask<string> SetGoldByAsync(int deltaBalance);
-        UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
-        UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask<string> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask<string> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount);
+        
     }
 }

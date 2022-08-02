@@ -23,10 +23,14 @@ describe("The Game Contract", function ()
         // Gold
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
+        
+        // TreasurePrize
+        const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
+        const treasurePrize = await TreasurePrize.deploy();
 
         // TheGameContract
         const TheGameContract = await ethers.getContractFactory("TheGameContract");
-        const theGameContract = await TheGameContract.deploy(gold.address);
+        const theGameContract = await TheGameContract.deploy(gold.address, treasurePrize.address);
 
         return { theGameContract, addr1, addr2 };
     
@@ -178,6 +182,27 @@ describe("The Game Contract", function ()
 
         // Expect
         expect(isRegistered).to.equal(false);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it.only("Sets r between min/max when randomRange (min, max, n)", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+        var nonce = 0;
+        var min = 0;
+        var max = 10;
+
+        for (var i = 0; i< 100; i++)
+        {
+            // Act
+            const r = await theGameContract.randomRange(1, 10, nonce++);
+            
+            // Expect
+            expect(r).to.greaterThanOrEqual(min).and.lessThanOrEqual(max);
+        }
     })
 
 });

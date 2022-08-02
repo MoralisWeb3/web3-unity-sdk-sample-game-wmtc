@@ -19,9 +19,14 @@ async function main()
   const gold = await Gold.deploy();
   await gold.deployed();
 
+  // TreasurePrize
+  const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
+  const treasurePrize = await TreasurePrize.deploy();
+  await treasurePrize.deployed();
+
   // TheGameContract
   const TheGameContract = await hre.ethers.getContractFactory("TheGameContract");
-  const theGameContract = await TheGameContract.deploy(gold.address);
+  const theGameContract = await TheGameContract.deploy(gold.address, treasurePrize.address);
   await theGameContract.deployed();
 
 
@@ -29,14 +34,14 @@ async function main()
   // UNITY-FRIENDLY OUTPUT
   ///////////////////////////////////////////////////////////
   const abiFile = JSON.parse(fs.readFileSync('./artifacts/contracts/TheGameContract.sol/TheGameContract.json', 'utf8'));
-  const address = theGameContract.address;
   const abi = JSON.stringify(abiFile.abi).replaceAll ('"','\\"',);
   console.log("\n");
   console.log("DEPLOYMENT COMPLETE: COPY TO UNITY...");
   console.log("\n");
   console.log("protected override void SetContractDetails()");
   console.log("{\n");
-  console.log(" _address  = \"%s\";", address);
+  console.log(" _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
+  console.log(" _address  = \"%s\";", theGameContract.address);
   console.log(" _abi      = \"%s\";", abi);
   console.log("\n}\n");
   console.log("\n");
@@ -56,12 +61,11 @@ async function main()
   console.log("https://testnet.cronoscan.com/address/" + address);
   console.log("\n");
 
-
   console.log("VERIFICATION - AUTOMATIC ...");
   console.log("\n");
   await hre.run("verify:verify", {
     address: theGameContract.address,
-    constructorArguments: [gold.address],
+    constructorArguments: [gold.address, treasurePrize.address],
   });
 
 
