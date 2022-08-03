@@ -18,10 +18,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		public BaseButtonUI UnregisterButtonUI { get { return _unregisterButtonUI; } }
 		public BaseButtonUI RegisterButtonUI { get { return _registerButtonUI; } }
 		public BaseButtonUI RewardPrizesButtonUI { get { return _rewardPrizesButtonUI; } }
-		public BaseButtonUI AddGoldButtonUI { get { return _addGoldButtonUI; } }
-		public BaseButtonUI SpendGoldButtonUI { get { return _spendGoldButtonUI; } }
+		public BaseButtonUI SetGoldByPlusButtonUI { get { return _setGoldByPlusButtonUI; } }
+		public BaseButtonUI SetGoldByMinusButtonUI { get { return _setGoldByMinusButtonUI; } }
 		public BaseButtonUI AddTreasureButtonUI { get { return _addTreasureButtonUI; } }
 		public BaseButtonUI SellTreasureButtonUI { get { return _sellTreasureButtonUI; } }
+		public BaseButtonUI DeleteAllTreasurePrizesButtonUI { get { return _deleteAllTreasurePrizesButtonUI; } }
 		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
 
 
@@ -47,16 +48,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		private BaseButtonUI _rewardPrizesButtonUI = null;
 
 		[SerializeField]
-		private BaseButtonUI _addGoldButtonUI = null;
+		private BaseButtonUI _setGoldByPlusButtonUI = null;
 
 		[SerializeField]
-		private BaseButtonUI _spendGoldButtonUI = null;
+		private BaseButtonUI _setGoldByMinusButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _addTreasureButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _sellTreasureButtonUI = null;
+
+		[SerializeField]
+		private BaseButtonUI _deleteAllTreasurePrizesButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _backButtonUI = null;

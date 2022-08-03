@@ -91,7 +91,7 @@ contract TheGameContract
     {
         _isRegistered[msg.sender] = true;
         _isHackyRegisteredBool = true;
-        setGold(99);
+        setGold(100);
     }
 
 

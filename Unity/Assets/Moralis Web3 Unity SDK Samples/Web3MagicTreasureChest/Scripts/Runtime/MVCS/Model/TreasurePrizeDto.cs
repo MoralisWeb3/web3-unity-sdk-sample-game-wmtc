@@ -5,20 +5,22 @@ using System.Linq;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 {
+    [Serializable]
     public class TreasurePrizeMetadata
     {
         public string Title = "";
-        public int Price = -1;
+        public uint Price = 0;
     }
 
     /// <summary>
     /// Stores data for the game
     /// </summary>
+    [Serializable]
     public class TreasurePrizeDto : PrizeDto
     {
         // Properties -------------------------------------
         public string Title { get { return ConvertMetadataStringToObject(Metadata).Title; } }
-        public int Price { get { return ConvertMetadataStringToObject(Metadata).Price; } }
+        public uint Price { get { return ConvertMetadataStringToObject(Metadata).Price; } }
 
         // Fields -----------------------------------------
 
@@ -46,7 +48,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
         {
             List<string> tokens = metadata.Split("|").ToList();
             string title = tokens[0].Split("=")[1];
-            int price = int.Parse(tokens[1].Split("=")[1]);
+            uint price = uint.Parse(tokens[1].Split("=")[1]);
 
             if (title.Length ==0 || price == 0)
             {

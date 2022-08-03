@@ -1,4 +1,5 @@
 ﻿
+using System;
 using MoralisUnity.Samples.Shared.Data.Types;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
@@ -6,6 +7,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 	/// <summary>
 	/// Stores data for the game
 	/// </summary>
+	[Serializable]
 	public class PrizeDto : Nft
 	{
 		// Properties -------------------------------------

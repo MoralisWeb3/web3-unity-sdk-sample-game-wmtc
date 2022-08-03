@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Web3Api.Models;
 using UnityEngine;
 
@@ -130,14 +131,22 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			return result;
 		}
 
-		public async UniTask<string> GetRewardsHistory()
+		public async UniTask<Reward> GetRewardsHistory()
 		{
 			object[] args =
 			{
 			};
 
 			string result = await RunContractFunctionAsync("getRewardsHistory", args, IsLogging);
-			return result;
+			
+			Debug.LogWarning($"Must manually create a reward here from {result}");
+			Reward reward = new Reward
+			{
+				Title = "blah",
+				Type = 1,
+				Price = 10,
+			};
+			return reward;
 		}
 
 

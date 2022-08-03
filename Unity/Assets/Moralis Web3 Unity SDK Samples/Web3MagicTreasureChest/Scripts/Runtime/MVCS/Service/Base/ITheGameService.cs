@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 
@@ -19,24 +20,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		PendingMessage PendingMessageForSave { get; }
 
 		// General Methods --------------------------------
+		
+		// Delay that runs locally to await state change finality
+		UniTask DelayExtraAfterStateChange();
 
 		// Web3 API Call - Various Return Types
-		Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync();
+		UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync();
 
 		// RunContractFunction - Various Return Types
 		UniTask<bool> IsRegisteredAsync();
 		UniTask<int> GetGoldAsync();
-		UniTask<string> GetRewardsHistoryAsync();
-		UniTask<string> GetMsgSender();
+		UniTask<Reward> GetRewardsHistoryAsync();
+		UniTask<string> GetMsgSenderAsync();
 
 		// ExecuteContractFunction - Must Be String Return Type
-		UniTask<string> RegisterAsync();
-		UniTask<string> UnregisterAsync();
-		UniTask<string> SetGoldAsync(int targetBalance);
-		UniTask<string> SetGoldByAsync(int deltaBalance);
-		UniTask<string> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
-		UniTask<string> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
-		UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount);
-        
-    }
+		UniTask RegisterAsync();
+		UniTask UnregisterAsync();
+		UniTask SetGoldAsync(int targetBalance);
+		UniTask SetGoldByAsync(int deltaBalance);
+		UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask DeleteAllTreasurePrizeAsync();
+		UniTask StartGameAndGiveRewardsAsync(int goldAmount);
+
+	}
 }

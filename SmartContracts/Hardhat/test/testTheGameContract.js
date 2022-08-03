@@ -137,7 +137,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets getGold to 99 when register", async function ()
+    it("Sets getGold to 100 when register", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
@@ -147,7 +147,7 @@ describe("The Game Contract", function ()
         const goldBalance = await theGameContract.connect(addr1).getGold();
 
         // Expect
-        expect(goldBalance).to.equal(99);
+        expect(goldBalance).to.equal(100);
     }),
 
     ///////////////////////////////////////////////////////////

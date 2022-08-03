@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types.Storage;
@@ -6,10 +7,12 @@ using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
-using System.Threading.Tasks;
+using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
+
 	[CustomFilePath(LocalDiskStorage.Title + "/TheGameLocalDiskStorage.txt", CustomFilePathLocation.StreamingAssetsPath)]
 	[System.Serializable]
 	public class TheGameLocalDiskStorage
@@ -21,6 +24,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		public int Gold = 0;
 		public List<TreasurePrizeDto> TreasurePrizeDtos = new List<TreasurePrizeDto>();
 	}
+	
 	
 	/// <summary>
 	/// Depending on <see cref="TheGameServiceType"/> this is enabled.
@@ -36,17 +40,67 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Fields -----------------------------------------
 		private readonly PendingMessage _pendingMessageForDeletion = new PendingMessage("Deleting Object From LocalDiskStorage", 500);
 		private readonly PendingMessage _pendingMessageForSave = new PendingMessage("Saving Object To LocalDiskStorage", 500);
-		private const int SimulatedDelay = 100;
 
+		// While LocalDiskStorage is FAST, add some delays to test the UI "Loading..." text, etc...
+		private static readonly int DelaySimulatedPerMethod = 100;
+		private static readonly int DelayExtraSimulatedAfterStateChange = 500;
+		
+		//
+		private Reward _lastReward;
+		
+		
 		// Initialization Methods -------------------------
 		public TheGameLocalDiskStorageService()
 		{
 
 		}
+		
+		// DELAY Methods -------------------------
+		public UniTask DelayExtraAfterStateChange()
+		{
+			return UniTask.Delay(DelayExtraSimulatedAfterStateChange);
+		}
+		
+		// DEBUGGING Methods -------------------------
+		public async UniTask<string> GetMsgSenderAsync()
+		{
+			await UniTask.Delay(DelaySimulatedPerMethod);
+			return "test from localdiskstorage";
+		}
+		
+		//  GETTER - LocalDiskStorage Methods --------------------------------
+		public UniTask<Reward> GetRewardsHistoryAsync()
+		{
+			return new UniTask<Reward>(_lastReward); 
+		}
+		
+		public async UniTask<bool> IsRegisteredAsync()
+		{
+			await UniTask.Delay(DelaySimulatedPerMethod);
 
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+			return theGameLocalDiskStorage.IsRegistered;
+		}
+		
+		public async UniTask<int> GetGoldAsync()
+		{
+			await UniTask.Delay(DelaySimulatedPerMethod);
+	        
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        
+			return theGameLocalDiskStorage.Gold;
+		}
+		
+		public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+		{
+			await UniTask.Delay(DelaySimulatedPerMethod);
 
-		//  LocalDiskStorage Methods --------------------------------
+			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 
+			return theGameLocalDiskStorage.TreasurePrizeDtos;
+		}
+
+		//  SETTER - LocalDiskStorage Methods --------------------------------
 		public static TheGameLocalDiskStorage LoadTheGameLocalDiskStorage()
 		{
 			bool hasTheGameLocalDiskStorage = LocalDiskStorage.Instance.Has<TheGameLocalDiskStorage>();
@@ -65,12 +119,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 				// Execute: Create
 				///////////////////////////////////////////
 				theGameLocalDiskStorage = new TheGameLocalDiskStorage();
-				Debug.LogWarning("create new data");
+				Debug.LogWarning("Creating 'TheGameLocalDiskStorage'");
 			}
 			return theGameLocalDiskStorage;
 		}
 
-		public static bool SaveTheGameLocalDiskStorage(TheGameLocalDiskStorage theGameLocalDiskStorage)
+		
+		private static bool SaveTheGameLocalDiskStorage(TheGameLocalDiskStorage theGameLocalDiskStorage)
 		{
 			///////////////////////////////////////////
 			// Execute: Save
@@ -79,164 +134,166 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return isSuccess;
 		}
 
-		public static bool ClearTheGameLocalDiskStorage()
+		
+		private static bool ClearTheGameLocalDiskStorage()
 		{
 			///////////////////////////////////////////
 			// Execute: Save
 			///////////////////////////////////////////
 			TheGameLocalDiskStorage theGameLocalDiskStorage = new TheGameLocalDiskStorage();
 			bool isSuccess = LocalDiskStorage.Instance.Save<TheGameLocalDiskStorage>(theGameLocalDiskStorage);
+			Debug.Log("!!! ClearTheGameLocalDiskStorage() !!!");
 			return isSuccess;
 		}
 
 		//  General Methods --------------------------------
-
-		public async UniTask<bool> IsRegisteredAsync()
+		
+        public async UniTask RegisterAsync()
         {
-			await UniTask.Delay(SimulatedDelay);
-
-			
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-
-			Debug.Log("theGameLocalDiskStorage.IsRegistered was : " + theGameLocalDiskStorage.IsRegistered);
-			return theGameLocalDiskStorage.IsRegistered;
-		}
-
-        public async UniTask<bool> RegisterUserAsync()
-        {
-			await UniTask.Delay(SimulatedDelay);
+			await UniTask.Delay(DelaySimulatedPerMethod);
 
 			ClearTheGameLocalDiskStorage();
+			
+			await SetGoldAsync(100);
+			
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = true;
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-			return theGameLocalDiskStorage.IsRegistered;
+			
 		}
+        
 
-        public async UniTask<bool> UnregisterUserAsync()
+        public async UniTask UnregisterAsync()
         {
-			await UniTask.Delay(SimulatedDelay);
+			await UniTask.Delay(DelaySimulatedPerMethod);
 
 			ClearTheGameLocalDiskStorage();
+			
+			await SetGoldAsync(0);
+			
 			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 			theGameLocalDiskStorage.IsRegistered = false;
 			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
 
-			return theGameLocalDiskStorage.IsRegistered;
 		}
+        
 
-        public async UniTask<int> AddGold(int delta)
+        public async UniTask SetGoldAsync(int targetBalance)
         {
-			await UniTask.Delay(SimulatedDelay);
-
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-			theGameLocalDiskStorage.Gold += delta;
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-
-			return theGameLocalDiskStorage.Gold;
-		}
-
-        public async UniTask<int> SpendGold(int delta)
-        {
-			await UniTask.Delay(SimulatedDelay);
-
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-			theGameLocalDiskStorage.Gold -= delta;
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-
-			return theGameLocalDiskStorage.Gold;
-		}
-
-
-		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-		{
-			await UniTask.Delay(SimulatedDelay);
-
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-
-			//TODO: Check if list contains?
-			theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeDto);
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-
-			return theGameLocalDiskStorage.TreasurePrizeDtos;
-		}
-
-		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-		{
-			await UniTask.Delay(SimulatedDelay);
-
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-
-			//TODO: Check if list contains?
-			theGameLocalDiskStorage.TreasurePrizeDtos.Remove(treasurePrizeDto);
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
-
-			return theGameLocalDiskStorage.TreasurePrizeDtos;
-		}
-
-        public UniTask<int> GetGold(int delta)
-        {
-            throw new System.NotImplementedException();
+	        await UniTask.Delay(DelaySimulatedPerMethod);
+	        
+	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        theGameLocalDiskStorage.Gold = targetBalance;
+	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
         }
 
-        UniTask<string> ITheGameService.RegisterAsync()
+        
+        public async UniTask SetGoldByAsync(int deltaBalance)
         {
-            throw new System.NotImplementedException();
-        }
-
-        UniTask<string> ITheGameService.UnregisterAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<string> SetGoldAsync(int targetBalance)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<string> SetGoldByAsync(int deltaBalance)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<int> GetGoldAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        UniTask<string> ITheGameService.AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        UniTask<string> ITheGameService.SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<string> GetRewardsHistoryAsync()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public UniTask<string> GetMsgSender()
-        {
-            throw new System.NotImplementedException();
+	        await UniTask.Delay(DelaySimulatedPerMethod);
+	        
+	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        theGameLocalDiskStorage.Gold = theGameLocalDiskStorage.Gold + deltaBalance;
+	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
         }
 
 
+        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+	        await UniTask.Delay(DelaySimulatedPerMethod);
+	        
+	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+
+	        //TODO: Check if list contains?
+	        theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeDto);
+	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+        }
+
+        
+        public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+	        await UniTask.Delay(DelaySimulatedPerMethod);
+
+	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+
+	        //TODO: Check if list contains?
+	        theGameLocalDiskStorage.TreasurePrizeDtos.Remove(treasurePrizeDto);
+	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+
+        }
+
+        public async UniTask DeleteAllTreasurePrizeAsync()
+        {
+	        await UniTask.Delay(DelaySimulatedPerMethod);
+
+	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+
+	        theGameLocalDiskStorage.TreasurePrizeDtos.Clear();
+	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+        }
+
+        public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
+        {
+	        if (goldAmount <= 0)
+	        {
+		        throw new Exception("goldAmount must be > 0 to start the game");
+	        }
+	        
+	        if (await GetGoldAsync() < goldAmount)
+	        {
+		        throw new Exception("getGold() must be >= goldAmount to start the game");
+	        }
+	        if (await IsRegisteredAsync() == false)
+	        {
+		        throw new Exception("Must be registered to start the game.");
+	        }
+
+	        // Deduct gold
+	        await SetGoldByAsync(-goldAmount);
+
+	        uint random = (uint)UnityEngine.Random.Range(0, 100);
+	        uint price = random;
+	        uint theType = 0;
+	        string title = "";
+
+	        if (random < 50)
+	        {
+		        // REWARD: Gold!
+		        theType = 1;
+		        title = "This is gold.";
+		        await SetGoldByAsync((int)price);
+	        } 
+	        else 
+	        {
+		        // REWARD: Prize!
+		        theType = 2;
+		        title = "This is an nft.";
+
+		        //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
+		        MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
+		        
+		        // RELATES ONLY TO NFT
+		        TreasurePrizeMetadata treasurePrizeMetadata = new TreasurePrizeMetadata
+		        {
+			        Title = title,
+			        Price = price
+		        };
+		        string metadata = TreasurePrizeDto.ConvertMetadataObjectToString(treasurePrizeMetadata);
+		        TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto(moralisUser.ethAddress, metadata);
+		        
+		        await AddTreasurePrizeAsync(treasurePrizeDto);
+	        }
+	        
+	        // RELATES TO NFT OR GOLD
+	        _lastReward = new Reward
+	        {
+		        Title = title,
+		        Type = theType,
+		        Price = price
+	        };
+        }
+
+        
         // Event Handlers ---------------------------------
-
     }
-
 }

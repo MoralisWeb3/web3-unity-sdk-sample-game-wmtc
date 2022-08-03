@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Shared.Exceptions;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
@@ -34,92 +34,46 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			_theGameContract = new TheGameContract();
 		}
 
+        
+        // DELAY Methods -------------------------
+        public UniTask DelayExtraAfterStateChange()
+        {
+            return UniTask.Delay(3000);
+        }
 
-        // CORE Methods -------------------------
+        
+        // DEBUGGING Methods -------------------------
+        public async UniTask<string> GetMsgSenderAsync()
+        {
+            string result = await _theGameContract.getMsgSender();
+            Debug.Log($"GetMsgSender() result = {result}");
+            return result;
+        }
+        
+        
+        // GETTER Methods -------------------------
         public async UniTask<bool> IsRegisteredAsync()
         {
             bool result = await _theGameContract.isRegistered();
             return result;
         }
-
-
-        public async UniTask<string> RegisterAsync()
+        
+        
+        public async UniTask<Reward> GetRewardsHistoryAsync()
         {
-            string result = await _theGameContract.Register();
+            Reward result = await _theGameContract.GetRewardsHistory();
             return result;
         }
-
-        public async UniTask<string> GetRewardsHistoryAsync()
-        {
-            string result = await _theGameContract.GetRewardsHistory();
-            return result;
-        }
-
-        public async UniTask<string> GetMsgSender()
-        {
-            string result = await _theGameContract.getMsgSender();
-            return result;
-        }
-
-
-        // OTHER Methods -------------------------
-
-        public async UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
-        {
-            string result = await _theGameContract.StartGameAndGiveRewards(goldAmount);
-            return result;
-        }
-
-
-        public async UniTask<string> UnregisterAsync()
-        {
-            string result = await _theGameContract.Unregister();
-            return result;
-        }
-
-
+        
+        
         public async UniTask<int> GetGoldAsync()
         {
             int result = await _theGameContract.getGold();
             return result;
         }
-
-
-        public async UniTask<string> SetGoldAsync(int targetBalance)
-        {
-            string result = await _theGameContract.setGold(targetBalance);
-            return result;
-        }
-
-        public async UniTask<string> SetGoldByAsync(int deltaBalance)
-        {
-            string result = await _theGameContract.setGoldBy(deltaBalance);
-            return result;
-        }
-
-
-        public async UniTask<string> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-        {
-            string result = await _theGameContract.MintNftAsync(treasurePrizeDto);
-            return result;
-        }
-
-
-        public async UniTask<string> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-        {
-            string result = await _theGameContract.BurnNftAsync(treasurePrizeDto);
-            return result;
-        }
-
-        public async UniTask<string> BurnAllTreasurePrizeAsync(List<TreasurePrizeDto> treasurePrizeDtos)
-        {
-            string result = await _theGameContract.BurnNftsAsync(treasurePrizeDtos);
-            return result;
-        }
-
-
-
-        public async Task<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+        
+        
+        public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
         {
             // Create Method Return Value
             List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
@@ -156,12 +110,64 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             // Finalize Method Return Value
             return treasurePrizeDtos;
         }
+        
+        // SETTER Methods -------------------------
+        public async UniTask RegisterAsync()
+        {
+            string result = await _theGameContract.Register();
+            Debug.Log($"RegisterAsync() result = {result}");
+        }
 
- 
+
+        public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
+        {
+            string result = await _theGameContract.StartGameAndGiveRewards(goldAmount);
+            Debug.Log($"StartGameAndGiveRewardsAsync() result = {result}");
+        }
 
 
+        public async UniTask UnregisterAsync()
+        {
+            string result = await _theGameContract.Unregister();
+            Debug.Log($"UnregisterAsync() result = {result}");
+        }
 
-        // General Methods --------------------------------
+
+        public async UniTask SetGoldAsync(int targetBalance)
+        {
+            string result = await _theGameContract.setGold(targetBalance);
+            Debug.Log($"SetGoldAsync() result = {result}");
+        }
+
+        
+        public async UniTask SetGoldByAsync(int deltaBalance)
+        {
+            string result = await _theGameContract.setGoldBy(deltaBalance);
+            Debug.Log($"SetGoldByAsync() result = {result}");
+        }
+
+
+        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+            string result = await _theGameContract.MintNftAsync(treasurePrizeDto);
+            Debug.Log($"AddTreasurePrizeAsync() result = {result}");
+        }
+
+
+        public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        {
+            string result = await _theGameContract.BurnNftAsync(treasurePrizeDto);
+            Debug.Log($"SellTreasurePrizeAsync() result = {result}");
+        }
+
+        
+        public async UniTask DeleteAllTreasurePrizeAsync()
+        {
+            List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+                
+            string result = await _theGameContract.BurnNftsAsync(treasurePrizeDtos);
+            Debug.Log($"BurnAllTreasurePrizeAsync() result = {result}");
+        }
 
         // Event Handlers ---------------------------------
 

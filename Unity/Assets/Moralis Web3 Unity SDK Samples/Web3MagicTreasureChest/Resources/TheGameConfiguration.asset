@@ -26,4 +26,4 @@ MonoBehaviour:
     _sceneName: Scene05_ViewCollection
   - _scene: {fileID: 102900000, guid: b5b386d0b9ddcdf44bef8a21c690a845, type: 3}
     _sceneName: Scene06_Game
-  _theGameServiceType: 1
+  _theGameServiceType: 2

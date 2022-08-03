@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Text;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
@@ -12,6 +13,13 @@ using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
+	public struct Reward 
+	{
+		public string Title;
+		public uint Type;
+		public uint Price;
+	}
+	
 	/// <summary>
 	/// Stores data for the game
 	///		* See <see cref="TheGameSingleton"/> - Handles the core functionality of the game
@@ -32,8 +40,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		private readonly TheGameModel _theGameModel = null;
 		private readonly TheGameView _theGameView = null;
 		private readonly ITheGameService _theGameService = null;
-		private const int DelayAfterContractStateChange = 5000; // wait X seconds for backend to change. Based on limited trials, this Works! 
-
+	
 
 		// Initialization Methods -------------------------
 		public TheGameController(
@@ -61,6 +68,154 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 
 
+		///////////////////////////////////////////
+		// Related To: Service
+		///////////////////////////////////////////
+
+		// GETTER Methods -------------------------
+		public async UniTask<bool> IsRegisteredAsync()
+		{
+			// Call Service. Sync Model
+			bool isRegistered = await _theGameService.IsRegisteredAsync();
+			_theGameModel.IsRegistered.Value = isRegistered;
+
+			// Call Service. Sync Model
+			int gold = await _theGameService.GetGoldAsync();
+			_theGameModel.Gold.Value = gold;
+
+			// Call Service
+			string msgSender = await _theGameService.GetMsgSenderAsync();
+
+			// Call Service. Sync Model
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+
+			return _theGameModel.IsRegistered.Value;
+		}
+
+		public bool IsRegisteredCached()
+		{
+			return _theGameModel.IsRegistered.Value;
+		}
+
+		
+		public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
+		{
+			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.GetTreasurePrizesAsync();
+			return treasurePrizeDtos;
+		}
+		
+		public async UniTask<Reward> GetRewardsHistoryAsync()
+		{
+			Reward result = await _theGameService.GetRewardsHistoryAsync();
+			return result;
+		}
+
+		// SETTER Methods -------------------------
+		public async UniTask UnregisterAsync()
+		{
+			await _theGameService.UnregisterAsync();
+			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
+			
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+		}
+
+		public async UniTask RegisterAsync()
+		{
+			await _theGameService.RegisterAsync();
+			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
+			
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+		}
+
+
+        public async UniTask<int> SetGoldByAsync(int delta)
+		{
+			await _theGameService.SetGoldByAsync(delta);
+			int gold = await _theGameService.GetGoldAsync();
+			_theGameModel.Gold.Value = gold;
+			
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+			
+			return gold;
+		}
+
+
+		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+		{
+			await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
+			
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			
+			return treasurePrizeDtos;
+		}
+
+
+		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+		{
+			await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
+
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			return treasurePrizeDtos;
+		}
+
+		public async UniTask<List<TreasurePrizeDto>> DeleteAllTreasurePrizeAsync()
+		{
+			await _theGameService.DeleteAllTreasurePrizeAsync();
+
+			// Wait for contract values to sync so the client will see the changes
+			await _theGameService.DelayExtraAfterStateChange();
+
+			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			return treasurePrizeDtos;
+		}
+
+		public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
+		{
+			if (goldAmount > _theGameModel.Gold.Value)
+            {
+				Debug.LogWarning("Not enough gold to play. Cancel. That is ok. Go sell nfts or unregister.");
+            }
+			else
+			{
+				await _theGameService.StartGameAndGiveRewardsAsync(goldAmount);
+
+				// Call Service. Sync Model
+				List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+				_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			
+				// Call Service. Sync Model
+				int gold = await _theGameService.GetGoldAsync();
+				_theGameModel.Gold.Value = gold;
+			
+				// Wait for contract values to sync so the client will see the changes
+				await _theGameService.DelayExtraAfterStateChange();
+			
+				Reward reward = await _theGameService.GetRewardsHistoryAsync();
+				
+				// TODO: Remove after both services work 100%
+				StringBuilder output = new StringBuilder();
+				output.AppendHeaderLine($"GetRewardsHistoryAsync()...\n");
+				output.AppendBullet($"Gold Spent = {goldAmount}");
+				output.AppendBullet($"reward.Title = {reward.Title}");
+				output.AppendBullet($"reward.Type = {reward.Type}");
+				output.AppendBullet($"reward.Price = {reward.Price}");
+				Debug.LogWarning(output);
+
+			}
+		}
 
 		///////////////////////////////////////////
 		// Related To: View
@@ -146,152 +301,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameView.ShowLoadingDuringMethodAsync(isVisibleInitial, isVisibleFinal, message, task);
 		}
 
-
-
-		///////////////////////////////////////////
-		// Related To: Service
-		///////////////////////////////////////////
-		public async UniTask<bool> IsRegisteredAsync()
-		{
-			// Call Service. Sync Model
-			bool isRegistered = await _theGameService.IsRegisteredAsync();
-			_theGameModel.IsRegistered.Value = isRegistered;
-
-			// Call Service. Sync Model
-			int gold = await _theGameService.GetGoldAsync();
-			_theGameModel.Gold.Value = gold;
-
-			// Call Service. Sync Model
-			string msgSender = await _theGameService.GetMsgSender();
-			Debug.Log($"msgSender = {msgSender}");
-
-
-			// Call Service. Sync Model
-			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
-
-			return _theGameModel.IsRegistered.Value;
-		}
-
-		public bool IsRegisteredCached()
-		{
-			return _theGameModel.IsRegistered.Value;
-		}
-
-
-		public async UniTask UnregisterAsync()
-		{
-			await _theGameService.UnregisterAsync();
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			// Refresh data model
-			_theGameModel.ResetAllData();
-			await IsRegisteredAsync();
-		}
-
-
-		public async UniTask RegisterAsync()
-		{
-			await _theGameService.RegisterAsync();
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			// Refresh data model
-			await IsRegisteredAsync();
-		}
-
-
-        public async UniTask<int> AddGold(int delta)
-		{
-			if (delta <= 0)
-			{
-				Debug.LogError("to add, the delta must be > 0.");
-				return 0;
-			}
-
-
-			await _theGameService.SetGoldByAsync(delta);
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			int gold = await _theGameService.GetGoldAsync();
-			_theGameModel.Gold.Value = gold;
-			return gold;
-		}
-
-
-		public async UniTask<int> SpendGold(int delta)
-		{
-			if (delta <= 0)
-			{
-				Debug.LogError("to spend, the delta must be > 0.");
-				return 0;
-			}
-
-			await _theGameService.SetGoldByAsync(-delta);
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			int gold = await _theGameService.GetGoldAsync();
-			_theGameModel.Gold.Value = gold;
-			return gold;
-		}
-
-
-		public async UniTask<List<TreasurePrizeDto>> AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-		{
-			string result = await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
-			return treasurePrizeDtos;
-		}
-
-
-		public async UniTask<List<TreasurePrizeDto>> SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
-		{
-			string result = await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
-			return treasurePrizeDtos;
-		}
-
-
-		public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
-		{
-			List<TreasurePrizeDto> treasurePrizeDtos = await _theGameService.GetTreasurePrizesAsync();
-			return treasurePrizeDtos;
-		}
-
-		public async UniTask<string> StartGameAndGiveRewardsAsync(int goldAmount)
-		{
-			if (goldAmount > _theGameModel.Gold.Value)
-            {
-				Debug.LogWarning("Not enough gold to play. Cancel. That is ok. Go sell nfts or unregister.");
-				return "";
-            }
-			string result = await _theGameService.StartGameAndGiveRewardsAsync(goldAmount);
-
-			// Wait for contract values to sync so the client will see the changes
-			await UniTask.Delay(DelayAfterContractStateChange);
-
-			var result2 = await _theGameService.GetRewardsHistoryAsync();
-			Debug.Log("types... " + result2);
-
-			return result2;
-		}
 
 
 

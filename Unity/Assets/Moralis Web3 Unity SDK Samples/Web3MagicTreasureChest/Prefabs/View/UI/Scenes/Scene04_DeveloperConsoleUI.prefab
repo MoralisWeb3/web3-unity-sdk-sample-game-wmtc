@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1148291362651125194}
   - component: {fileID: 720647700917160810}
-  - component: {fileID: 9159032846781479374}
+  - component: {fileID: 189482450847868454}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -95,7 +95,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &720647700917160810
 CanvasRenderer:
@@ -105,7 +105,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7984518976032895740}
   m_CullTransparentMesh: 1
---- !u!114 &9159032846781479374
+--- !u!114 &189482450847868454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -159,8 +159,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -825,11 +825,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735914908790, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_Name
-      value: AddGoldButtonUI
+      value: SetGoldByPlusButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735915321602, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_text
-      value: Add Gold
+      value: SetGoldBy (+)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
@@ -1084,11 +1084,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735914908790, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_Name
-      value: SpendGoldButtonUI
+      value: SetGoldByMinusButtonUI
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735915321602, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_text
-      value: Spend Gold
+      value: SetGoldBy (-)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
@@ -1499,15 +1499,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topUI: {fileID: 3992891753829444978}
-  _text: {fileID: 9159032846781479374}
+  _text: {fileID: 189482450847868454}
   _isRegisteredButtonUI: {fileID: 4090735363109560042}
   _unregisterButtonUI: {fileID: 3880482331322156653}
   _registerButtonUI: {fileID: 2151503136612466416}
   _rewardPrizesButtonUI: {fileID: 7668706706815916887}
-  _addGoldButtonUI: {fileID: 2939366296502858911}
-  _spendGoldButtonUI: {fileID: 4039643355554322199}
+  _setGoldByPlusButtonUI: {fileID: 2939366296502858911}
+  _setGoldByMinusButtonUI: {fileID: 4039643355554322199}
   _addTreasureButtonUI: {fileID: 1705438865584576098}
   _sellTreasureButtonUI: {fileID: 5151024700392073254}
+  _deleteAllTreasurePrizesButtonUI: {fileID: 791836282080421452}
   _backButtonUI: {fileID: 1367666482256239440}
 --- !u!224 &5107167720727049263 stripped
 RectTransform:
@@ -1762,6 +1763,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a130c563f316a544a60ea5c9dcd01ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7116830488154293948
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5107167720727049263}
+    m_Modifications:
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735914908790, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_Name
+      value: DeleteAllTreasurePrizesButtonUI (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670434735915321602, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+      propertyPath: m_text
+      value: Delete All Treasure Prizes
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+--- !u!114 &791836282080421452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7510075052766798064, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
+  m_PrefabInstance: {fileID: 7116830488154293948}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a130c563f316a544a60ea5c9dcd01ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8171665577241800923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1787,7 +1912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8386236240610953311, guid: c465debd00860eb43b7c6c5325586d5d, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8386236240610953311, guid: c465debd00860eb43b7c6c5325586d5d, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2004,7 +2129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2670434735914908789, guid: cad326ea50dae954eb6d52e4df66fd05, type: 3}
       propertyPath: m_AnchorMax.x
