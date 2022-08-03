@@ -13,17 +13,5 @@ MonoBehaviour:
   m_Name: TheGameConfiguration
   m_EditorClassIdentifier: 
   _theGameViewPrefab: {fileID: 7658312415067987870, guid: 58ebf062fbd0bf54a90ceb725ac64508, type: 3}
-  _sceneDatas:
-  - _scene: {fileID: 102900000, guid: e86d776073058a543aa040dcc9919139, type: 3}
-    _sceneName: Scene01_Intro
-  - _scene: {fileID: 102900000, guid: ca546dd0d1969bd40a7697c47f795e3b, type: 3}
-    _sceneName: Scene02_Authentication
-  - _scene: {fileID: 102900000, guid: 278f33f90fa8d0b4f9fd9e633bcf25c5, type: 3}
-    _sceneName: Scene03_Settings
-  - _scene: {fileID: 102900000, guid: ac53ae3f1bb9af04f9798d1537b52ce7, type: 3}
-    _sceneName: Scene04_DeveloperConsole
-  - _scene: {fileID: 102900000, guid: 29854980199059146ac836780e4dfd37, type: 3}
-    _sceneName: Scene05_ViewCollection
-  - _scene: {fileID: 102900000, guid: b5b386d0b9ddcdf44bef8a21c690a845, type: 3}
-    _sceneName: Scene06_Game
+  _sceneDataStorage: {fileID: 11400000, guid: b26de83d10480624f82cf855ce76b933, type: 2}
   _theGameServiceType: 2
