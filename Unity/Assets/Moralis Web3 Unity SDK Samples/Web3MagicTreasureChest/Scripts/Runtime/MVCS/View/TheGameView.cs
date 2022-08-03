@@ -35,20 +35,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		/// <summary>
 		/// Show a loading screen, during method execution
 		/// </summary>
-		public async UniTask ShowMessageDuringMethodAsync(Func<UniTask> task)
-		{
-			await ShowMessageDuringMethodAsync(
-				SharedConstants.Loading,
-				async delegate ()
-				{
-					await task();
-				});
-		}
-		
-		
-		/// <summary>
-		/// Show a loading screen, during method execution
-		/// </summary>
 		public async UniTask ShowMessageDuringMethodAsync(
 			string message, 
 			Func<UniTask> task)

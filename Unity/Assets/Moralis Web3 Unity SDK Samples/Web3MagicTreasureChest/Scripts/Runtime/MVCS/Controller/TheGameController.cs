@@ -35,8 +35,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
 		// Properties -------------------------------------
-		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageForDeletion; } }
-		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessageForSave; } }
+		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageActive; } }
+		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessagePassive; } }
 		
 		// Wait, So click sound is audible before scene changes
 		private const int DelayLoadSceneMilliseconds = 100;
@@ -307,20 +307,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 
 		
-		public async UniTask ShowMessageDuringMethodAsync(Func<UniTask> task)
+		public async UniTask ShowMessagePassive(Func<UniTask> task)
 		{
-			await _theGameView.ShowMessageDuringMethodAsync(task);
+			await _theGameView.ShowMessageDuringMethodAsync(
+				_theGameService.PendingMessagePassive.Message, task);
 		}
 		
-		
-		public async UniTask ShowMessageDuringMethodAsync(
-			string message,
-			Func<UniTask> task)
+		public async UniTask ShowMessageActive(Func<UniTask> task)
 		{
-			await _theGameView.ShowMessageDuringMethodAsync(message, task);
+			await _theGameView.ShowMessageDuringMethodAsync(
+				_theGameService.PendingMessageActive.Message, task);
 		}
 		
-		public async UniTask ShowMessageWithDelayAsync(string message, int delayMilliseconds)
+		public async UniTask ShowMessageCustom(string message, int delayMilliseconds)
 		{
 			await _theGameView.ShowMessageWithDelayAsync(message, delayMilliseconds);
 		}

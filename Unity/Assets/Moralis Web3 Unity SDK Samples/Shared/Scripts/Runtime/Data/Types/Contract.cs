@@ -186,7 +186,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			///////////////////////////////////////////
 			MoralisClient moralisClient = Moralis.GetClient();
 
-			string result = await moralisClient.Web3Api.Native.RunContractFunction(_address, functionName,
+			string result = await Moralis.Client.Web3Api.Native.RunContractFunction(_address, functionName,
 				runContractDto, ChainList);
 
 			if (isLogging)

@@ -18,13 +18,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	public class TheGameContractService : ITheGameService
 	{
 		// Properties -------------------------------------
-		public PendingMessage PendingMessageForDeletion { get { return _pendingMessageForDeletion; }}
-		public PendingMessage PendingMessageForSave { get { return _pendingMessageForSave; }}
+		public PendingMessage PendingMessageActive { get { return _endingMessageActive; }}
+		public PendingMessage PendingMessagePassive { get { return _pendingMessagePassive; }}
 		
 		
 		// Fields -----------------------------------------
-		private readonly PendingMessage _pendingMessageForDeletion = new PendingMessage("Please confirm transaction in your wallet", 0);
-		private readonly PendingMessage _pendingMessageForSave = new PendingMessage("Please confirm transaction in your wallet", 0);
+		private readonly PendingMessage _endingMessageActive = new PendingMessage("Please confirm transaction\nin your wallet", 0);
+		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading...", 0);
 		private readonly TheGameContract _theGameContract = null;
 
 

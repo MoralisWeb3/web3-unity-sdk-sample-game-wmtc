@@ -171,7 +171,7 @@ namespace MoralisUnity.Samples.Shared.Helpers
          {
             isComplete = true;
          };
-         await UniTask.WaitUntil(() => isComplete = true);
+         await UniTask.WaitWhile(() => !isComplete);
 
       }
    }

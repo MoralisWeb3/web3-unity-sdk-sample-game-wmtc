@@ -40,7 +40,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void ResetAllData()
         {
-            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessagePassive(
                 async delegate ()
                 {
                     bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();

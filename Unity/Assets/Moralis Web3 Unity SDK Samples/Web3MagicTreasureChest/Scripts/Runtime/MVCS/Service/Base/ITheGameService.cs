@@ -16,8 +16,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	public interface ITheGameService 
 	{
 		// Properties -------------------------------------
-		PendingMessage PendingMessageForDeletion { get; }
-		PendingMessage PendingMessageForSave { get; }
+		PendingMessage PendingMessageActive { get; }
+		PendingMessage PendingMessagePassive { get; }
 
 		// General Methods --------------------------------
 		

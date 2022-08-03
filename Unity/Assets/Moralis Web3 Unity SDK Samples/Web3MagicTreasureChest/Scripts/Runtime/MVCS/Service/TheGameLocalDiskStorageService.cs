@@ -33,13 +33,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	public class TheGameLocalDiskStorageService : ITheGameService
 	{
 		// Properties -------------------------------------
-		public PendingMessage PendingMessageForDeletion { get { return _pendingMessageForDeletion; }}
-		public PendingMessage PendingMessageForSave { get { return _pendingMessageForSave; }}
+		public PendingMessage PendingMessageActive { get { return _pendingMessageActive; }}
+		public PendingMessage PendingMessagePassive { get { return _pendingMessagePassive; }}
 		
 		
 		// Fields -----------------------------------------
-		private readonly PendingMessage _pendingMessageForDeletion = new PendingMessage("Deleting Object From LocalDiskStorage", 500);
-		private readonly PendingMessage _pendingMessageForSave = new PendingMessage("Saving Object To LocalDiskStorage", 500);
+		private readonly PendingMessage _pendingMessageActive = new PendingMessage("Loading ...", 500);
+		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading ...", 500);
 
 		// While LocalDiskStorage is FAST, add some delays to test the UI "Loading..." text, etc...
 		private static readonly int DelaySimulatedPerMethod = 100;
@@ -224,7 +224,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		               next.Price == treasurePrizeToDelete.Price;
 	        });
 
-	        Debug.Log(index);
 	        if (index != -1)
 	        {
 		        theGameLocalDiskStorage.TreasurePrizeDtos.RemoveAt(index);

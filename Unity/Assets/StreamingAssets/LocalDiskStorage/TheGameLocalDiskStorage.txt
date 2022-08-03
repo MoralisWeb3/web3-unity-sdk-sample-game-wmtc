@@ -1,12 +1,7 @@
 {
     "IsRegistered": true,
-    "Gold": 100,
+    "Gold": 122,
     "TreasurePrizeDtos": [
-        {
-            "_ownerAddress": "0xd38edbffc687666b11c3d2cfcaa5466aab14a7d4",
-            "_tokenId": -1,
-            "_metadata": "Title=test 123|Price=10"
-        },
         {
             "_ownerAddress": "0xd38edbffc687666b11c3d2cfcaa5466aab14a7d4",
             "_tokenId": -1,
