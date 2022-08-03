@@ -12,7 +12,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		//  Properties ------------------------------------
 		public TopUI TopUI { get { return _topUI; } }
-		public BaseButtonUI DeveloperConsoleButtonUI { get { return _developerConsoleButtonUI; } }
+		public BaseButtonUI ResetAllDataButtonUI { get { return _resetAllDataButtonUI; } }
 		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
 
 
@@ -22,7 +22,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		private TopUI _topUI = null;
 
 		[SerializeField]
-		private BaseButtonUI _developerConsoleButtonUI = null;
+		private BaseButtonUI _resetAllDataButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _backButtonUI = null;

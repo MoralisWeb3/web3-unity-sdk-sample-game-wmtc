@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using MoralisUnity.Samples.Shared;
@@ -336,6 +337,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			{
 				Application.Quit();
 			}
+		}
+
+		public async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
+		{
+			await _theGameView.ShowLoadingDuringMethodAsync(task);
 		}
 	}
 }

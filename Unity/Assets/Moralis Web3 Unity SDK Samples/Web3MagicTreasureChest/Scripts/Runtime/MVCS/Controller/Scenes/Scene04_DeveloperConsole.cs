@@ -1,5 +1,4 @@
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
-using System;
 using System.Text;
 using UnityEngine;
 using MoralisUnity.Samples.Shared;
@@ -84,17 +83,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             return isRegisteredCached;
         }
 
-        private async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
-        {
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
-            true,
-            false,
-            SharedConstants.Loading,
-            async delegate ()
-            {
-                await task();
-            });
-        }
+
 
         //  Event Handlers --------------------------------
         private async void OnModelChanged(TheGameModel theGameModel)
@@ -112,7 +101,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void IsRegisteredButtonUI_OnClicked()
         {
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
               async delegate ()
               {
                  
@@ -138,7 +127,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
               async delegate ()
               {
                   await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
@@ -165,7 +154,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
               async delegate ()
               {
                   await TheGameSingleton.Instance.TheGameController.RegisterAsync();
@@ -190,7 +179,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(2);
@@ -211,7 +200,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(-1);
@@ -232,7 +221,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
@@ -261,7 +250,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
@@ -292,7 +281,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = 
@@ -316,7 +305,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
                 async delegate ()
                 {
                     int goldAmount = 22;

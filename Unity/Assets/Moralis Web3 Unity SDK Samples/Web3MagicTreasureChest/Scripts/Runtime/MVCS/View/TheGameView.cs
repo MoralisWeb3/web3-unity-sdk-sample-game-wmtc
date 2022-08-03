@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.UI;
@@ -29,6 +30,22 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		//[Header("References (Project)")] 
 	
 		// General Methods --------------------------------
+		/// <summary>
+		/// Show a loading screen, during method execution
+		/// </summary>
+		public async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
+		{
+			await ShowLoadingDuringMethodAsync(
+				true,
+				false,
+				SharedConstants.Loading,
+				async delegate ()
+				{
+					await task();
+				});
+		}
+		
+		
 		/// <summary>
 		/// Show a loading screen, during method execution
 		/// </summary>
