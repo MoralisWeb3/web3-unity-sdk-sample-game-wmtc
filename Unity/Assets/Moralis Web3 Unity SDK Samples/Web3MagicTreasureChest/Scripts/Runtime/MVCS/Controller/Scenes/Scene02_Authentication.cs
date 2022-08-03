@@ -23,7 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
 
-            Debug.Log("hasMoralisUserAsync: " + hasMoralisUserAsync);
+            Debug.Log("auth, and hasMoralisUserAsync: " + hasMoralisUserAsync);
 
             if (hasMoralisUserAsync)
             {

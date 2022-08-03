@@ -37,7 +37,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		// Properties -------------------------------------
 		public PendingMessage PendingMessageForDeletion { get { return _theGameService.PendingMessageForDeletion; } }
 		public PendingMessage PendingMessageForSave { get { return _theGameService.PendingMessageForSave; } }
-
+		
+		// Wait, So click sound is audible before scene changes
+		private const int DelayLoadSceneMilliseconds = 100;
 
 		// Fields -----------------------------------------
 		private readonly TheGameModel _theGameModel = null;
@@ -108,6 +110,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return treasurePrizeDtos;
 		}
 		
+		public async UniTask<int> GetGoldAsync()
+		{
+			int gold = await _theGameService.GetGoldAsync();
+			return gold;
+		}
+		
 		public async UniTask<Reward> GetRewardsHistoryAsync()
 		{
 			Reward result = await _theGameService.GetRewardsHistoryAsync();
@@ -167,6 +175,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 			// Wait for contract values to sync so the client will see the changes
 			await _theGameService.DelayExtraAfterStateChange();
+			
+			int gold = await GetGoldAsync();
+			_theGameModel.Gold.Value = gold;
 
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
@@ -231,8 +242,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadIntroSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.IntroSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -241,8 +252,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadAuthenticationSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.AuthenticationSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -251,8 +262,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadViewCollectionSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.ViewCollectionSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -260,8 +271,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadSettingsSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.SettingsSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -269,8 +280,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadDeveloperConsoleSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.DeveloperConsoleSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -278,8 +289,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 		public async void LoadGameSceneAsync()
 		{
-			// Wait, So click sound is audible
-			await UniTask.Delay(100);
+			// Wait, So click sound is audible before scene changes
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			string sceneName = _theGameModel.TheGameConfiguration.GameSceneData.SceneName;
 			_theGameView.SceneManagerComponent.LoadScene(sceneName);
@@ -289,22 +300,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		public async void LoadPreviousSceneAsync()
 		{
 			// Wait, So click sound is audible before scene changes
-			await UniTask.Delay(100);
+			await UniTask.Delay(DelayLoadSceneMilliseconds);
 
 			_theGameView.SceneManagerComponent.LoadScenePrevious();
 		}
 
-
-		public async UniTask ShowLoadingDuringMethodAsync(
-			bool isVisibleInitial,
-			bool isVisibleFinal,
+		
+		public async UniTask ShowMessageDuringMethodAsync(Func<UniTask> task)
+		{
+			await _theGameView.ShowMessageDuringMethodAsync(task);
+		}
+		
+		
+		public async UniTask ShowMessageDuringMethodAsync(
 			string message,
 			Func<UniTask> task)
 		{
-			await _theGameView.ShowLoadingDuringMethodAsync(isVisibleInitial, isVisibleFinal, message, task);
+			await _theGameView.ShowMessageDuringMethodAsync(message, task);
 		}
-
-
+		
+		public async UniTask ShowMessageWithDelayAsync(string message, int delayMilliseconds)
+		{
+			await _theGameView.ShowMessageWithDelayAsync(message, delayMilliseconds);
+		}
 
 
 		// Event Handlers ---------------------------------
@@ -341,10 +359,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			}
 		}
 
-		public async UniTask ShowLoadingDuringMethodAsync(Func<UniTask> task)
-		{
-			await _theGameView.ShowLoadingDuringMethodAsync(task);
-		}
 
 	}
 }

@@ -40,7 +40,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void ResetAllData()
         {
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
@@ -62,15 +62,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private void ResetAllDataButtonUI_OnClicked()
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) 
+                || Input.GetKey(KeyCode.RightShift) 
+                || Input.GetKey(KeyCode.LeftShift))
             {
-                Debug.LogWarning("Spacebar Held. Opening Developer Console");
+                // This is a secret menu for developers
+                Debug.LogWarning("SpaceBar Held. Will Open Developer Console");
                 TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 TheGameSingleton.Instance.TheGameController.LoadDeveloperConsoleSceneAsync();
             }
             else
             {
-                Debug.LogWarning("FYI, Hold Spacebar and click this button to open Developer Console");
+                Debug.LogWarning("SpaceBar NOT Held. Will Reset All Data");
                 TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 ResetAllData();
             }

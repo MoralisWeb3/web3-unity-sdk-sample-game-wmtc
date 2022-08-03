@@ -55,7 +55,6 @@ namespace MoralisUnity.Samples.Shared.Audio
 				{
 					audioSource.clip = audioClip;
 					audioSource.Play();
-					Debug.Log("play");
 					return;
 				}
 			}

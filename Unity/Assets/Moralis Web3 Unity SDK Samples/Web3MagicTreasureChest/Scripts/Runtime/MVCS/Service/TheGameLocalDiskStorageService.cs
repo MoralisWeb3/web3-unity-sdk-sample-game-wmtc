@@ -210,15 +210,33 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
 
         
-        public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToDelete)
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 
 	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 
-	        //TODO: Check if list contains?
-	        theGameLocalDiskStorage.TreasurePrizeDtos.Remove(treasurePrizeDto);
-	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        int countBefore = theGameLocalDiskStorage.TreasurePrizeDtos.Count;
+
+	        int index = theGameLocalDiskStorage.TreasurePrizeDtos.FindIndex((next) =>
+	        {
+		        return next.Title == treasurePrizeToDelete.Title &&
+		               next.Price == treasurePrizeToDelete.Price;
+	        });
+
+	        Debug.Log(index);
+	        if (index != -1)
+	        {
+		        theGameLocalDiskStorage.TreasurePrizeDtos.RemoveAt(index);
+		        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+		        
+		        //Give gold
+		        int gold = (int)treasurePrizeToDelete.Price;
+		        Debug.Log($"Paying {gold} per Treasure sold");
+		        await SetGoldByAsync(gold);
+	        }
+	        
+	        
 
         }
 

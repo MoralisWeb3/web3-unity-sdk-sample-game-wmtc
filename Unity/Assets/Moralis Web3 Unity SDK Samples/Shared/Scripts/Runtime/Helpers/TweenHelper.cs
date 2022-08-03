@@ -1,10 +1,14 @@
 ﻿using DG.Tweening;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 using Image = UnityEngine.UI.Image;
 using MoralisUnity.Samples.Shared;
+using MoralisUnity.Samples.Shared.Interfaces;
+using MoralisUnity.Samples.Shared.UI;
 
 namespace MoralisUnity.Samples.Shared.Helpers
 {
@@ -158,5 +162,17 @@ namespace MoralisUnity.Samples.Shared.Helpers
       }
 
 
+      public static async UniTask AlphaDoFade(
+         IAlpha iAlpha, float fromAlpha, float toAlpha, float duration)
+      {
+         bool isComplete = false;
+         iAlpha.Alpha = fromAlpha;
+         DOTween.To(() => iAlpha.Alpha, x => iAlpha.Alpha = x, toAlpha, duration).onComplete = () =>
+         {
+            isComplete = true;
+         };
+         await UniTask.WaitUntil(() => isComplete = true);
+
+      }
    }
 }

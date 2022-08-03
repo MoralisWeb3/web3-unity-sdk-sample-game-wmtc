@@ -16,7 +16,7 @@ namespace MoralisUnity.Samples.Shared.UI
         private bool _hasMoralisUserAsync = false;
         
         //  Unity Methods  --------------------------------
-        public async void Start()
+        public async void Awake()
         {
             await CheckHasMoralisUserAsync();
         }

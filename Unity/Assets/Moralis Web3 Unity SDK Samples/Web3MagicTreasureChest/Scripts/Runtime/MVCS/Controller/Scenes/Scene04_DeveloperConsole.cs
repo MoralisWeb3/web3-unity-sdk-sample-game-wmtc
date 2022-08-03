@@ -34,9 +34,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 throw new RequiredMoralisUserException();
             }
 
-            _titleTextBuilder.AppendLine("~The Developer Console~");
-            _titleTextBuilder.AppendLine();
-            
             _ui.IsRegisteredButtonUI.Button.onClick.AddListener(IsRegisteredButtonUI_OnClicked);
             _ui.RegisterButtonUI.Button.onClick.AddListener(RegisterButtonUI_OnClicked);
             _ui.RewardPrizesButtonUI.Button.onClick.AddListener(RewardPrizesButtonUI_OnClicked);
@@ -50,8 +47,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.DeleteAllTreasurePrizesButtonUI.Button.onClick.AddListener(DeleteAllTreasurePrizesButtonUI_OnClicked);
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
+            _titleTextBuilder.Clear();
             RefreshUI();
             
+            // Mimic button press for user convenience
+            IsRegisteredButtonUI_OnClicked();
         }
 
 
@@ -86,7 +86,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
               async delegate ()
               {
     
@@ -104,31 +104,32 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void UnregisterButtonUI_OnClicked()
         {
-                          
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
             bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
             if (!isRegistered)
             {
-                Debug.Log($"Operation cancelled, since isRegistered = {isRegistered}");
-                return;
+                await TheGameSingleton.Instance.TheGameController.ShowMessageWithDelayAsync(
+                    "Already Unregistered", 1000);
+            }
+            else
+            {
+                await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
+                    async delegate ()
+                    {
+                        await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
+
+                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+
+                        _outputTextStringBuilder.Clear();
+                        _outputTextStringBuilder.AppendHeaderLine($"UnregisterAsync()");
+                        _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
+       
+                        await RefreshUI();
+                    });
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
-              async delegate ()
-              {
-                  await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
-
-                  bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-
-                  _outputTextStringBuilder.Clear();
-                  _outputTextStringBuilder.AppendHeaderLine($"UnregisterAsync()");
-                  _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
-
-       
-                  await RefreshUI();
-              });
         }
 
         
@@ -141,24 +142,26 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             if (isRegistered)
             {
-                Debug.Log($"Operation cancelled, since isRegistered = {isRegistered}");
-                return;
+                await TheGameSingleton.Instance.TheGameController.ShowMessageWithDelayAsync(
+                    "Already Registered.", 1000);
             }
+            else
+            {
+                await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
+                    async delegate()
+                    {
+                        await TheGameSingleton.Instance.TheGameController.RegisterAsync();
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
-              async delegate ()
-              {
-                  await TheGameSingleton.Instance.TheGameController.RegisterAsync();
+                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
-                  bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-
-                  _outputTextStringBuilder.Clear();
-                  _outputTextStringBuilder.AppendHeaderLine($"RegisterAsync()");
-                  _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
+                        _outputTextStringBuilder.Clear();
+                        _outputTextStringBuilder.AppendHeaderLine($"RegisterAsync()");
+                        _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
 
 
-                  await RefreshUI();
-              });
+                        await RefreshUI();
+                    });
+            }
         }
 
 
@@ -173,7 +176,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(2);
@@ -197,7 +200,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(-1);
@@ -221,7 +224,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
@@ -253,10 +256,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
-                    List<TreasurePrizeDto> treasurePrizeDtos = await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
+                    List<TreasurePrizeDto> treasurePrizeDtos = 
+                        await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
 
                     if (treasurePrizeDtos.Count == 0)
                     {
@@ -266,7 +270,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
                     // Sell the most recent
                     TreasurePrizeDto treasurePrizeDto = treasurePrizeDtos[treasurePrizeDtos.Count-1];
-                    List<TreasurePrizeDto> treasurePrizeDtosAfter = await TheGameSingleton.Instance.TheGameController.SellTreasurePrizeAsync(treasurePrizeDto);
+                    Debug.Log("sell: " + treasurePrizeDto);
+                    List<TreasurePrizeDto> treasurePrizeDtosAfter = 
+                        await TheGameSingleton.Instance.TheGameController.SellTreasurePrizeAsync(treasurePrizeDto);
 
                     _outputTextStringBuilder.Clear();
                     _outputTextStringBuilder.AppendHeaderLine($"SellTreasurePrize()");
@@ -287,7 +293,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = 
@@ -314,7 +320,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
                 async delegate ()
                 {
                     int goldAmount = 22;

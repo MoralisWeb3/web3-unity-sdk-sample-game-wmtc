@@ -34,8 +34,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		// Event Handlers ---------------------------------
 		public void OnTheGameModelChanged(TheGameModel theGameModel)
 		{
-			_topUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-			_topUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
+			_topUI.GoldCornerUI.Text.text = string.Format("{000:000}", theGameModel.Gold.Value);
+			_topUI.CollectionUI.Text.text = string.Format("{00:00}/10", theGameModel.TreasurePrizeDtos.Value.Count);
 		}
 	}
 }

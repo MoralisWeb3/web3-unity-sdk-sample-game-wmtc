@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Interfaces;
 using TMPro;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace MoralisUnity.Samples.Shared.UI
 	/// <summary>
 	/// UI element for a "Loading..." type message
 	/// </summary>
-	public class BaseScreenMessageUI : MonoBehaviour
+	public class BaseScreenMessageUI : MonoBehaviour, IIsVisible, IAlpha
 	{
 		// Properties -------------------------------------
 		public bool IsVisible
@@ -25,6 +26,30 @@ namespace MoralisUnity.Samples.Shared.UI
 				{
 					_canvasGroup.alpha = 0;
 				}
+			}
+		}
+		
+		public float Alpha
+		{
+			get
+			{
+				return _canvasGroup.alpha;
+			}
+			set
+			{
+				_canvasGroup.alpha = value;
+			}
+		}
+		
+		public bool BlocksRaycasts
+		{
+			get
+			{
+				return _canvasGroup.blocksRaycasts;
+			}
+			set
+			{
+				_canvasGroup.blocksRaycasts = value;
 			}
 		}
 		
