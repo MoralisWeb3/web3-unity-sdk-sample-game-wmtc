@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Shared.Helpers;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
@@ -60,7 +61,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
-                throw new Exception("find existing user error");
+                throw new RequiredMoralisUserException();
             }
 
             _observableGameState.OnValueChanged.AddListener(ObservableGameState_OnValueChanged);

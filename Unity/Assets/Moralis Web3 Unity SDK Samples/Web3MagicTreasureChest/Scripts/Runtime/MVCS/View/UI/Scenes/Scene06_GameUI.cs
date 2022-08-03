@@ -6,7 +6,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 {
 	/// <summary>
 	/// The UI for <see cref="Scene06_Game"/>
-	/// </summary>
+	/// </summary> 
 	public class Scene06_GameUI : Scene_UIWithTop
 	{
 		//  Properties ------------------------------------

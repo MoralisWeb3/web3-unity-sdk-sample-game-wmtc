@@ -3,7 +3,7 @@ using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
-#pragma warning disable 1998
+#pragma warning disable 1998, 4014
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
@@ -23,8 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
-                // Sometimes, ONLY warn
-                Debug.LogWarning(new RequiredMoralisUserException().Message);
+                throw new RequiredMoralisUserException();
             }
 
             _ui.ResetAllDataButtonUI.Button.onClick.AddListener(ResetAllDataButtonUI_OnClicked);

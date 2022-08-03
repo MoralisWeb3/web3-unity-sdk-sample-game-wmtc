@@ -41,7 +41,7 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		{
 			List<SceneData> sceneDatas = SceneDataStorage.Instance.SceneDatas;
 
-			Debug.Log($"AddAllScenesToBuildSettings() sceneAssets.Count={sceneDatas.Count}");
+			Debug.Log($"AddAllScenesToBuildSettings() sceneAssets.Count = {sceneDatas.Count}");
 			EditorBuildSettingsUtility.AddScenesToBuildSettings(sceneDatas);
 		}
 

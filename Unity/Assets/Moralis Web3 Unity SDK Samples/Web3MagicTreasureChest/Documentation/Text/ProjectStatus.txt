@@ -1,4 +1,14 @@
 
+CHECKLIST - DEVELOPMENT 
+- [  ] Intro - 
+- if authed, do registration login, do registration
+-fix lighing across all scenes
+- [  ] Auth 
+- show proper 'connect' button or not? 
+- [  ] Settings - 
+- [  ] DevConsole - 
+- [  ] Collection - 
+- [  ] Game - 
 
 CHECKLIST - DEVELOPMENT 
 - [  ] Finish all runtime features

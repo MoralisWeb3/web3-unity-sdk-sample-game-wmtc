@@ -1,7 +1,0 @@
-
-
-You are currently reading...
-* .\Unity\Assets\Moralis Web3 Unity SDK Samples\Web3MagicTreasureChest\Documentation\SmartContracts.txt
-
-Please open and read...
-* .\SmartContracts\Instructions.txt

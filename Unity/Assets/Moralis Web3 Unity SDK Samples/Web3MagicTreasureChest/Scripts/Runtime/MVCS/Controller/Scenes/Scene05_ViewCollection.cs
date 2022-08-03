@@ -1,6 +1,7 @@
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
+using MoralisUnity.Samples.Shared.Exceptions;
 using UnityEngine;
 
 #pragma warning disable 1998
@@ -24,7 +25,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
             if (!hasMoralisUserAsync)
             {
-                throw new Exception("find existing user error");
+                throw new RequiredMoralisUserException();
             }
             
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
