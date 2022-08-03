@@ -58,24 +58,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private async void AuthenticationButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadAuthenticationSceneAsync(); 
         }
    
         
         private async void ViewCollectionButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadViewCollectionSceneAsync();
         }
         
         
         private async void SettingsButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadSettingsSceneAsync();
         }
 
 
         private async void PlayGameButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
         }
     }

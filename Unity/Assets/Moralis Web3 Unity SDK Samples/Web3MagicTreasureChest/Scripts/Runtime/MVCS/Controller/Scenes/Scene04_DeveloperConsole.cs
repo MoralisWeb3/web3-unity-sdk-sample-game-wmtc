@@ -83,10 +83,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void IsRegisteredButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             await TheGameSingleton.Instance.TheGameController.ShowLoadingDuringMethodAsync(
               async delegate ()
               {
-                 
+    
                   bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
                   _outputTextStringBuilder.Clear();
@@ -101,6 +104,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void UnregisterButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
             if (!isRegistered)
@@ -128,6 +134,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void RegisterButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
             if (isRegistered)
@@ -156,6 +165,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void SetGoldByPlusButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -177,6 +189,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private async void SetGoldByMinusButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -198,6 +213,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void AddTreasurePrizeButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -227,6 +245,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void SellTreasurePrizeButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -258,6 +279,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void DeleteAllTreasurePrizesButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -282,6 +306,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             
         private async void RewardPrizesButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             if (!await EnsureIsRegistered())
             {
                 return;
@@ -310,6 +337,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         private void BackButtonUI_OnClicked()
         {
+                          
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             TheGameSingleton.Instance.TheGameController.LoadSettingsSceneAsync();
         }
     }

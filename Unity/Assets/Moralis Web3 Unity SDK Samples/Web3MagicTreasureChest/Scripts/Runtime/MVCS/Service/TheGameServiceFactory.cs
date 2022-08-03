@@ -19,7 +19,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// General Methods --------------------------------
 		public ITheGameService Create (TheGameServiceType theGameServiceType)
 		{
-			Debug.Log($"TheGameServiceFactory.Create() type = {theGameServiceType}");
+			Debug.Log($"Using Service For {theGameServiceType}");
 			
 			ITheGameService theGameService = null;
 			switch (theGameServiceType)

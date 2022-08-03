@@ -51,6 +51,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             Destroy(_ui.gameObject);
             
             // Leave
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
         }
         

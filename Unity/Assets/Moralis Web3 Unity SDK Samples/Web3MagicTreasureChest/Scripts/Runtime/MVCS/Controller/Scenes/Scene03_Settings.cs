@@ -65,17 +65,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             if (Input.GetKey(KeyCode.Space))
             {
                 Debug.LogWarning("Spacebar Held. Opening Developer Console");
+                TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 TheGameSingleton.Instance.TheGameController.LoadDeveloperConsoleSceneAsync();
             }
             else
             {
                 Debug.LogWarning("FYI, Hold Spacebar and click this button to open Developer Console");
+                TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 ResetAllData();
             }
         }
         
         private void BackButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
         }
     }

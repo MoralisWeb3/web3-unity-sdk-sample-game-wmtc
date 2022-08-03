@@ -28,7 +28,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField]
         private Scene06_GameUI _ui;
 
-   
         [SerializeField] 
         private TreasureChestUI _treasureChestUI = null;
 
@@ -68,12 +67,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _observableGameState.Value = GameState.Null;
             
             RefreshUI();
-
         }
 
+        
         protected async void Update()
         {
-
+            //TODO: remove all key input
             if (Input.GetKeyDown(KeyCode.T))
             {
                 Debug.Log("Debug");
@@ -100,8 +99,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
         }
 
+        
         //  Event Handlers --------------------------------
-
         private async void ObservableGameState_OnValueChanged(GameState gameState)
         {
             switch (gameState)
@@ -158,15 +157,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
         }
         
-        private void BackButtonUI_OnClicked()
-        {
-            TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
-        }
-
+        
         private void ReplayButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             // For debugging
             TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
+        }
+        
+        
+        private void BackButtonUI_OnClicked()
+        {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
+            TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
         }
     }
 }

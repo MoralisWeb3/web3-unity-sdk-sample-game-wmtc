@@ -43,6 +43,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Event Handlers --------------------------------
         private void BackButtonUI_OnClicked()
         {
+            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
+
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
         }
     }

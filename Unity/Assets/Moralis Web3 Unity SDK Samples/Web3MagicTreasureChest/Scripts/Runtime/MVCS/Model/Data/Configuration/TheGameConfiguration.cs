@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Attributes;
 using MoralisUnity.Samples.Shared.Data.Types.Configuration;
 using MoralisUnity.Samples.Shared.Data.Types.Storage;

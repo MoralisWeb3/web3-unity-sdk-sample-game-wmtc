@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
 using UnityEngine;
 
@@ -11,16 +12,16 @@ namespace MoralisUnity.Samples.Shared.Audio
 	public class SoundManager : SingletonMonobehaviour<SoundManager>
 	{
 		// Properties -------------------------------------
+		public List<AudioClip> AudioClips { get { return _soundManagerConfiguration.AudioClips; } }
 		
 		// Fields -----------------------------------------
+		[Header("References (Project)")]
 		[SerializeField]
-		private List<AudioClip> _audioClips = new List<AudioClip>();
-
-		[SerializeField]
-		private List<AudioSource> _audioSources = new List<AudioSource>();
+		private SoundManagerConfiguration _soundManagerConfiguration = null;
 
 		// Unity Methods ----------------------------------
-		
+		[SerializeField]
+		private List<AudioSource> _audioSources = new List<AudioSource>();
 		
 		// General Methods --------------------------------
 		/// <summary>
@@ -28,7 +29,17 @@ namespace MoralisUnity.Samples.Shared.Audio
 		/// </summary>
 		public void PlayAudioClip(int index)
 		{
-			PlayAudioClip(_audioClips[index]);
+			AudioClip audioClip = null;
+			try
+			{
+				audioClip = AudioClips[index];
+			}
+			catch
+			{
+				throw new ArgumentException($"PlayAudioClip() failed for index = {index}");
+			}
+			
+			PlayAudioClip(audioClip);
 		}
 
 		
@@ -44,6 +55,7 @@ namespace MoralisUnity.Samples.Shared.Audio
 				{
 					audioSource.clip = audioClip;
 					audioSource.Play();
+					Debug.Log("play");
 					return;
 				}
 			}
