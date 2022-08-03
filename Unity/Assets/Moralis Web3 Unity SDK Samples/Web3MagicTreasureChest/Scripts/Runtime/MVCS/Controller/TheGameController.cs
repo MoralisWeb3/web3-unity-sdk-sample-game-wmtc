@@ -7,9 +7,11 @@ using DG.Tweening;
 using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Shared.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -343,5 +345,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		{
 			await _theGameView.ShowLoadingDuringMethodAsync(task);
 		}
+
 	}
 }

@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Exceptions;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
@@ -28,18 +27,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 Debug.LogWarning(new RequiredMoralisUserException().Message);
             }
 
-
             _ui.ResetAllDataButtonUI.Button.onClick.AddListener(ResetAllDataButtonUI_OnClicked);
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-
             RefreshUI();
-            
         }
-
-
+        
         //  General Methods -------------------------------
         private async UniTask RefreshUI()
         {
@@ -66,11 +59,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
-        private void OnModelChanged(TheGameModel theGameModel)
-        {
-            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
-        }
+
 
         private void ResetAllDataButtonUI_OnClicked()
         {

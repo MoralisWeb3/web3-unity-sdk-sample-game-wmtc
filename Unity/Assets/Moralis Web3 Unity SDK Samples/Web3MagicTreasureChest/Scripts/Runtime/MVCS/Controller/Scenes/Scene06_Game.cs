@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Helpers;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
@@ -64,9 +63,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 throw new Exception("find existing user error");
             }
 
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-
             _observableGameState.OnValueChanged.AddListener(ObservableGameState_OnValueChanged);
             _observableGameState.Value = GameState.Null;
             
@@ -104,11 +100,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
-        private void OnModelChanged(TheGameModel theGameModel)
-        {
-            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
-        }
 
         private async void ObservableGameState_OnValueChanged(GameState gameState)
         {

@@ -8,10 +8,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 	/// <summary>
 	/// The UI for <see cref="Scene04_DeveloperConsole"/>
 	/// </summary>
-	public class Scene04_DeveloperConsoleUI : Scene_BaseUI
+	public class Scene04_DeveloperConsoleUI : Scene_UIWithTop
 	{
 		//  Properties ------------------------------------
-		public TopUI TopUI { get { return _topUI; } }
 		public TMP_Text Text { get { return _text; } }
 
 		public BaseButtonUI IsRegisteredButtonUI { get { return _isRegisteredButtonUI; } }
@@ -28,9 +27,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		//  Fields ----------------------------------------
 		[Header("References (Scene)")]
-
-		[SerializeField]
-		private TopUI _topUI = null;
 
 		[SerializeField]
 		private TMP_Text _text = null;

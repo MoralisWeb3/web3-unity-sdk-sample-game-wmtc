@@ -1,9 +1,5 @@
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 #pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -27,10 +23,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.ViewCollectionButtonUI.Button.onClick.AddListener(ViewCollectionButtonUI_OnClicked);
             _ui.AuthenticationButtonUI.Button.onClick.AddListener(AuthenticationButtonUI_OnClicked);
             _ui.SettingsButtonUI.Button.onClick.AddListener(SettingsButtonUI_OnClicked);
-
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-
   
             RefreshUI();
 
@@ -63,11 +55,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
-        private void OnModelChanged(TheGameModel theGameModel)
-        {
-            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
-        }
 
         private async void AuthenticationButtonUI_OnClicked()
         {

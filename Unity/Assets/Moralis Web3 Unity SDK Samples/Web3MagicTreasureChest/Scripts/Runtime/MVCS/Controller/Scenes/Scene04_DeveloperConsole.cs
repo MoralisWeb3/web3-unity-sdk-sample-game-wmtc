@@ -38,10 +38,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             _titleTextBuilder.AppendLine("~The Developer Console~");
             _titleTextBuilder.AppendLine();
-
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-
             
             _ui.IsRegisteredButtonUI.Button.onClick.AddListener(IsRegisteredButtonUI_OnClicked);
             _ui.RegisterButtonUI.Button.onClick.AddListener(RegisterButtonUI_OnClicked);
@@ -86,18 +82,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
         //  Event Handlers --------------------------------
-        private async void OnModelChanged(TheGameModel theGameModel)
-        {
-            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
-
-            _outputTextStringBuilder.Clear();
-            _outputTextStringBuilder.AppendHeaderLine($"OnModelChanged()");
-            _outputTextStringBuilder.AppendBullet($"Gold = {theGameModel.Gold.Value}");
-            _outputTextStringBuilder.AppendBullet($"TreasurePrizeDtos.Count = {theGameModel.TreasurePrizeDtos.Value.Count}");
-            await RefreshUI();
-        }
-
         
         private async void IsRegisteredButtonUI_OnClicked()
         {

@@ -7,10 +7,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 	/// <summary>
 	/// The UI for <see cref="Scene01_Intro"/>
 	/// </summary>
-	public class Scene01_IntroUI : Scene_BaseUI
+	public class Scene01_IntroUI : Scene_UIWithTop
 	{
 		//  Properties ------------------------------------
-		public TopUI TopUI { get { return _topUI; } }
 		public CameraUI CameraUI { get { return _cameraUI; } }
 		public BaseButtonUI PlayGameButtonUI { get { return _playGameButtonUI; } }
 		public BaseButtonUI ViewCollectionButtonUI { get { return _viewCollectionButtonUI; } }
@@ -20,9 +19,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
         //  Fields ----------------------------------------
         [Header ("References (Scene)")]
-
-		[SerializeField]
-		private TopUI _topUI = null;
 
 		[SerializeField]
 		private CameraUI _cameraUI = null;

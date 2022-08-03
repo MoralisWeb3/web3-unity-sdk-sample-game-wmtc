@@ -46,7 +46,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		
 		
 		// Event Handlers ---------------------------------
-
-
+		public void InvokeOnChangeEvent()
+		{
+			//Do this with any or all. The controller will act like 'all' changes anyway
+			_gold.OnValueChanged.Invoke(_gold.Value);
+		}
 	}
 }

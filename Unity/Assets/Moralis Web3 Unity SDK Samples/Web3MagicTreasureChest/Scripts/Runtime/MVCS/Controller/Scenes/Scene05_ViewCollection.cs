@@ -28,9 +28,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnModelChanged);
-            TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-
             RefreshUI();
             
         }
@@ -43,12 +40,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
 
         //  Event Handlers --------------------------------
-        private void OnModelChanged(TheGameModel theGameModel)
-        {
-            _ui.TopUI.GoldCornerUI.Text.text = $"{theGameModel.Gold.Value}/100";
-            _ui.TopUI.CollectionUI.Text.text = $"{theGameModel.TreasurePrizeDtos.Value.Count}/10";
-        }
-
         private void BackButtonUI_OnClicked()
         {
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
