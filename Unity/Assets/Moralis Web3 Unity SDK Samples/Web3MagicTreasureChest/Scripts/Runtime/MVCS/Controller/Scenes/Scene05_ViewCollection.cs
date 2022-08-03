@@ -1,6 +1,10 @@
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System;
+using System.Collections.Generic;
+using System.Text;
+using Cysharp.Threading.Tasks;
+using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Exceptions;
 using UnityEngine;
 
@@ -19,6 +23,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField]
         private Scene05_ViewCollectionUI _ui;
 
+        private StringBuilder _titleTextBuilder = new StringBuilder();
+        
         //  Unity Methods----------------------------------
         protected async void Start()
         {
@@ -29,15 +35,41 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-            RefreshUI();
+            await RefreshUI();
+            
+            _titleTextBuilder.Clear();
+            _titleTextBuilder.AppendHeaderLine("Collection");
+            await TheGameSingleton.Instance.TheGameController.ShowMessageDuringMethodAsync(
+                async delegate ()
+                {
+                    List<TreasurePrizeDto> treasurePrizeDtos = 
+                        await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
+                    
+                    if (treasurePrizeDtos.Count == 0)
+                    {
+                        _titleTextBuilder.AppendBullet("Collection empty. Open a Magic Treasure Chest.");
+                    }
+                    else
+                    {
+                        foreach (TreasurePrizeDto treasurePrizeDto in treasurePrizeDtos)
+                        {
+                            _titleTextBuilder.AppendBullet($"t={treasurePrizeDto.Title}");
+                        }
+                        _titleTextBuilder.Append("The game does not yet support selling treasure.");
+                    }
+                    await RefreshUI();
+                });
+
             
         }
 
-
         //  General Methods -------------------------------
-        private async void RefreshUI()
+        private async UniTask RefreshUI()
         {
-            _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _ui.BackButtonUI.IsInteractable = true;
+
+            
+            _ui.Text.text = _titleTextBuilder.ToString();
         }
 
         //  Event Handlers --------------------------------

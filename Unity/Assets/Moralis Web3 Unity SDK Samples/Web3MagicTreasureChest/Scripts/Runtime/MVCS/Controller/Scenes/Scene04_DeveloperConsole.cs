@@ -270,7 +270,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
                     // Sell the most recent
                     TreasurePrizeDto treasurePrizeDto = treasurePrizeDtos[treasurePrizeDtos.Count-1];
-                    Debug.Log("sell: " + treasurePrizeDto);
                     List<TreasurePrizeDto> treasurePrizeDtosAfter = 
                         await TheGameSingleton.Instance.TheGameController.SellTreasurePrizeAsync(treasurePrizeDto);
 

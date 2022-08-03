@@ -85,7 +85,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = isRegistered;
 
 			// Call Service. Sync Model
-			int gold = await _theGameService.GetGoldAsync();
+			int gold = await GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
 
 			// Call Service
@@ -145,7 +145,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         public async UniTask<int> SetGoldByAsync(int delta)
 		{
 			await _theGameService.SetGoldByAsync(delta);
-			int gold = await _theGameService.GetGoldAsync();
+			
+			int gold = await GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
 			
 			// Wait for contract values to sync so the client will see the changes
@@ -211,7 +212,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			
 				// Call Service. Sync Model
-				int gold = await _theGameService.GetGoldAsync();
+				int gold = await GetGoldAsync();
 				_theGameModel.Gold.Value = gold;
 			
 				// Wait for contract values to sync so the client will see the changes
