@@ -231,6 +231,25 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
+    it("Throws revertedWith for startGameAndGiveRewards (100) when getGold() less than 100", async function ()
+    {
+        // Arrange
+        const { theGameContract } = await loadFixture(deployTokenFixture);
+        await theGameContract.register();
+        const goldBalance = await theGameContract.getGold();
+
+        // Act
+        // Expect
+        await expect 
+            ( 
+                theGameContract.startGameAndGiveRewards (goldBalance + 10)
+            )
+            .to.be.revertedWith("getGold() must be >= goldAmount to start the game");
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
     it("Sets r between min/max when randomRange (min, max, n)", async function ()
     {
         // Arrange

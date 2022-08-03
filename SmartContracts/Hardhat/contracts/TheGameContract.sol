@@ -108,7 +108,9 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     function startGameAndGiveRewards(uint256 goldAmount) public
     {
-        require(goldAmount > 0, "Must send goldAmount > 0 to start the game.");
+        require(goldAmount > 0, "goldAmount must be > 0 to start the game");
+
+        require(getGold() >= goldAmount, "getGold() must be >= goldAmount to start the game");
 
         require(_isHackyRegisteredBool, "Must be registered to start the game.");
 
