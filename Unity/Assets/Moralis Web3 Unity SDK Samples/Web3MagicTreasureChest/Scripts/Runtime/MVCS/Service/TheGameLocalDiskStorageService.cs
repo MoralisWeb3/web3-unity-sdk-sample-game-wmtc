@@ -35,11 +35,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Properties -------------------------------------
 		public PendingMessage PendingMessageActive { get { return _pendingMessageActive; }}
 		public PendingMessage PendingMessagePassive { get { return _pendingMessagePassive; }}
-		
+		public PendingMessage PendingMessageExtraDelay { get { return _pendingMessageExtraDelay; }}
+		public bool HasExtraDelay { get { return false; }}
 		
 		// Fields -----------------------------------------
 		private readonly PendingMessage _pendingMessageActive = new PendingMessage("Loading ...", 500);
 		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading ...", 500);
+		private readonly PendingMessage _pendingMessageExtraDelay = new PendingMessage("Waiting ...", 0);
 
 		// While LocalDiskStorage is FAST, add some delays to test the UI "Loading..." text, etc...
 		private static readonly int DelaySimulatedPerMethod = 100;
@@ -56,7 +58,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 		
 		// DELAY Methods -------------------------
-		public UniTask DelayExtraAfterStateChange()
+		public UniTask DoExtraDelayAsync()
 		{
 			return UniTask.Delay(DelayExtraSimulatedAfterStateChange);
 		}

@@ -39,7 +39,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             
             _titleTextBuilder.Clear();
             _titleTextBuilder.AppendHeaderLine("Collection");
-            await TheGameSingleton.Instance.TheGameController.ShowMessagePassive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = 

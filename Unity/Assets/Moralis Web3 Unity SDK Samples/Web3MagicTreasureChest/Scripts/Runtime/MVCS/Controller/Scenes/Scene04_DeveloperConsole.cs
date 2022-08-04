@@ -86,7 +86,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            await TheGameSingleton.Instance.TheGameController.ShowMessagePassive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
               async delegate ()
               {
     
@@ -115,7 +115,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             else
             {
-                await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+                await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                     async delegate ()
                     {
                         await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
@@ -147,7 +147,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             else
             {
-                await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+                await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                     async delegate()
                     {
                         await TheGameSingleton.Instance.TheGameController.RegisterAsync();
@@ -175,7 +175,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(2);
@@ -199,7 +199,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     int gold = await TheGameSingleton.Instance.TheGameController.SetGoldByAsync(-1);
@@ -223,7 +223,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
@@ -256,7 +256,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = 
@@ -292,7 +292,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
             
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     List<TreasurePrizeDto> treasurePrizeDtos = 
@@ -319,7 +319,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 return;
             }
 
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActive(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 async delegate ()
                 {
                     int goldAmount = 22;

@@ -131,11 +131,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		{
 			await _theGameService.UnregisterAsync();
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
-			
+
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChange();
+	
 		}
+
+
 
 		public async UniTask RegisterAsync()
 		{
@@ -143,8 +145,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChange();
 		}
 
 
@@ -156,8 +157,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.Gold.Value = gold;
 			
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChange();
 			
 			return gold;
 		}
@@ -168,12 +168,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
 			
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
-
+			await DelayExtraAfterStateChange();
+			
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
-			
 			return treasurePrizeDtos;
 		}
 
@@ -183,8 +181,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
 
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChange();
 			
 			int gold = await GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
@@ -199,8 +196,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.DeleteAllTreasurePrizeAsync();
 
 			// Wait for contract values to sync so the client will see the changes
-			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-			await _theGameService.DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChange();
 
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
@@ -226,8 +222,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				_theGameModel.Gold.Value = gold;
 			
 				// Wait for contract values to sync so the client will see the changes
-				_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
-				await _theGameService.DelayExtraAfterStateChange();
+				await DelayExtraAfterStateChange();
 			
 				Reward reward = await _theGameService.GetRewardsHistoryAsync();
 				
@@ -318,16 +313,25 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 
 		
-		public async UniTask ShowMessagePassive(Func<UniTask> task)
+		public async UniTask ShowMessagePassiveAsync(Func<UniTask> task)
 		{
 			await _theGameView.ShowMessageDuringMethodAsync(
 				_theGameService.PendingMessagePassive.Message, task);
 		}
 		
-		public async UniTask ShowMessageActive(Func<UniTask> task)
+		public async UniTask ShowMessageActiveAsync(Func<UniTask> task)
 		{
 			await _theGameView.ShowMessageDuringMethodAsync(
 				_theGameService.PendingMessageActive.Message, task);
+		}
+		
+		private async Task DelayExtraAfterStateChange()
+		{
+			if (_theGameService.HasExtraDelay)
+			{
+				_theGameView.UpdateMessageDuringMethod(_theGameService.PendingMessageExtraDelay.Message);
+				await _theGameService.DoExtraDelayAsync();
+			}
 		}
 		
 		public async UniTask ShowMessageCustom(string message, int delayMilliseconds)

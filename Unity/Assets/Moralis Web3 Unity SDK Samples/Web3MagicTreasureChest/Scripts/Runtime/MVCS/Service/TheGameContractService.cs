@@ -21,10 +21,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Properties -------------------------------------
 		public PendingMessage PendingMessageActive { get { return _endingMessageActive; }}
 		public PendingMessage PendingMessagePassive { get { return _pendingMessagePassive; }}
-		
+        public PendingMessage PendingMessageExtraDelay { get { return _pendingMessageExtraDelay; }}
+        public bool HasExtraDelay { get { return true; }}
+        
 		// Fields -----------------------------------------
 		private readonly PendingMessage _endingMessageActive = new PendingMessage("Please confirm transaction\nin your wallet", 0);
-		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading...", 0);
+		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading ...", 0);
+        private readonly PendingMessage _pendingMessageExtraDelay = new PendingMessage("Waiting for transaction ...", 0);
 		private readonly TheGameContract _theGameContract = null;
         
         // Based on trial and error (and current network traffic)
@@ -39,7 +42,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         
         // DELAY Methods -------------------------
-        public UniTask DelayExtraAfterStateChange()
+        public UniTask DoExtraDelayAsync()
         {
             return UniTask.Delay(DelayExtraAfterStateChangeMilliseconds);
         }

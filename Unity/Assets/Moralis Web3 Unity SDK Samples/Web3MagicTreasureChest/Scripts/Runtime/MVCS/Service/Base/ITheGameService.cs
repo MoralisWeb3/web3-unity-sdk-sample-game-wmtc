@@ -18,11 +18,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// Properties -------------------------------------
 		PendingMessage PendingMessageActive { get; }
 		PendingMessage PendingMessagePassive { get; }
+		PendingMessage PendingMessageExtraDelay { get; }
+		bool HasExtraDelay { get; }
 
 		// General Methods --------------------------------
 		
 		// Delay that runs locally to await state change finality
-		UniTask DelayExtraAfterStateChange();
+		UniTask DoExtraDelayAsync();
 
 		// Web3 API Call - Various Return Types
 		UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync();
