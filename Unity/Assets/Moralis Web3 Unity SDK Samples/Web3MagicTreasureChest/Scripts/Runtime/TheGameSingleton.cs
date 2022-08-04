@@ -47,6 +47,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 		// Initialization Methods -------------------------
 		public override void InstantiateCompleted()
 		{
+			//Set screen size for Standalone
+#if UNITY_STANDALONE
+			Screen.SetResolution(675, 1000, false);
+			Screen.fullScreen = false;
+#endif
+			
 			// Name it
 			gameObject.name = GetType().Name;
 			

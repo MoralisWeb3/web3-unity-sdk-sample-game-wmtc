@@ -360,7 +360,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		{
 			if (Application.isEditor)
 			{
+#if UNITY_EDITOR
 				UnityEditor.EditorApplication.isPlaying = false;
+#endif //UNITY_EDITOR
 			}
 			else
 			{
