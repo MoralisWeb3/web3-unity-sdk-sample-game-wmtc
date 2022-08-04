@@ -14,11 +14,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		TreasureChestEntering,
 		TreasureChestEntered,
 		TreasureChestIdle,
+		WaitForUser,
 		TreasureChestOpening,
 		TreasureChestOpened,
 		CardsEntering,
 		CardsEntered,
-		CardsIdle,
+		CardsIdle
+		
 	}
 	
 	/// <summary>

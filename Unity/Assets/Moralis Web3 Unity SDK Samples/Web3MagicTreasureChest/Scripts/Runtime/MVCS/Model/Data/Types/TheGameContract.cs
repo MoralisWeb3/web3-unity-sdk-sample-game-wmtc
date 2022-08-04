@@ -4,17 +4,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Web3Api.Models;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 {
-	public class MessageHolder
-    {
-		public string message = "";
-    }
-
 	/// <summary>
 	/// Wrapper class for a Web3API Eth Contract.
 	/// </summary>
@@ -139,12 +133,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 			string result = await RunContractFunctionAsync("getRewardsHistory", args, IsLogging);
 			
+			Debug.Log("getRewardsHistory: " + result);
 			Debug.LogWarning($"Must manually create a reward here from {result}");
 			Reward reward = new Reward
 			{
-				Title = "blah",
-				Type = 1,
-				Price = 10,
+				Title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardGold),
+				Type = TheGameHelper.GetRewardType(TheGameHelper.RewardPrize),
+				Price = 13,
 			};
 			return reward;
 		}

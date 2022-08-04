@@ -277,15 +277,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	        if (random < 50)
 	        {
 		        // REWARD: Gold!
-		        theType = 1;
-		        title = "This is gold.";
+		        theType = TheGameHelper.GetRewardType(TheGameHelper.RewardGold);
+		        title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardGold);
 		        await SetGoldByAsync((int)price);
 	        } 
 	        else 
 	        {
 		        // REWARD: Prize!
-		        theType = 2;
-		        title = "This is an nft.";
+		        theType = TheGameHelper.GetRewardType(TheGameHelper.RewardPrize);
+		        title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardPrize);
 
 		        //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
 		        MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();

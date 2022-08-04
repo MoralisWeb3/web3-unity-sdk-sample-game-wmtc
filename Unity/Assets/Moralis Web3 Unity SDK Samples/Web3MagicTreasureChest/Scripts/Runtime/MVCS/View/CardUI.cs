@@ -8,25 +8,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 	public class CardUI : MonoBehaviour
 	{
 		// Properties -------------------------------------
-		public Animator Animator { get { return _animator;}}
+		private Sprite GoldSprite { get { return _goldSprite;}}
+		private Sprite PrizeSprite { get { return _prizeSprite;}}
+		
+		private SpriteRenderer SpriteRenderer { get { return _spriteRenderer;}}
 		
 		// Fields -----------------------------------------
 		[Header("References (Scene)")] 
 		[SerializeField] 
-		private Animator _animator = null;
+		private Sprite _goldSprite = null;
 		
-		//[Header("References (Project)")] 
-			
+		[SerializeField] 
+		private Sprite _prizeSprite = null;
+		
+		[SerializeField] 
+		private SpriteRenderer _spriteRenderer = null;
+
+		
 		//  Unity Methods----------------------------------
-		protected void Start()
-		{
-
-		}
-		
-		protected void Update()
-		{
-
-		}
 		
 		// General Methods --------------------------------
 

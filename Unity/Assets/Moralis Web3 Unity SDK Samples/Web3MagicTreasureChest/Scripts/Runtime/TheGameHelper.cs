@@ -1,7 +1,4 @@
-﻿
-using Cysharp.Threading.Tasks;
-using MoralisUnity.Platform.Objects;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +12,44 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
         // General Methods --------------------------------
         
 
+        public static uint GetRewardType(string name)
+        {
+            if (name == RewardGold)
+            {
+                return 1;
+            }
+            else
+            {
+                return 2;
+            }
+        }
+
+        public static string GetRewardTitle(string name)
+        {
+            if (name == RewardGold)
+            {
+                return "Gold";
+            }
+            else
+            {
+                return "Prize";
+            }
+        }
+        
+        public static string GetRewardTypeNameByType(uint t)
+        {
+            if (t == 1)
+            {
+                return "Gold";
+            }
+            else
+            {
+                return "Prize";
+            }
+        }
+        
+        public const string RewardGold = "GOLD";
+        public const string RewardPrize = "PRIZE";
 
         public static T InstantiatePrefab<T>(T prefab, Transform parent, Vector3 worldPosition) where T : Component
         {
@@ -55,6 +90,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
                 canvasGroup.alpha = 0;
             }
         }
-        
+
+
     }
 }

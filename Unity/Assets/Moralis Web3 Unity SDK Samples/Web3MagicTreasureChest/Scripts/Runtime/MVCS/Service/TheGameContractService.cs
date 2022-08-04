@@ -69,8 +69,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             return result;
         }
 
- 
-
 
         public async UniTask<int> GetGoldAsync()
         {

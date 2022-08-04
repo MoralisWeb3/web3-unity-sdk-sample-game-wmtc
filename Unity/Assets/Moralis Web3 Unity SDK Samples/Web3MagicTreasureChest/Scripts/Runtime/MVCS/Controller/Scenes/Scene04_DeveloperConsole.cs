@@ -7,6 +7,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Shared.Exceptions;
 using System.Collections.Generic;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 
 #pragma warning disable 1998, 4014
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -242,6 +243,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendBullet($"result.Count = {treasurePrizeDtos.Count}");
 
                     await RefreshUI();
+                    
                 });
         }
 

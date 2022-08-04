@@ -7,21 +7,15 @@ using DG.Tweening;
 using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Shared.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
-	public struct Reward 
-	{
-		public string Title;
-		public uint Type;
-		public uint Price;
-	}
+
 	
 	/// <summary>
 	/// Stores data for the game

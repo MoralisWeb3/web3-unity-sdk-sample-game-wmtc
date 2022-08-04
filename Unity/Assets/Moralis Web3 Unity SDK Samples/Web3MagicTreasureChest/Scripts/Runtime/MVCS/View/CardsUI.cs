@@ -22,20 +22,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		[SerializeField] 
 		private CardUI _cardUIPrefab = null;
 		
-	
-			
-		//  Unity Methods----------------------------------
-		protected void Start()
-		{
-
-		}
-		
-		protected void Update()
-		{
-
-
-		}
-		
 		// General Methods --------------------------------
 		public UniTask CreateCards(ReferencePoint cardStartReferencePoint, List<ReferencePoint> cardEndReferencePoints)
 		{
@@ -63,20 +49,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			TweenHelper.TransformDoScale(cardUI.gameObject, new Vector3(0, 0, 0), new Vector3(1, 1, 1), duration, delay);
 			TweenHelper.TransformDORotate(cardUI.gameObject, new Vector3(90, 180, 0), new Vector3(0, 180, 0), duration, delay);
 
-			bool isWaiting = true;
+			bool isStillMoving = true;
 			TweenHelper.TransformDOBlendableMoveBy(cardUI.gameObject, cardStartReferencePoint.transform.position,
 				cardReferencePoint.transform.position, duration, delay).onComplete = () =>
 			{
-				isWaiting = false;
+				isStillMoving = false;
 			};
 
-			await UniTask.WaitWhile(() => isWaiting);
+			await UniTask.WaitWhile(() => isStillMoving);
 
-
+			bool isStillRotating = true;
 			delay = delay + 1.5f;
-			TweenHelper.TransformDORotate(cardUI.gameObject, new Vector3(0, 180, 0), new Vector3(0, 0, 0), duration, delay);
+			TweenHelper.TransformDORotate(
+				cardUI.gameObject, 
+				new Vector3(0, 180, 0), 
+				new Vector3(0, 0, 0), 
+				duration, 
+				delay).onComplete = () =>
+			{
+				isStillRotating = false;
+			};
 
-			return;
+			await UniTask.WaitWhile(() => isStillRotating);
 		}
 
         // Event Handlers ---------------------------------
