@@ -1,3 +1,4 @@
+using MoralisUnity.Kits.AuthenticationKit;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
@@ -15,26 +16,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField]
         private Scene02_AuthenticationUI _ui;
 
+        private bool _hasMoralisUserAtStart = false;
 
         //  Unity Methods----------------------------------
         protected async void Start()
         {
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-
-            bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-
-            Debug.Log("auth, and hasMoralisUserAsync: " + hasMoralisUserAsync);
-
-            if (hasMoralisUserAsync)
-            {
-                _ui.AuthenticationKit.OnDisconnected.AddListener(AuthenticationUI_OnDisconnected);
-            }
-            else
-            {
-                _ui.AuthenticationKit.OnConnected.AddListener(AuthenticationUI_OnConnected);
-            }
-
-
+            _ui.AuthenticationKit.OnStateChanged.AddListener(AuthenticationKit_OnStateChanged);
+            
+            //TODO: Apparently the Authkit will log out automatically regardless of _hasMoralisUserAtStart
+            _hasMoralisUserAtStart = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            Debug.Log("auth, and _hasMoralisUserAtStart: " + _hasMoralisUserAtStart);
+            
 
         }
 
@@ -43,7 +36,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
         //  Event Handlers --------------------------------
+        private void AuthenticationKit_OnStateChanged(AuthenticationKitState authenticationKitState)
+        {
+            Debug.Log(authenticationKitState);
 
+            switch (authenticationKitState)
+            {
+                case AuthenticationKitState.MoralisLoggedIn:
+                    
+                    //KEEP
+                    Debug.Log($"Was _hasMoralisUserAtStart = {_hasMoralisUserAtStart}, Now = {authenticationKitState}");
+                    BackButtonUI_OnClicked();
+                    break;
+            }
+        }
 
         private void BackButtonUI_OnClicked()
         {
@@ -54,18 +60,5 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
             TheGameSingleton.Instance.TheGameController.LoadIntroSceneAsync();
         }
-        
-        private void AuthenticationUI_OnConnected()
-        {
-            Debug.Log("AuthenticationUI_OnConnected");
-            BackButtonUI_OnClicked();
-        }
-
-        private void AuthenticationUI_OnDisconnected()
-        {
-            Debug.Log("AuthenticationUI_OnConnected");
-            BackButtonUI_OnClicked();
-        }
-
     }
 }

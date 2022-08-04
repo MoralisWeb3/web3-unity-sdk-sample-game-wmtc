@@ -43,7 +43,7 @@ describe("The TreasurePrize Contract", function ()
         
         // Act
         const tokenUri = "myCustomTokenUri";
-        const tokenId = await treasurePrize.mintNft(addr1.address, tokenUri);
+        const tokenId = await treasurePrize.connect(addr1).mintNft(addr1.address, tokenUri);
 
         // Expect
         expect(tokenId).to.not.equal(0);
@@ -60,14 +60,14 @@ describe("The TreasurePrize Contract", function ()
         const treasurePrize = await TreasurePrize.deploy();
 
         const tokenUri = "myCustomTokenUri";
-        const transaction = await treasurePrize.mintNft(addr1.address, tokenUri);
+        const transaction = await treasurePrize.connect(addr1).mintNft(addr1.address, tokenUri);
 
         await ethers.provider.waitForTransaction(transaction.hash);
         const receipt = await ethers.provider.getTransactionReceipt(transaction.hash);
         const tokenId = parseInt(receipt.logs[0].topics[3]);
         
         // Act
-        await treasurePrize.burnNft(tokenId);
+        await treasurePrize.connect(addr1).burnNft(tokenId);
 
         // Expect
         expect(tokenId).to.equal(0);
@@ -85,7 +85,7 @@ describe("The TreasurePrize Contract", function ()
 
         // Mint 1
         const tokenUri1 = "myCustomTokenUri";
-        const transaction1 = await treasurePrize.mintNft(addr1.address, tokenUri1);
+        const transaction1 = await treasurePrize.connect(addr1).mintNft(addr1.address, tokenUri1);
 
         await ethers.provider.waitForTransaction(transaction1.hash);
         const receipt1 = await ethers.provider.getTransactionReceipt(transaction1.hash);
@@ -93,14 +93,14 @@ describe("The TreasurePrize Contract", function ()
 
         // Mint 2
         const tokenUri2 = "myCustomTokenUri";
-        const transaction2 = await treasurePrize.mintNft(addr1.address, tokenUri2);
+        const transaction2 = await treasurePrize.connect(addr1).mintNft(addr1.address, tokenUri2);
 
         await ethers.provider.waitForTransaction(transaction2.hash);
         const receipt2 = await ethers.provider.getTransactionReceipt(transaction2.hash);
         const tokenId2 = parseInt(receipt2.logs[0].topics[3]);
         
         // Act
-        await treasurePrize.burnNfts([tokenId1, tokenId2]);
+        await treasurePrize.connect(addr1).burnNfts([tokenId1, tokenId2]);
 
         // Expect
         expect(tokenId1).to.equal(0);

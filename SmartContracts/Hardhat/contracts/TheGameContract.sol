@@ -10,8 +10,6 @@ import "contracts/Gold.sol";
 import "contracts/TreasurePrize.sol";
 
 
-
-
 ///////////////////////////////////////////////////////////
 // CLASS
 //      *   Description         :   The proxy contact
@@ -43,8 +41,6 @@ contract TheGameContract
     // Stores address of the TreasurePrize contract, to be called
     address _treasurePrizeContractAddress;
 
-    bool _isHackyRegisteredBool = false;
-
     mapping(address => bool) private _isRegistered;
 
     // Stores the most recent reward
@@ -66,31 +62,102 @@ contract TheGameContract
         );
     }
 
+ function fromHexChar(uint8 c) public pure returns (uint8) 
+ {
+        if (bytes1(c) >= bytes1('0') && bytes1(c) <= bytes1('9')) {
+            return c - uint8(bytes1('0'));
+        }
+        if (bytes1(c) >= bytes1('a') && bytes1(c) <= bytes1('f')) {
+            return 10 + c - uint8(bytes1('a'));
+        }
+        if (bytes1(c) >= bytes1('A') && bytes1(c) <= bytes1('F')) {
+            return 10 + c - uint8(bytes1('A'));
+        }
+        return 0;
+    }
+
+   function hexStringToAddress(string memory s) public pure returns (bytes memory) 
+   {
+        bytes memory ss = bytes(s);
+        require(ss.length%2 == 0); // length must be even
+        bytes memory r = new bytes(ss.length/2);
+        for (uint i=0; i<ss.length/2; ++i) {
+            r[i] = bytes1(fromHexChar(uint8(ss[2*i])) * 16 +
+                        fromHexChar(uint8(ss[2*i+1])));
+        }
+
+        return r;
+
+    }
+
+  function toAddress(string memory s) public pure returns (address) 
+  {
+        bytes memory _bytes = hexStringToAddress(s);
+        require(_bytes.length >= 1 + 20, "toAddress_outOfBounds");
+        address tempAddress;
+
+        assembly {
+            tempAddress := div(mload(add(add(_bytes, 0x20), 1)), 0x1000000000000000000000000)
+        }
+
+        return tempAddress;
+    }
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: DEBUGGING
     ///////////////////////////////////////////////////////////
-    function getMsgSender() public view returns (string memory msgSender)
+    function getMsgSender(string memory myTest) public pure returns (string memory msgSender)
     {
-        msgSender = Strings.toHexString(uint256(uint160(msg.sender)), 20);
+        address a = toAddress (myTest);
+        msgSender = Strings.toHexString(uint256(uint160(a)), 20);
     }
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: REGISTRATION
     ///////////////////////////////////////////////////////////
-    function isRegistered() public view returns (bool isPlayerRegistered)
+    function isRegistered(string memory myTest) public view returns (bool isPlayerRegistered)
+    {
+        address a = toAddress (myTest);
+        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
+        // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
+        // require(msg.sender == _owner);
+        isPlayerRegistered = _isRegistered[a];
+    }
+
+    function isRegistered2(string calldata myTest) public view returns (bool isPlayerRegistered)
+    {
+        string memory s = myTest;
+        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
+        // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
+        // require(msg.sender == _owner);
+        //isPlayerRegistered = _isRegistered[a];
+        isPlayerRegistered = true;
+    }
+
+    //fails, useraddress is required
+    function isRegistered3(uint256 myTest) public view returns (bool isPlayerRegistered)
+    {
+        uint256 s = myTest;
+        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
+        // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
+        // require(msg.sender == _owner);
+        //isPlayerRegistered = _isRegistered[a];
+        isPlayerRegistered = true;
+    }
+
+    //wORKS!
+    function isRegistered4() public view returns (bool isPlayerRegistered)
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
         // require(msg.sender == _owner);
-        isPlayerRegistered = _isHackyRegisteredBool;
+        //isPlayerRegistered = _isRegistered[a];
+        isPlayerRegistered = true;
     }
-
 
     function register() public
     {
         _isRegistered[msg.sender] = true;
-        _isHackyRegisteredBool = true;
         setGold(100);
     }
 
@@ -98,7 +165,6 @@ contract TheGameContract
     function unregister() public
     {
         _isRegistered[msg.sender] = false;
-        _isHackyRegisteredBool = false;
         setGold(0);
     }
 
@@ -110,9 +176,9 @@ contract TheGameContract
     {
         require(goldAmount > 0, "goldAmount must be > 0 to start the game");
 
-        require(getGold() >= goldAmount, "getGold() must be >= goldAmount to start the game");
+        require(getGold(msg.sender) >= goldAmount, "getGold() must be >= goldAmount to start the game");
 
-        require(_isHackyRegisteredBool, "Must be registered to start the game.");
+        require(_isRegistered[msg.sender], "Must be registered to start the game.");
 
         // Deduct gold
         setGoldBy(-int(goldAmount));
@@ -149,9 +215,9 @@ contract TheGameContract
 
     }
 
-    function getRewardsHistory() public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
+    function getRewardsHistory(address userAddress) public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
     {
-        require(_isHackyRegisteredBool, "Must be registered to start the game.");
+        require(_isRegistered[userAddress], "Must be registered to start the game.");
 
         rewardTitle = _lastReward[msg.sender].Title;
         rewardType = _lastReward[msg.sender].Type;
@@ -174,9 +240,9 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GOLD
     ///////////////////////////////////////////////////////////
-    function getGold() public view returns (uint256 balance)
+    function getGold(address userAddress) public view returns (uint256 balance)
     {
-        balance = Gold(_goldContractAddress).getGold(msg.sender);
+        balance = Gold(_goldContractAddress).getGold(userAddress);
     }
 
 

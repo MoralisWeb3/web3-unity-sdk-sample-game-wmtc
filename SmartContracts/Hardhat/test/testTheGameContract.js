@@ -58,10 +58,10 @@ describe("The Game Contract", function ()
     it("Sets getGold to 0 when deployed", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
 
         // Act
-        const goldBalance = await theGameContract.getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(0);
@@ -71,35 +71,35 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets getGold to 10 when addTheGameContract 10", async function ()
+    it("Sets getGold to 10 when setGold 10", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
 
         // Act
-        //await theGameContract.addGold(10);
-        const goldBalance = await theGameContract.getGold();
+        await theGameContract.connect(addr1).setGold(10);
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
-        expect(goldBalance).to.equal(0);
+        expect(goldBalance).to.equal(10);
     }),
 
 
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets getGold to 05 when addTheGameContract 10 removTheGameContract 05", async function ()
+    it("Sets getGold to 05 when setGold 10 setGoldBy -6", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
 
         // Act
-        //await theGameContract.addGold(10);
-        //await theGameContract.removeGold(5);
-        const goldBalance = await theGameContract.getGold();
+        await theGameContract.connect(addr1).setGold(10);
+        await theGameContract.connect(addr1).setGoldBy(-5);
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
-        expect(goldBalance).to.equal(0);
+        expect(goldBalance).to.equal(5);
         
     }),
 
@@ -112,7 +112,7 @@ describe("The Game Contract", function ()
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
 
         // Act
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).isRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -128,7 +128,7 @@ describe("The Game Contract", function ()
 
         // Act
         await theGameContract.connect(addr1).register();
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).isRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(true);
@@ -144,7 +144,7 @@ describe("The Game Contract", function ()
 
         // Act
         await theGameContract.connect(addr1).register();
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(100);
@@ -162,7 +162,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
         await theGameContract.connect(addr1).setGold(1);
         await theGameContract.connect(addr1).unregister();
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(0);
@@ -179,7 +179,7 @@ describe("The Game Contract", function ()
         // Act
         await theGameContract.connect(addr1).register();
         await theGameContract.connect(addr1).unregister();
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).isRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -193,14 +193,11 @@ describe("The Game Contract", function ()
     it("Sets result to DEFAULTS when deployed, getRewardsHistory", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
-        await theGameContract.register();
-        var goldAmount = 10;
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
+        await theGameContract.connect(addr1).register();
 
         // Act
-        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.getRewardsHistory ();
-
-
+        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.connect(addr1).getRewardsHistory (addr1.address);
 
         // Expect
         expect(rewardTitle).to.equal("");
@@ -214,16 +211,16 @@ describe("The Game Contract", function ()
     it("Sets isRegistered to true when startGameAndGiveRewards (1)", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
-        await theGameContract.register();
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
+        await theGameContract.connect(addr1).register();
         var goldAmount = 10;
 
         // Act
-        await theGameContract.startGameAndGiveRewards (goldAmount);
-        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.getRewardsHistory ();
+        await theGameContract.connect(addr1).startGameAndGiveRewards (goldAmount);
+        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.connect(addr1).getRewardsHistory (addr1.address);
 
         // Expect
-        expect(rewardTitle).to.not.equal("");
+        expect(rewardTitle.length).to.not.equal(0);
         expect(rewardType).to.not.equal(0)
         expect(rewardPrice).to.not.equal(0)
     }),
@@ -234,15 +231,15 @@ describe("The Game Contract", function ()
     it("Throws revertedWith for startGameAndGiveRewards (100) when getGold() less than 100", async function ()
     {
         // Arrange
-        const { theGameContract } = await loadFixture(deployTokenFixture);
-        await theGameContract.register();
-        const goldBalance = await theGameContract.getGold();
+        const { theGameContract, addr1} = await loadFixture(deployTokenFixture);
+        await theGameContract.connect(addr1).register();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Act
         // Expect
         await expect 
             ( 
-                theGameContract.startGameAndGiveRewards (goldBalance + 10)
+                theGameContract.connect(addr1).startGameAndGiveRewards (goldBalance + 10)
             )
             .to.be.revertedWith("getGold() must be >= goldAmount to start the game");
     }),
@@ -261,7 +258,7 @@ describe("The Game Contract", function ()
         for (var i = 0; i< 100; i++)
         {
             // Act
-            const r = await theGameContract.randomRange(1, 10, nonce++);
+            const r = await theGameContract.connect(addr1).randomRange(1, 10, nonce++);
             
             // Expect
             expect(r).to.greaterThanOrEqual(min).and.lessThanOrEqual(max);
@@ -277,7 +274,7 @@ describe("The Game Contract", function ()
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
 
         // Act
-        const result = await theGameContract.connect(addr1).getMsgSender();
+        const result = await theGameContract.connect(addr1).getMsgSender(addr1.address);
         
         // Expect
         var string1 = String (result).toLocaleLowerCase();

@@ -43,7 +43,7 @@ describe("The Gold Contract", function ()
         const gold = await Gold.deploy();
 
         // Act
-        const totalSupply = await gold.totalSupply();
+        const totalSupply = await gold.connect(addr1).totalSupply();
 
         // Expect
         expect(totalSupply).to.equal(0);
@@ -58,10 +58,10 @@ describe("The Gold Contract", function ()
         const [owner, addr1] = await ethers.getSigners();
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
-        await gold.setGoldBy(addr1.address, 10);
+        await gold.connect(addr1).setGoldBy(addr1.address, 10);
 
         // Act
-        const totalSupply = await gold.totalSupply();
+        const totalSupply = await gold.connect(addr1).totalSupply();
 
         // Expect
         expect(totalSupply).to.equal(10);
@@ -78,7 +78,7 @@ describe("The Gold Contract", function ()
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalance = await gold.getGold(addr1.address);
+        const goldBalance = await gold.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(0);
@@ -95,9 +95,9 @@ describe("The Gold Contract", function ()
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalanceBefore = await gold.getGold(addr1.address);
-        await gold.setGold(addr1.address, goldBalanceBefore + 10);
-        const goldBalanceAfter = await gold.getGold(addr1.address);
+        const goldBalanceBefore = await gold.connect(addr1).getGold(addr1.address);
+        await gold.connect(addr1).setGold(addr1.address, goldBalanceBefore + 10);
+        const goldBalanceAfter = await gold.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(10);
@@ -115,12 +115,12 @@ describe("The Gold Contract", function ()
         const gold = await Gold.deploy();
 
         // Act
-        const goldBalanceBefore1 = await gold.getGold(addr1.address);
-        await gold.setGold(addr1.address, goldBalanceBefore1 + 10);
+        const goldBalanceBefore1 = await gold.connect(addr1).getGold(addr1.address);
+        await gold.connect(addr1).setGold(addr1.address, goldBalanceBefore1 + 10);
 
-        const goldBalanceBefore2 = await gold.getGold(addr1.address);
-        await gold.setGold(addr1.address, goldBalanceBefore2 - 5);
-        const goldBalanceAfter = await gold.getGold(addr1.address);
+        const goldBalanceBefore2 = await gold.connect(addr1).getGold(addr1.address);
+        await gold.connect(addr1).setGold(addr1.address, goldBalanceBefore2 - 5);
+        const goldBalanceAfter = await gold.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(5);
@@ -138,9 +138,9 @@ describe("The Gold Contract", function ()
         const gold = await Gold.deploy();
 
         // Act
-        await gold.setGoldBy(addr1.address, 10);
-        await gold.setGoldBy(addr1.address, -5);
-        const goldBalanceAfter = await gold.getGold(addr1.address);
+        await gold.connect(addr1).setGoldBy(addr1.address, 10);
+        await gold.connect(addr1).setGoldBy(addr1.address, -5);
+        const goldBalanceAfter = await gold.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalanceAfter).to.equal(5);
