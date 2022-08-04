@@ -7,7 +7,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
-#pragma warning disable 1998, 4014
+#pragma warning disable 1998, 4014, 414
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
@@ -33,18 +33,24 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [Header("References (Scene)")] [SerializeField]
         private Scene06_GameUI _ui;
 
-        [SerializeField] private TreasureChestUI _treasureChestUI = null;
+        [SerializeField] 
+        private TreasureChestUI _treasureChestUI = null;
 
-        [SerializeField] private CardsUI _cardsUI = null;
+        [SerializeField] 
+        private CardsUI _cardsUI = null;
 
-        [Header("Reference Points (Scene)")] [SerializeField]
+        [Header("Reference Points (Scene)")] 
+        [SerializeField]
         private ReferencePoint _treasureChestStartRP = null;
 
-        [SerializeField] private ReferencePoint _treasureChestEndRP = null;
+        [SerializeField] 
+        private ReferencePoint _treasureChestEndRP = null;
 
-        [SerializeField] private ReferencePoint _cardStartRP = null;
+        [SerializeField] 
+        private ReferencePoint _cardStartRP = null;
 
-        [SerializeField] private List<ReferencePoint> _cardEndRPs = null;
+        [SerializeField] 
+        private List<ReferencePoint> _cardEndRPs = null;
 
         private readonly List<int> _goldCostPerPlay = new List<int> { 10, 30, 150 };
 
@@ -57,7 +63,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         protected async void Start()
         {
             // 1. Listen to back button
-            _ui.ReplayButtonUI.Button.onClick.AddListener(ReplayButtonUI_OnClicked);
             _ui.Play01ButtonUI.Button.onClick.AddListener(Play01ButtonUI_OnClicked);
             _ui.Play02ButtonUI.Button.onClick.AddListener(Play02ButtonUI_OnClicked);
             _ui.Play03ButtonUI.Button.onClick.AddListener(Play03ButtonUI_OnClicked);
@@ -127,6 +132,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Event Handlers --------------------------------
         private async void ObservableGameState_OnValueChanged(GameState gameState)
         {
+            Debug.Log("gameState: " + gameState);
             switch (gameState)
             {
                 case GameState.Null:
@@ -158,7 +164,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     // Don't await this
                     _treasureChestUI.BounceWhileOpen();
 
-                    await _cardsUI.CreateCards(_cardStartRP, _cardEndRPs);
+                    await _cardsUI.ShowCardsForReward(_lastReward, _cardStartRP, _cardEndRPs);
                     
                     _observableGameState.Value = GameState.CardsEntered;
                     break;
@@ -208,14 +214,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             StartGame(_goldCostPerPlay[2]);
         }
 
-
-        private void ReplayButtonUI_OnClicked()
-        {
-            TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
-
-            // For debugging
-            TheGameSingleton.Instance.TheGameController.LoadGameSceneAsync();
-        }
 
 
         private void BackButtonUI_OnClicked()

@@ -23,14 +23,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		private CardUI _cardUIPrefab = null;
 		
 		// General Methods --------------------------------
-		public UniTask CreateCards(ReferencePoint cardStartReferencePoint, List<ReferencePoint> cardEndReferencePoints)
+		public UniTask ShowCardsForReward(Reward reward, ReferencePoint cardStartReferencePoint, List<ReferencePoint> cardEndReferencePoints)
 		{
 			int index = 0;
 			List<UniTask> uniTasks = new List<UniTask>();
 
 			foreach (ReferencePoint cardReferencePoint in cardEndReferencePoints)
 			{
-                UniTask uniTask = CreateCard(cardStartReferencePoint, cardReferencePoint, index++);
+                UniTask uniTask = CreateCard(reward, cardStartReferencePoint, cardReferencePoint, index++);
 				uniTasks.Add(uniTask);
 			}
 
@@ -39,9 +39,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 
 
 
-		private async UniTask CreateCard(ReferencePoint cardStartReferencePoint, ReferencePoint cardReferencePoint, int index)
+		private async UniTask CreateCard(Reward reward, ReferencePoint cardStartReferencePoint, ReferencePoint cardReferencePoint, int index)
 		{
 			CardUI cardUI = TheGameHelper.InstantiatePrefab<CardUI>(_cardUIPrefab, transform, cardReferencePoint.transform.position);
+
+			//Change the sprite graphics
+			TheGameHelper.SetCardUIForReward(cardUI, reward);
 
 			float duration = 0.5f;
 			float delay = 0.25f * index;

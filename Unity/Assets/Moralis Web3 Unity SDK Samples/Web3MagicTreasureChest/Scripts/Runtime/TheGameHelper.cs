@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,6 +53,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
         public const string RewardGold = "GOLD";
         public const string RewardPrize = "PRIZE";
 
+        public static void SetCardUIForReward(CardUI cardUI, Reward reward)
+        {
+            if (reward.Type == TheGameHelper.GetRewardType(RewardGold))
+            {
+                cardUI.SpriteRenderer.sprite = cardUI.GoldSprite;
+            }
+            else
+            {
+                cardUI.SpriteRenderer.sprite = cardUI.PrizeSprite;
+            }
+        }
+        
         public static T InstantiatePrefab<T>(T prefab, Transform parent, Vector3 worldPosition) where T : Component
         {
             T instance = GameObject.Instantiate<T>(prefab, parent);
@@ -90,7 +104,5 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
                 canvasGroup.alpha = 0;
             }
         }
-
-
     }
 }

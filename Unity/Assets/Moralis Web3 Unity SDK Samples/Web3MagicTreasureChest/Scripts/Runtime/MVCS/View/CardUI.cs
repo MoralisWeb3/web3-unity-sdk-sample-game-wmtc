@@ -8,10 +8,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 	public class CardUI : MonoBehaviour
 	{
 		// Properties -------------------------------------
-		private Sprite GoldSprite { get { return _goldSprite;}}
-		private Sprite PrizeSprite { get { return _prizeSprite;}}
-		
-		private SpriteRenderer SpriteRenderer { get { return _spriteRenderer;}}
+		public Sprite GoldSprite { get { return _goldSprite;}}
+		public Sprite PrizeSprite { get { return _prizeSprite;}}
+		public SpriteRenderer SpriteRenderer { get { return _spriteRenderer;}}
 		
 		// Fields -----------------------------------------
 		[Header("References (Scene)")] 
@@ -31,6 +30,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 
 		
 		// Event Handlers ---------------------------------
+
 
 	}
 }

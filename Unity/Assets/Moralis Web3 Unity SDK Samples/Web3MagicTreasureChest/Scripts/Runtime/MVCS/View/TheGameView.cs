@@ -40,6 +40,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			string message, 
 			Func<UniTask> task)
 		{
+			// Empty Message As it fades in
+			BaseScreenCoverUI.MessageText.text = "";
+			
 			BaseScreenCoverUI.BlocksRaycasts = true;
 			
 			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
@@ -54,10 +57,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 1, 0, 0.25f);
 			
 			BaseScreenCoverUI.BlocksRaycasts = false;
+			
+	
 		}
 		
 		public async UniTask ShowMessageWithDelayAsync(string message, int delayMilliseconds)
 		{
+			// Empty Message As it fades in
+			BaseScreenCoverUI.MessageText.text = "";
+			
 			BaseScreenCoverUI.BlocksRaycasts = true;
 			
 			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
@@ -72,6 +80,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 1, 0, 0.25f);
 			
 			BaseScreenCoverUI.BlocksRaycasts = false;
+			
+		
 		}
 		
 		public void UpdateMessageDuringMethod(string message, bool isAnimated = true)

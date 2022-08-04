@@ -10,8 +10,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 	public class Scene06_GameUI : Scene_UIWithTop
 	{
 		//  Properties ------------------------------------
-		public BaseButtonUI ReplayButtonUI { get { return _replayButtonUI; } }
-
 		public BaseButtonUI Play01ButtonUI { get { return _play01ButtonUI; } }
 		public BaseButtonUI Play02ButtonUI { get { return _play02ButtonUI; } }
 		public BaseButtonUI Play03ButtonUI { get { return _play03ButtonUI; } }
@@ -29,9 +27,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		[SerializeField]
 		private BaseButtonUI _play03ButtonUI = null;
-
-		[SerializeField]
-		private BaseButtonUI _replayButtonUI = null;
 
 		[SerializeField]
 		private BaseButtonUI _backButtonUI = null;
