@@ -407,6 +407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _messageText: {fileID: 2894704015386733334}
   _canvasGroup: {fileID: 7064067099407375988}
+  _panel: {fileID: 1152398270387092225}
 --- !u!1 &4732510892898842410
 GameObject:
   m_ObjectHideFlags: 0

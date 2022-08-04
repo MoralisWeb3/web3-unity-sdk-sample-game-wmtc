@@ -8,6 +8,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
 using UnityEngine;
+using Nft = MoralisUnity.Samples.Shared.Data.Types.Nft;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
@@ -21,12 +22,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		public PendingMessage PendingMessageActive { get { return _endingMessageActive; }}
 		public PendingMessage PendingMessagePassive { get { return _pendingMessagePassive; }}
 		
-		
 		// Fields -----------------------------------------
 		private readonly PendingMessage _endingMessageActive = new PendingMessage("Please confirm transaction\nin your wallet", 0);
 		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading...", 0);
 		private readonly TheGameContract _theGameContract = null;
-
+        
+        // Based on trial and error (and current network traffic)
+        //  This is how long it takes for the state to change on the blockchain
+        private const int DelayExtraAfterStateChangeMilliseconds = 5000;
 
 		// Initialization Methods -------------------------
 		public TheGameContractService()
@@ -38,18 +41,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         // DELAY Methods -------------------------
         public UniTask DelayExtraAfterStateChange()
         {
-            return UniTask.Delay(3000);
+            return UniTask.Delay(DelayExtraAfterStateChangeMilliseconds);
         }
 
         
         // DEBUGGING Methods -------------------------
-        public async UniTask<string> GetMsgSenderAsync()
+        public async UniTask<string> GetLastRegisteredAddress()
         {
-            string result = await _theGameContract.getMsgSender();
-            Debug.Log($"GetMsgSender() result = {result}");
+            string result = await _theGameContract.getLastRegisteredAddress();
             return result;
         }
-        
         
         // GETTER Methods -------------------------
         public async UniTask<bool> IsRegisteredAsync()
@@ -64,8 +65,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             Reward result = await _theGameContract.GetRewardsHistory();
             return result;
         }
-        
-        
+
+ 
+
+
         public async UniTask<int> GetGoldAsync()
         {
             int result = await _theGameContract.getGold();
@@ -101,9 +104,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
                 string ownerAddress = nftOwner.OwnerOf;
                 string tokenIdString = nftOwner.TokenId;
                 string metadata = nftOwner.TokenUri;
-                Debug.Log($"nftOwner ownerAddress={ownerAddress} tokenIdString={tokenIdString} metadata={metadata}");
-                TreasurePrizeDto treasurePrizeDto = TreasurePrizeDto.CreateNewFromMetadata(ownerAddress, tokenIdString, metadata) as TreasurePrizeDto;
-                Debug.Log("created :  " + treasurePrizeDto);
+                TreasurePrizeDto treasurePrizeDto = Nft.CreateNewFromMetadata<TreasurePrizeDto>(ownerAddress, tokenIdString, metadata);
                 treasurePrizeDtos.Add(treasurePrizeDto);
             }
 

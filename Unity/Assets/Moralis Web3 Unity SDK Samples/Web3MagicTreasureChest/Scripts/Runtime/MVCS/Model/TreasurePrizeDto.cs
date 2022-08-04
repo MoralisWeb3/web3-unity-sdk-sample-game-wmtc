@@ -30,7 +30,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
         {
 
         }
+        public TreasurePrizeDto () : base() 
+        {
 
+        }
         // General Methods --------------------------------
 
         /// <summary>

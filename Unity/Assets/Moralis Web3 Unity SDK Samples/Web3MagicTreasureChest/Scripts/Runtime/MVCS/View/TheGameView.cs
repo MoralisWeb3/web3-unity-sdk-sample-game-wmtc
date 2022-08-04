@@ -1,7 +1,5 @@
 using System;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Helpers;
@@ -29,6 +27,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		[SerializeField] 
 		private BaseScreenMessageUI _baseScreenMessageUI = null;
 
+		private static readonly Vector3 SmallScale = new Vector3(.75f, .75f, .75f);
+		private static readonly Vector3 FullScale = new Vector3(1, 1, 1);
+		
 		//[Header("References (Project)")] 
 	
 		// General Methods --------------------------------
@@ -40,22 +41,58 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			Func<UniTask> task)
 		{
 			BaseScreenCoverUI.BlocksRaycasts = true;
+			
+			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
+				SmallScale, FullScale, 0.25f, 0);
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 0, 1, 0.25f);
-			BaseScreenCoverUI.MessageText.text = message;
+			
+			UpdateMessageDuringMethod(message, false);
 			await task();
+			
+			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
+				FullScale, SmallScale, 0.25f, 0);
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 1, 0, 0.25f);
+			
 			BaseScreenCoverUI.BlocksRaycasts = false;
 		}
 		
 		public async UniTask ShowMessageWithDelayAsync(string message, int delayMilliseconds)
 		{
 			BaseScreenCoverUI.BlocksRaycasts = true;
+			
+			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
+				SmallScale, FullScale, 0.25f, 0);
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 0, 1, 0.25f);
-			BaseScreenCoverUI.MessageText.text = message;
+			
+			UpdateMessageDuringMethod(message, false);
 			await UniTask.Delay(delayMilliseconds);
+			
+			TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
+				FullScale, SmallScale, 0.25f, 0);
 			await TweenHelper.AlphaDoFade(BaseScreenCoverUI, 1, 0, 0.25f);
+			
 			BaseScreenCoverUI.BlocksRaycasts = false;
 		}
+		
+		public void UpdateMessageDuringMethod(string message, bool isAnimated = true)
+		{
+			if (isAnimated)
+			{
+				TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel,
+					FullScale, SmallScale, 0.25f, 0).onComplete = () =>
+				{
+					BaseScreenCoverUI.MessageText.text = message;
+			
+					TweenHelper.TransformDoScale(BaseScreenCoverUI.Panel, 
+						SmallScale, FullScale, 0.25f, 0);
+				};
+			}
+			else
+			{
+				BaseScreenCoverUI.MessageText.text = message;
+			}
+		}
+
 
 		/// <summary>
 		/// Play generic click sound
@@ -66,6 +103,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		}
 		
 		// Event Handlers ---------------------------------
+
 
 	}
 }

@@ -45,6 +45,7 @@ namespace MoralisUnity.Samples.Shared
         public const string Main = "Main";
         public const string Details = "Details";
         public const string Loading = "Loading ...";
+        public static string WaitingForTransaction = "Waiting for Transaction To Complete";
         public const string Success = "Success!";
         public const string Type = "Type";
         public const string LogOut = "Log Out";
@@ -86,5 +87,6 @@ namespace MoralisUnity.Samples.Shared
         public const string AddressForTesting = "0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf";
         public const string TokenAddressForTesting = "0x00000000219ab540356cbb839cbe05303d7705fa";
         public static string WalletConnectNullReferenceException = $"WalletConnect.Instance must not be null. Add the WalletConnect.prefab to your scene.";
+        
     }
 }

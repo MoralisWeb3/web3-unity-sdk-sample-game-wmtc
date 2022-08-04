@@ -34,7 +34,10 @@ namespace MoralisUnity.Samples.Shared.UI
             }
             set
             {
-                _canvasGroup.interactable = value;
+                if (_canvasGroup != null)
+                {
+                    _canvasGroup.interactable = value;
+                }
             }
         }
 

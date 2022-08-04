@@ -38,6 +38,11 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			Initialize(ownerAddress, NullTokenId, metadata);
 		}
 		
+		public Nft()
+		{
+		
+		}
+		
 		/// <summary>
 		/// Created from service by loading data
 		/// </summary>
@@ -56,7 +61,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 		
 		// General Methods --------------------------------
 
-		public static Nft CreateNewFromMetadata(string ownerAddress, string newTokenIdString, string metadata)
+		public static T CreateNewFromMetadata<T>(string ownerAddress, string newTokenIdString, string metadata) where T : Nft, new()
 		{
 			int tokenId = NullTokenId;
 			
@@ -65,10 +70,17 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			{
 				tokenId = int.Parse(newTokenIdString);
 			}
-				
-			return new Nft(ownerAddress, metadata);
+
+			T t = new T();
+			t.Initialize(ownerAddress, tokenId,  metadata);
+			return t;
 		}
-		
+
+		public override string ToString()
+		{
+			return $"[{GetType().Name}(_ownerAddress = {_ownerAddress}, _tokenId = {_tokenId}, _metadata = {_metadata})]";
+		}
+
 		// Event Handlers ---------------------------------
 
 	}

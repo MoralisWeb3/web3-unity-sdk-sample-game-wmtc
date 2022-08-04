@@ -55,12 +55,18 @@ namespace MoralisUnity.Samples.Shared.UI
 		
 		public TMP_Text MessageText { get { return _messageText;}}
 
+		public GameObject Panel { get { return _panel; }}
+
 		// Fields -----------------------------------------
 		[SerializeField]
 		private TMP_Text _messageText = null;
 		
 		[SerializeField]
 		private CanvasGroup _canvasGroup = null;
+		
+		[SerializeField] 
+		private GameObject _panel = null;
+
 		
 		// Unity Methods ----------------------------------
 		

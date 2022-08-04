@@ -84,17 +84,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			bool isRegistered = await _theGameService.IsRegisteredAsync();
 			_theGameModel.IsRegistered.Value = isRegistered;
 
-			// Call Service. Sync Model
-			int gold = await GetGoldAsync();
-			_theGameModel.Gold.Value = gold;
+			if (_theGameModel.IsRegistered.Value)
+			{
+				// Call Service. Sync Model
+				int gold = await GetGoldAsync();
+				_theGameModel.Gold.Value = gold;
 
+				// Call Service. Sync Model
+				List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+				_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
+			}
+			
 			// Call Service
-			string msgSender = await _theGameService.GetMsgSenderAsync();
-
-			// Call Service. Sync Model
-			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
-
+			//string lastRegisteredAddress = await _theGameService.GetLastRegisteredAddress();
+			//Debug.Log("lastRegisteredAddress: " + lastRegisteredAddress);
+			
 			return _theGameModel.IsRegistered.Value;
 		}
 
@@ -129,6 +133,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 		}
 
@@ -138,6 +143,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 		}
 
@@ -150,6 +156,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.Gold.Value = gold;
 			
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 			
 			return gold;
@@ -161,6 +168,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
 			
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
@@ -175,6 +183,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
 
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 			
 			int gold = await GetGoldAsync();
@@ -190,6 +199,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.DeleteAllTreasurePrizeAsync();
 
 			// Wait for contract values to sync so the client will see the changes
+			_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 			await _theGameService.DelayExtraAfterStateChange();
 
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
@@ -216,6 +226,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				_theGameModel.Gold.Value = gold;
 			
 				// Wait for contract values to sync so the client will see the changes
+				_theGameView.UpdateMessageDuringMethod(SharedConstants.WaitingForTransaction);
 				await _theGameService.DelayExtraAfterStateChange();
 			
 				Reward reward = await _theGameService.GetRewardsHistoryAsync();

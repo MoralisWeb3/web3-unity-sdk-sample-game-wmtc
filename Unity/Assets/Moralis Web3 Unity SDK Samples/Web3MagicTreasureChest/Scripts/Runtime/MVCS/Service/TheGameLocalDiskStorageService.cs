@@ -61,19 +61,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return UniTask.Delay(DelayExtraSimulatedAfterStateChange);
 		}
 		
-		// DEBUGGING Methods -------------------------
-		public async UniTask<string> GetMsgSenderAsync()
-		{
-			await UniTask.Delay(DelaySimulatedPerMethod);
-			return "test from localdiskstorage";
-		}
-		
 		//  GETTER - LocalDiskStorage Methods --------------------------------
 		public UniTask<Reward> GetRewardsHistoryAsync()
 		{
 			return new UniTask<Reward>(_lastReward); 
 		}
-		
+
+		public async UniTask<string> GetLastRegisteredAddress()
+		{
+			await UniTask.Delay(DelaySimulatedPerMethod);
+			return "Test from LocalDiskStorage";
+		}
+
 		public async UniTask<bool> IsRegisteredAsync()
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);

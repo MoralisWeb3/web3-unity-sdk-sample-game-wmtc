@@ -10,8 +10,6 @@ import "contracts/Gold.sol";
 import "contracts/TreasurePrize.sol";
 
 
-
-
 ///////////////////////////////////////////////////////////
 // CLASS
 //      *   Description         :   The proxy contact
@@ -43,7 +41,7 @@ contract TheGameContract
     // Stores address of the TreasurePrize contract, to be called
     address _treasurePrizeContractAddress;
 
-    bool _isHackyRegisteredBool = false;
+    address _lastRegisteredAddress;
 
     mapping(address => bool) private _isRegistered;
 
@@ -66,40 +64,122 @@ contract TheGameContract
         );
     }
 
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: HELPERS
+    ///////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////
-    // FUNCTIONS: DEBUGGING
-    ///////////////////////////////////////////////////////////
-    function getMsgSender() public view returns (string memory msgSender)
+    function fromHexChar(uint8 c) public pure returns (uint8) 
     {
-        msgSender = Strings.toHexString(uint256(uint160(msg.sender)), 20);
+        if (bytes1(c) >= bytes1('0') && bytes1(c) <= bytes1('9')) {
+            return c - uint8(bytes1('0'));
+        }
+        if (bytes1(c) >= bytes1('a') && bytes1(c) <= bytes1('f')) {
+            return 10 + c - uint8(bytes1('a'));
+        }
+        if (bytes1(c) >= bytes1('A') && bytes1(c) <= bytes1('F')) {
+            return 10 + c - uint8(bytes1('A'));
+        }
+        return 0;
+    }
+
+   function hexStringToAddress(string memory s) public pure returns (bytes memory) 
+   {
+        bytes memory ss = bytes(s);
+        require(ss.length%2 == 0); // length must be even
+        bytes memory r = new bytes(ss.length/2);
+        for (uint i=0; i<ss.length/2; ++i) {
+            r[i] = bytes1(fromHexChar(uint8(ss[2*i])) * 16 +
+                        fromHexChar(uint8(ss[2*i+1])));
+        }
+
+        return r;
+
+    }
+
+    function toAddress(string memory s) public pure returns (address) 
+    {
+        bytes memory _bytes = hexStringToAddress(s);
+        require(_bytes.length >= 1 + 20, "toAddress_outOfBounds");
+        address tempAddress;
+
+        assembly {
+            tempAddress := div(mload(add(add(_bytes, 0x20), 1)), 0x1000000000000000000000000)
+        }
+
+        return tempAddress;
     }
 
     ///////////////////////////////////////////////////////////
-    // FUNCTIONS: REGISTRATION
+    // FUNCTIONS: RANDOM
     ///////////////////////////////////////////////////////////
+    function randomRange (uint min, uint max, uint nonce) public view returns (uint) 
+    {
+        // The nonce is especially useful for unit-tests where the block **MAYBE** will not change enough
+        uint randomnumber = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, nonce))) % (max);
+        randomnumber = randomnumber + min;
+        return randomnumber;
+    }
+    
+
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: GETTERS
+    ///////////////////////////////////////////////////////////
+    function getLastRegisteredAddress() public view returns (string memory lastRegisteredAddress)
+    {
+        lastRegisteredAddress = Strings.toHexString(uint256(uint160(_lastRegisteredAddress)), 20);
+    }
+
+
     function isRegistered() public view returns (bool isPlayerRegistered)
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
         // require(msg.sender == _owner);
-        isPlayerRegistered = _isHackyRegisteredBool;
+        isPlayerRegistered = _isRegistered[_lastRegisteredAddress];
     }
 
 
+    function getGold() public view returns (uint256 balance)
+    {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
+        balance = Gold(_goldContractAddress).getGold(_lastRegisteredAddress);
+    }
+
+
+    function getRewardsHistory() public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
+    {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
+        rewardTitle = _lastReward[_lastRegisteredAddress].Title;
+        rewardType = _lastReward[_lastRegisteredAddress].Type;
+        rewardPrice = _lastReward[_lastRegisteredAddress].Price;
+    }
+
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: REGISTRATION
+    ///////////////////////////////////////////////////////////
     function register() public
     {
-        _isRegistered[msg.sender] = true;
-        _isHackyRegisteredBool = true;
+        _lastRegisteredAddress = msg.sender;
+        _isRegistered[_lastRegisteredAddress] = true;
         setGold(100);
     }
 
 
     function unregister() public
     {
-        _isRegistered[msg.sender] = false;
-        _isHackyRegisteredBool = false;
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
+        //Update gold first
         setGold(0);
+
+        //Then unregister
+        _isRegistered[_lastRegisteredAddress] = false;
+        _lastRegisteredAddress = address(0);
+        
     }
 
 
@@ -112,7 +192,7 @@ contract TheGameContract
 
         require(getGold() >= goldAmount, "getGold() must be >= goldAmount to start the game");
 
-        require(_isHackyRegisteredBool, "Must be registered to start the game.");
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
 
         // Deduct gold
         setGoldBy(-int(goldAmount));
@@ -149,45 +229,25 @@ contract TheGameContract
 
     }
 
-    function getRewardsHistory() public view returns (string memory rewardTitle, uint rewardType, uint rewardPrice )
-    {
-        require(_isHackyRegisteredBool, "Must be registered to start the game.");
-
-        rewardTitle = _lastReward[msg.sender].Title;
-        rewardType = _lastReward[msg.sender].Type;
-        rewardPrice = _lastReward[msg.sender].Price;
-    }
-
-
-    ///////////////////////////////////////////////////////////
-    // FUNCTIONS: RANDOM
-    ///////////////////////////////////////////////////////////
-    function randomRange (uint min, uint max, uint nonce) public view returns (uint) 
-    {
-        // The nonce is especially useful for unit-tests where the block **MAYBE** will not change enough
-        uint randomnumber = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, nonce))) % (max);
-        randomnumber = randomnumber + min;
-        return randomnumber;
-    }
-    
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GOLD
     ///////////////////////////////////////////////////////////
-    function getGold() public view returns (uint256 balance)
-    {
-        balance = Gold(_goldContractAddress).getGold(msg.sender);
-    }
+
 
 
     function setGold(uint256 targetBalance) public
     {
-        Gold(_goldContractAddress).setGold(msg.sender, targetBalance);
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
+        Gold(_goldContractAddress).setGold(_lastRegisteredAddress, targetBalance);
     }
 
 
     function setGoldBy(int delta) public
     {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
         Gold(_goldContractAddress).setGoldBy(msg.sender, delta); 
     }
 
@@ -197,18 +257,24 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     function mintNft(string memory tokenURI) public 
     {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
         TreasurePrize(_treasurePrizeContractAddress).mintNft(msg.sender, tokenURI);
     }
 
 
     function burnNft(uint256 tokenId) public
     {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
         TreasurePrize(_treasurePrizeContractAddress).burnNft(tokenId);
     }
 
 
     function burnNfts(uint256[] calldata tokenIds) public
     {
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
         TreasurePrize(_treasurePrizeContractAddress).burnNfts(tokenIds); 
     }
 }

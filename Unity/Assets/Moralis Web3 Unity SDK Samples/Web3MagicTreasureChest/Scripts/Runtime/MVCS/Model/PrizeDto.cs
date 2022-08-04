@@ -20,7 +20,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		public PrizeDto(string ownerAddress, string metadata) : base (ownerAddress, metadata)
 		{
 		}
-
+		public PrizeDto() : base ()
+		{
+		}
 
 		// General Methods --------------------------------
 
