@@ -5,6 +5,7 @@ using System.Text;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Exceptions;
+using MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions;
 using UnityEngine;
 
 #pragma warning disable 1998, 4014, 414
@@ -43,8 +44,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 async delegate ()
                 {
                     // Refresh the model
-                    await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    
+                    if (!isRegisteredAsync)
+                    {
+                        throw new RequiredIsRegisteredException();
+                    }
 
+               
                     
                     List<TreasurePrizeDto> treasurePrizeDtos = 
                         await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
@@ -66,10 +73,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         _titleTextBuilder.AppendLine("");
                         _titleTextBuilder.AppendLine("Selling items is not yet supported.");
                     }
+                    
+                    //Refresh after async
                     await RefreshUI();
                 });
-
-            
         }
 
         //  General Methods -------------------------------

@@ -394,6 +394,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c8fa24db406244db3ad98c3d511c21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1047172022 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5302162188967417741, guid: a41feed31bcc36541a7a9505212ddc63, type: 3}
+  m_PrefabInstance: {fileID: 1047172019}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801bffbf4c62cc244b55ea230d19649d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1159082754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -637,6 +648,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6595551881201933864, guid: 14612a0e2cea4a641af67faf95aa0230, type: 3}
+      propertyPath: _walletConnect
+      value: 
+      objectReference: {fileID: 1047172022}
     - target: {fileID: 6595551881201933864, guid: 14612a0e2cea4a641af67faf95aa0230, type: 3}
       propertyPath: _authenticationKit
       value: 

@@ -25,6 +25,10 @@ namespace MoralisUnity.Samples.Shared.UI
 
 		}
 		
+		protected virtual void OnDestroy()
+		{
+
+		}
 		
 		// General Methods --------------------------------
 

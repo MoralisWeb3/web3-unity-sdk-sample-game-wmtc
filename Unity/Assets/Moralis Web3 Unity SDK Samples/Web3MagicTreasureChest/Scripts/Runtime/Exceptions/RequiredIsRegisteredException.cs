@@ -1,11 +1,11 @@
 using System;
 
-namespace MoralisUnity.Samples.Shared.Exceptions
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions
 {
     /// <summary>
-    /// Thrown when initialization is required but not complete.
+    /// Thrown when isRegistered is required true but is not true.
     /// </summary>
-    public class RequiredMoralisUserException : Exception
+    public class RequiredIsRegisteredException : Exception
     {
         //  Properties ------------------------------------
 
@@ -14,8 +14,8 @@ namespace MoralisUnity.Samples.Shared.Exceptions
 
 
         //  Constructor Methods ---------------------------
-        public RequiredMoralisUserException() :
-            base($"Required MoralisUser. Must Authenticate. ")
+        public RequiredIsRegisteredException() :
+            base($"IsRegistered Must Be True. Must Register. ")
         {
 
         }

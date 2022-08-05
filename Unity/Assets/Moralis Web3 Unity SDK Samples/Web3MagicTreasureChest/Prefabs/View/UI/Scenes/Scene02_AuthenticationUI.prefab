@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8bb90ea9f63c449abbf6d836efa13a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walletConnect: {fileID: 0}
   _backButtonUI: {fileID: 3979218737140752870}
   _authenticationKit: {fileID: 0}
 --- !u!224 &6545466353045086795 stripped

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>9/9</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/3</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/9</span>
+        <span class='fraction'>9/9</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -123,7 +123,10 @@
 78
 79
 80
-81</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+81
+82
+83
+84</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,9 +165,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,28 +180,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,11 +246,11 @@ contract Prize is ERC721URIStorage
     // CONSTRUCTOR
     //      *   Runs when contract is executed
     ///////////////////////////////////////////////////////////
-<span class="fstat-no" title="function not covered" >    constructor(string memory name, string memory symbol) ERC721 (name, symbol) </span>
+    constructor(string memory name, string memory symbol) ERC721 (name, symbol) 
     {
-<span class="cstat-no" title="statement not covered" >        _owner = msg.sender</span>;
+        _owner = msg.sender;
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        console.log(</span>
+        console.log(
             "Prize.constructor() _owner = %s",
             _owner
         );
@@ -255,30 +261,33 @@ contract Prize is ERC721URIStorage
     // FUNCTION: 
     //      *   Create New Prize
     ///////////////////////////////////////////////////////////
-<span class="fstat-no" title="function not covered" >    function mintPropertyNft(string memory tokenURI) public returns (uint256)</span>
+    function mintNft(address origin, string memory tokenURI) public
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == owner);
+        uint256 newItemId = _tokenIds.current();
+        _tokenIds.increment();
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        uint256 newItemId = _tokenIds.current();</span>
-<span class="cstat-no" title="statement not covered" >        _mint(msg.sender, newItemId)</span>;
-<span class="cstat-no" title="statement not covered" >        _setTokenURI(newItemId, tokenURI)</span>;
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        _tokenIds.increment()</span>;
-<span class="cstat-no" title="statement not covered" >        return newItemId;</span>
+        _mint(origin, newItemId);
+        _setTokenURI(newItemId, tokenURI);
     }
 &nbsp;
     ///////////////////////////////////////////////////////////
     // FUNCTION: 
     //      *   Delete Existing Prize
     ///////////////////////////////////////////////////////////
-<span class="fstat-no" title="function not covered" >    function burnPropertyNft(uint256 tokenId) public returns (string memory) </span>
+    function burnNft (uint256 tokenId) public
     {
-        // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
-        // require(msg.sender == owner);
+        _burn(tokenId);
+    }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        _burn(tokenId)</span>;
-<span class="cstat-no" title="statement not covered" >        return "Success!";</span>
+    ///////////////////////////////////////////////////////////
+    // FUNCTION: 
+    //      *   Delete Existing Prizes
+    ///////////////////////////////////////////////////////////
+    function burnNfts(uint256[] calldata tokenIds) public 
+    {
+        for (uint i=0; i&lt;tokenIds.length; i++) {
+            burnNft (tokenIds[i]);
+        }
     }
 }
 &nbsp;
@@ -289,7 +298,7 @@ contract Prize is ERC721URIStorage
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Aug 01 2022 16:08:06 GMT+0100 (British Summer Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Aug 05 2022 18:19:32 GMT+0100 (British Summer Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

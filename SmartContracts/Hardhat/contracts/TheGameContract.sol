@@ -8,6 +8,8 @@ pragma solidity ^0.8.9;
 import "hardhat/console.sol";
 import "contracts/Gold.sol";
 import "contracts/TreasurePrize.sol";
+import "classes/Reward.sol";
+import { TheGameLibrary } from "libraries/TheGameLibrary.sol";
 
 
 ///////////////////////////////////////////////////////////
@@ -18,16 +20,6 @@ import "contracts/TreasurePrize.sol";
 ///////////////////////////////////////////////////////////
 contract TheGameContract
 {
-
-    ///////////////////////////////////////////////////////////
-    // STRUCTS
-    ///////////////////////////////////////////////////////////
-    struct Reward 
-    {
-        string Title;
-        uint Type;
-        uint Price;
-    }
 
     ///////////////////////////////////////////////////////////
     // FIELDS
@@ -60,39 +52,10 @@ contract TheGameContract
             _treasurePrizeContractAddress
         );
     }
-
-    ///////////////////////////////////////////////////////////
-    // FUNCTIONS: HELPER
-    ///////////////////////////////////////////////////////////
-    function randomRange (uint min, uint max, uint nonce) public view returns (uint) 
-    {
-        // The nonce is especially useful for unit-tests, to ensure variation
-        uint randomnumber = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, nonce))) % (max);
-        randomnumber = randomnumber + min;
-        return randomnumber;
-    }
     
-    function convertRewardToString (Reward memory reward) public pure returns (string memory rewardString) 
-    {
-        rewardString = string(abi.encodePacked("Title=", reward.Title, "|Type=", reward.Type, "|Price=", reward.Price));
-    }
     
-
     ///////////////////////////////////////////////////////////
-    // FUNCTIONS: DEBUGGING ONLY - CONFIRMING WHAT'S POSSIBLE
-    ///////////////////////////////////////////////////////////
-    function getMessage(string memory messageIn) external pure returns (string memory messageOut)
-    {
-        messageOut = messageIn;
-    }
-
-    function getAddress(address addressIn) external pure returns (address addressOut)
-    {
-        addressOut = addressIn;
-    }
-
-    ///////////////////////////////////////////////////////////
-    // FUNCTIONS: MODIFIERS
+    // MODIFIERS 
     ///////////////////////////////////////////////////////////
     modifier ensureIsRegistered (address userAddress)
     {
@@ -104,11 +67,23 @@ contract TheGameContract
     }
 
 
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: DEBUGGING ONLY 
+    ///////////////////////////////////////////////////////////
+    function getMessage(string memory messageIn) external pure returns (string memory messageOut)
+    {
+        messageOut = messageIn;
+    }
+
+    function getAddress(address addressIn) external pure returns (address addressOut)
+    {
+        addressOut = addressIn;
+    }
+
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GETTERS
     ///////////////////////////////////////////////////////////
-
     function getIsRegistered(address userAddress) public view returns (bool isRegistered) 
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
@@ -127,7 +102,7 @@ contract TheGameContract
 
     function getRewardsHistory(address userAddress) external view ensureIsRegistered (userAddress) returns (string memory rewardString)
     {
-        rewardString = convertRewardToString(_lastReward[userAddress]);
+        rewardString =  TheGameLibrary.convertRewardToString(_lastReward[userAddress]);
     }
 
 
@@ -165,7 +140,7 @@ contract TheGameContract
         // Deduct gold
         setGoldBy(-int(goldAmount));
 
-        uint random = randomRange (0, 100, 1);
+        uint random = TheGameLibrary.randomRange (0, 100, 1);
         uint price = random;
         uint theType = 0;
         string memory title = "";
@@ -194,11 +169,9 @@ contract TheGameContract
         if (theType == 2)
         {
             //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
-            string memory metadata = convertRewardToString(_lastReward[msg.sender]);
+            string memory metadata = TheGameLibrary.convertRewardToString(_lastReward[msg.sender]);
             addTreasurePrize (metadata);     
         }
-
-
     }
 
 

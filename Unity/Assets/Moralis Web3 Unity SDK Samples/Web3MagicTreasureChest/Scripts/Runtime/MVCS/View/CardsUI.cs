@@ -16,21 +16,29 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		public CardUI CardUIPrefab { get { return _cardUIPrefab;}}
 		
 		// Fields -----------------------------------------
-		//[Header("References (Scene)")] 
-		
 		[Header("References (Project)")] 
 		[SerializeField] 
 		private CardUI _cardUIPrefab = null;
 		
+		[Header("Reference Points (Scene)")] 
+		[SerializeField] 
+		private ReferencePoint _cardStartRP = null;
+
+		[SerializeField] 
+		private ReferencePoint _cardEndRP = null;
+		
 		// General Methods --------------------------------
-		public UniTask ShowCardsForReward(Reward reward, ReferencePoint cardStartReferencePoint, List<ReferencePoint> cardEndReferencePoints)
+		public UniTask ShowCardsForReward(Reward reward)
 		{
 			int index = 0;
 			List<UniTask> uniTasks = new List<UniTask>();
 
-			foreach (ReferencePoint cardReferencePoint in cardEndReferencePoints)
+			// Optional: Add multiple cards and ref points in the future
+			List<ReferencePoint> cardEndReferencePoints = new List<ReferencePoint>();
+			cardEndReferencePoints.Add(_cardStartRP);
+			foreach (ReferencePoint nextStartCardRP in cardEndReferencePoints)
 			{
-                UniTask uniTask = CreateCard(reward, cardStartReferencePoint, cardReferencePoint, index++);
+                UniTask uniTask = CreateCard(reward, nextStartCardRP, _cardEndRP, index++);
 				uniTasks.Add(uniTask);
 			}
 

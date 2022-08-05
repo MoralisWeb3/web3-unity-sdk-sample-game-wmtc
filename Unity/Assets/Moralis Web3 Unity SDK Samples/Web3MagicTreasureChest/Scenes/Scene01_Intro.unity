@@ -467,7 +467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ui: {fileID: 1326434991}
-  _walletConnect: {fileID: 1645543145}
 --- !u!1001 &1468328334
 PrefabInstance:
   m_ObjectHideFlags: 0

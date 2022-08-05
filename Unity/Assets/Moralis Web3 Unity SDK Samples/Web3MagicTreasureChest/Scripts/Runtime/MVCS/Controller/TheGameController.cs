@@ -12,6 +12,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
+using WalletConnectSharp.Unity;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
@@ -114,9 +115,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return gold;
 		}
 		
-		public async UniTask<string> GetRewardsHistoryAsync()
+		public async UniTask<Reward> GetRewardsHistoryAsync()
 		{
-			string result = await _theGameService.GetRewardsHistoryAsync();
+			Reward result = await _theGameService.GetRewardsHistoryAsync();
+
 			return result;
 		}
 
@@ -205,11 +207,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await DelayExtraAfterStateChange();
 		}
 
-		public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
+		public async UniTask<Reward> StartGameAndGiveRewardsAsync(int goldAmount)
 		{
 			if (goldAmount > _theGameModel.Gold.Value)
             {
-				Debug.LogWarning("Not enough gold to play. Cancel. That is ok. Go sell nfts or unregister.");
+				//Not enough gold to play
+				return null;
             }
 			else
 			{
@@ -226,16 +229,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				// Wait for contract values to sync so the client will see the changes
 				await DelayExtraAfterStateChange();
 			
-				string reward = await _theGameService.GetRewardsHistoryAsync();
-				
-				// TODO: Remove after both services work 100%
-				StringBuilder output = new StringBuilder();
-				output.AppendHeaderLine($"GetRewardsHistoryAsync()...\n");
-				output.AppendBullet($"Gold Spent = {goldAmount}");
-				output.AppendBullet($"reward.Title = {reward}");
-				output.AppendBullet($"reward.Type = {reward}");
-				output.AppendBullet($"reward.Price = {reward}");
-				Debug.LogWarning(output);
+				Reward reward = await _theGameService.GetRewardsHistoryAsync();
+				return reward;
 
 			}
 		}
@@ -353,6 +348,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			if (_theGameView.BaseScreenCoverUI.IsVisible)
 			{
 				_theGameView.BaseScreenCoverUI.IsVisible = false;
+			}
+			
+			
+			// HACK: The WalletConnect prefab is not a robust Singleton pattern.
+			// It does not work well if the prefab is in 2 or more scenes that are used at runtime. The 2 or more instances conflict.
+			// So I manually delete the current one BEFORE the next scene loads. Works 100%
+			if (WalletConnect.Instance != null)
+			{
+				Debug.LogWarning("GameObject.Destroy(WalletConnect.Instance.gameObject);");
+				GameObject.Destroy(WalletConnect.Instance.gameObject);
 			}
 
 

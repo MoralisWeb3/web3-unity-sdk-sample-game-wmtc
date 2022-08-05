@@ -586,8 +586,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71557a529a4ea9246890d3e4f386d226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _topUI: {fileID: 1685779227013988149}
   _walletConnect: {fileID: 0}
+  _topUI: {fileID: 1685779227013988149}
   _play01ButtonUI: {fileID: 8528729158267956416}
   _play02ButtonUI: {fileID: 2275432921828314017}
   _play03ButtonUI: {fileID: 5789606126202732663}

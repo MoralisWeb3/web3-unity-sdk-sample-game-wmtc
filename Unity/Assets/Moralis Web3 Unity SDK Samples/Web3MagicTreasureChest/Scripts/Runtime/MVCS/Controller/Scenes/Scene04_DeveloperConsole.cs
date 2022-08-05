@@ -233,7 +233,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         Title = "test 123",
                         Price = 10
                     };
-                    string metadata = TreasurePrizeDto.ConvertMetadataObjectToString(treasurePrizeMetadata);
+                    string metadata = TheGameHelper.ConvertMetadataObjectToString(treasurePrizeMetadata);
                     TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto(moralisUser.ethAddress, metadata);
                     List <TreasurePrizeDto> treasurePrizeDtos = 
                         await TheGameSingleton.Instance.TheGameController.AddTreasurePrizeAsync(treasurePrizeDto);
@@ -327,14 +327,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     int goldAmount = 22;
                     await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(goldAmount);
 
-                    string reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
+                    Reward reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
                     
                     _outputTextStringBuilder.Clear();
                     _outputTextStringBuilder.AppendHeaderLine($"StartGameAndGiveRewards()");
                     _outputTextStringBuilder.AppendBullet($"Gold Spent = {goldAmount}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Title = {reward}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Type = {reward}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Price = {reward}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Title = {reward.Title}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Type = {reward.Type}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Price = {reward.Price}");
                     
 
                     await RefreshUI();

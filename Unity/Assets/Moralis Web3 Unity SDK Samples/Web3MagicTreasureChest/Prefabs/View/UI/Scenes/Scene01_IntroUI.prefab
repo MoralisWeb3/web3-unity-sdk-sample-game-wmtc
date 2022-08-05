@@ -1368,6 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f645303ef60fb438c533cf6375c969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walletConnect: {fileID: 0}
   _topUI: {fileID: 4055174784349646844}
   _cameraUI: {fileID: 0}
   _playGameButtonUI: {fileID: 478855075496982873}

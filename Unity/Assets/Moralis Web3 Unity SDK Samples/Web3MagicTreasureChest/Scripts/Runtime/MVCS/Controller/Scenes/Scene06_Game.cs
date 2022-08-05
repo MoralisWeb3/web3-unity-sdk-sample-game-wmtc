@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Exceptions;
+using MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
@@ -32,13 +33,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField] 
         private CardsUI _cardsUI = null;
 
-        [Header("Reference Points (Scene)")] 
-        [SerializeField] 
-        private ReferencePoint _cardStartRP = null;
-
-        [SerializeField] 
-        private List<ReferencePoint> _cardEndRPs = null;
-
+        [Header("Reference Points (Scene)")]
         private readonly List<int> _goldCostPerPlay = new List<int> { 10, 30, 150 };
 
         private int _lastGoldOwned = 0;
@@ -84,12 +79,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate()
                 {
-                    // TODO: make a method of 'Refresh?'
                     // Refresh the model
-                    await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    
+                    if (!isRegisteredAsync)
+                    {
+                        throw new RequiredIsRegisteredException();
+                    }
 
                     //Refresh after async
                     RefreshUI();
+
                     
                 });
         }
@@ -139,18 +139,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         async delegate()
                         {
                             _ui.IsObservingOnTheGameModelChanged = false;
-                            await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
-                            await _treasureChestUI.TakeDamage();
-                            
-                            string reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
-
-                            _lastReward = new Reward
+                            _lastReward = await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
+                            if (_lastReward == null)
                             {
-                                Title = "test1",
-                                Type = 1,
-                                Price = 99
-                            };
-                            _observableGameState.Value = GameState.TreasureChestOpening;
+                                //UI Button toggling will likely prevent this...
+                                Debug.LogWarning("Not enough gold. visit 'View Collection' and sell something.");
+                            }
+                            else
+                            {
+                                await _treasureChestUI.TakeDamage();
+                                _observableGameState.Value = GameState.TreasureChestOpening;
+                            }
+                            
 
                             await RefreshUI();
 
@@ -171,7 +171,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _treasureChestUI.BounceWhileOpen();
                     
                     // Do await
-                    await _cardsUI.ShowCardsForReward(_lastReward, _cardStartRP, _cardEndRPs);
+                    await _cardsUI.ShowCardsForReward(_lastReward);
                     
                     _observableGameState.Value = GameState.CardsEntered;
                     break;

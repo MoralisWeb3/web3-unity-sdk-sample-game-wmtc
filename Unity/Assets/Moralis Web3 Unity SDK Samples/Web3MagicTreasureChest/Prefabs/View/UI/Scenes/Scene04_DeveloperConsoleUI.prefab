@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1148291362651125194}
   - component: {fileID: 720647700917160810}
-  - component: {fileID: 189482450847868454}
+  - component: {fileID: 8445192719472109809}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -105,7 +105,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7984518976032895740}
   m_CullTransparentMesh: 1
---- !u!114 &189482450847868454
+--- !u!114 &8445192719472109809
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1498,8 +1498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d3fba1253a04b4582f0379b730057a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walletConnect: {fileID: 0}
   _topUI: {fileID: 3992891753829444978}
-  _text: {fileID: 189482450847868454}
+  _text: {fileID: 8445192719472109809}
   _isRegisteredButtonUI: {fileID: 4090735363109560042}
   _unregisterButtonUI: {fileID: 3880482331322156653}
   _registerButtonUI: {fileID: 2151503136612466416}

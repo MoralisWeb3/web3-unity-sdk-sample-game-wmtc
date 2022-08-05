@@ -64,9 +64,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 		
 		//  GETTER - LocalDiskStorage Methods --------------------------------
-		public UniTask<string> GetRewardsHistoryAsync()
+		public UniTask<Reward> GetRewardsHistoryAsync()
 		{
-			return new UniTask<string>(_lastReward.ToString()); 
+			return new UniTask<Reward>(_lastReward); 
 		}
 
 		public async UniTask<string> GetLastRegisteredAddress()
@@ -310,7 +310,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			        Title = title,
 			        Price = price
 		        };
-		        string metadata = TreasurePrizeDto.ConvertMetadataObjectToString(treasurePrizeMetadata);
+		        string metadata = TheGameHelper.ConvertMetadataObjectToString(treasurePrizeMetadata);
 		        TreasurePrizeDto treasurePrizeDto = new TreasurePrizeDto(moralisUser.ethAddress, metadata);
 		        
 		        await AddTreasurePrizeAsync(treasurePrizeDto);

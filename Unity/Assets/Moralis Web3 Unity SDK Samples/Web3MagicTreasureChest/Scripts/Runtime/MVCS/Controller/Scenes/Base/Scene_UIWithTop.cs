@@ -2,7 +2,6 @@ using MoralisUnity.Samples.Shared.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
-using WalletConnectSharp.Unity;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
@@ -31,13 +30,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		}
 	
 		// Fields -----------------------------------------
-		[Header("References (Base)")]
 		[SerializeField]
 		private TopUI _topUI = null;
-
-		[SerializeField]
-		private WalletConnect _walletConnect;
-
 		
 		/// <summary>
 		/// Determines if the ui will auto-update.
@@ -53,16 +47,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// AddListener - Update View When Model Changes
 			TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnTheGameModelChanged);
 			TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();
-		}
-		
-		protected void OnDestroy()
-		{
-			// Some scenes like Scene02_Authentication do not want the WalletConnect to exist prior
-			// to scene load. So always clean it up from this scene
-			if (_walletConnect != null)
-			{
-				GameObject.Destroy(_walletConnect);
-			}
 		}
 		
 		// General Methods --------------------------------

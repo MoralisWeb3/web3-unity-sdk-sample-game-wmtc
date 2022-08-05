@@ -444,6 +444,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4164549310606728800, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
+      propertyPath: _walletConnect
+      value: 
+      objectReference: {fileID: 1239503512}
     - target: {fileID: 5107167720336447257, guid: bc6d4d9e660d4594f9bbb1fadfe576c6, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -914,6 +918,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5175095894888145819, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
   m_PrefabInstance: {fileID: 1239503510}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1239503512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5175095894888145821, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
+  m_PrefabInstance: {fileID: 1239503510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 801bffbf4c62cc244b55ea230d19649d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2038428547
 PrefabInstance:
   m_ObjectHideFlags: 0

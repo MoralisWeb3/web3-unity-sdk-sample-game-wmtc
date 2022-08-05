@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Exceptions;
+using MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
@@ -35,7 +36,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 async delegate()
                 {
                     // Refresh the model
-                    await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    
+                    if (!isRegisteredAsync)
+                    {
+                        throw new RequiredIsRegisteredException();
+                    }
 
                     //Refresh after async
                     RefreshUI();
@@ -56,10 +62,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate ()
                 {
-                    
                     await TheGameSingleton.Instance.TheGameController.SafeReregisterDeleteAllTreasurePrizeAsync();
-                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-                    Debug.Log("Must be true: " + isRegistered);
+                    
+                    // Refresh the model
+                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    
+                    if (!isRegisteredAsync)
+                    {
+                        throw new RequiredIsRegisteredException();
+                    }
+
+                    //Refresh after async
                     await RefreshUI();
                 });
             

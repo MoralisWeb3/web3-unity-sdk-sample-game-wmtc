@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Shared.Exceptions;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
@@ -63,9 +62,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
         
         
-        public async UniTask<string> GetRewardsHistoryAsync()
+        public async UniTask<Reward> GetRewardsHistoryAsync()
         {
-            string result = await _theGameContract.GetRewardsHistory();
+            Reward result = await _theGameContract.GetRewardsHistory();
             return result;
         }
 
@@ -97,8 +96,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
                 _theGameContract.TreasurePrizeContractAddress,
                 _theGameContract.ChainList);
 
-            Debug.Log("nftCollection.Result.Count: " + nftCollection.Result.Count);
-
             // Create Method Return Value
             foreach (NftOwner nftOwner in nftCollection.Result)
             {
@@ -117,49 +114,49 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         public async UniTask RegisterAsync()
         {
             string result = await _theGameContract.Register();
-            Debug.Log($"RegisterAsync() result = {result}");
+            //Debug.Log($"RegisterAsync() result = {result}");
         }
 
 
         public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
         {
             string result = await _theGameContract.StartGameAndGiveRewards(goldAmount);
-            Debug.Log($"StartGameAndGiveRewardsAsync() result = {result}");
+            //Debug.Log($"StartGameAndGiveRewardsAsync() result = {result}");
         }
 
 
         public async UniTask UnregisterAsync()
         {
             string result = await _theGameContract.Unregister();
-            Debug.Log($"UnregisterAsync() result = {result}");
+            //Debug.Log($"UnregisterAsync() result = {result}");
         }
 
 
         public async UniTask SetGoldAsync(int targetBalance)
         {
             string result = await _theGameContract.setGold(targetBalance);
-            Debug.Log($"SetGoldAsync() result = {result}");
+            //Debug.Log($"SetGoldAsync() result = {result}");
         }
 
         
         public async UniTask SetGoldByAsync(int deltaBalance)
         {
             string result = await _theGameContract.setGoldBy(deltaBalance);
-            Debug.Log($"SetGoldByAsync() result = {result}");
+            //Debug.Log($"SetGoldByAsync() result = {result}");
         }
 
 
         public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
             string result = await _theGameContract.AddTreasurePrize(treasurePrizeDto);
-            Debug.Log($"AddTreasurePrizeAsync() result = {result}");
+            //Debug.Log($"AddTreasurePrizeAsync() result = {result}");
         }
 
 
         public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
             string result = await _theGameContract.SellTreasurePrize(treasurePrizeDto);
-            Debug.Log($"SellTreasurePrizeAsync() result = {result}");
+            //Debug.Log($"SellTreasurePrizeAsync() result = {result}");
         }
 
         
@@ -167,9 +164,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
                 
-            Debug.Log($"BurnAllTreasurePrizeAsync() count = {treasurePrizeDtos.Count}");
+            //Debug.Log($"DeleteAllTreasurePrizeAsync() count = {treasurePrizeDtos.Count}");
             string result = await _theGameContract.DeleteAllTreasurePrizes(treasurePrizeDtos);
-            Debug.Log($"BurnAllTreasurePrizeAsync() result = {result}");
+            //Debug.Log($"DeleteAllTreasurePrizeAsync() result = {result}");
         }
 
         /// <summary>
@@ -180,7 +177,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
             string result = await _theGameContract.SafeReregisterAndDeleteAllTreasurePrizes(treasurePrizeDtos);
-            Debug.Log($"SafeReregisterDeleteAllTreasurePrizeAsync() result = {result}");
+            //Debug.Log($"SafeReregisterDeleteAllTreasurePrizeAsync() result = {result}");
         }
         
         // Event Handlers ---------------------------------

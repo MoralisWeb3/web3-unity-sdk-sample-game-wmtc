@@ -32,8 +32,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		// RunContractFunction - Various Return Types
 		UniTask<bool> IsRegisteredAsync();
 		UniTask<int> GetGoldAsync();
-		UniTask<string> GetRewardsHistoryAsync();
-		UniTask<string> GetLastRegisteredAddress();
+		UniTask<Reward> GetRewardsHistoryAsync();
 
 		// ExecuteContractFunction - Must Be String Return Type
 		UniTask RegisterAsync();

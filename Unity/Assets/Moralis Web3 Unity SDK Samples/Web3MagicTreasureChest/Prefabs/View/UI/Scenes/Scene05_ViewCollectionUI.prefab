@@ -491,6 +491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2c1c7656a914a34d89232bd72500836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _walletConnect: {fileID: 0}
   _topUI: {fileID: 655162981420436209}
   _text: {fileID: 6004641835296422120}
   _backButtonUI: {fileID: 1548458584288796562}

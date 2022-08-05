@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using TMPro;
@@ -145,5 +148,55 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
         {
             return $"({gold} Gold)";
         }
+        
+        
+        /// <summary>
+        /// Add custom parsing outside of class hierarchy (thus, use static)
+        /// </summary>
+        public static string ConvertMetadataObjectToString (TreasurePrizeMetadata treasurePrizeMetadata)
+        {
+            return $"Title={treasurePrizeMetadata.Title}|Price={treasurePrizeMetadata.Price}";
+        }
+
+        /// <summary>
+        /// Add custom parsing outside of class hierarchy (thus, use static)
+        /// </summary>
+        public static TreasurePrizeMetadata ConvertMetadataStringToObject(string result)
+        {
+            List<string> tokens = result.Split("|").ToList();
+            string title = tokens[0].Split("=")[1];
+            uint price = uint.Parse(tokens[1].Split("=")[1]);
+
+            if (title.Length ==0 || price == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            return new TreasurePrizeMetadata
+            {
+                Title = title,
+                Price = price
+            };
+        }
+        public static Reward ConvertRewardStringToObject(string result)
+        {
+            List<string> tokens = result.Split("|").ToList();
+            string title = tokens[0].Split("=")[1];
+            uint type = uint.Parse(tokens[1].Split("=")[1]);
+            uint price = uint.Parse(tokens[2].Split("=")[1]);
+
+            if (title.Length == 0 || type == 0 || price == 0)
+            {
+                throw new ArgumentException();
+            }
+
+            return new Reward
+            {
+                Title = title,
+                Type = type,
+                Price = price,
+            };
+        }
+  
     }
 }

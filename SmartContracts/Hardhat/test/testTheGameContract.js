@@ -9,7 +9,6 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 const { string } = require("hardhat/internal/core/params/argumentTypes");
 
-
 ///////////////////////////////////////////////////////////
 // TEST
 ///////////////////////////////////////////////////////////
@@ -18,22 +17,30 @@ describe("The Game Contract", function ()
     async function deployTokenFixture() 
     {
 
-        // Arrange
         const [owner, addr1, addr2] = await ethers.getSigners();
 
-        // Gold
+        // TheGameLibrary
+        const TheGameLibrary = await ethers.getContractFactory("TheGameLibrary");
+        const theGameLibrary = await TheGameLibrary.deploy();
+        await theGameLibrary.deployed();
+
+        // Gold Contract
         const Gold = await ethers.getContractFactory("Gold");
         const gold = await Gold.deploy();
         
-        // TreasurePrize
+        // TreasurePrize Contract
         const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
         const treasurePrize = await TreasurePrize.deploy();
 
         // TheGameContract
-        const TheGameContract = await ethers.getContractFactory("TheGameContract");
+        const TheGameContract = await ethers.getContractFactory("TheGameContract", {
+            libraries: {
+                TheGameLibrary: theGameLibrary.address,
+            },
+          });
         const theGameContract = await TheGameContract.deploy(gold.address, treasurePrize.address);
 
-        return { theGameContract, addr1, addr2 };
+        return { theGameContract, addr1, addr2, theGameLibrary };
     
     }
 
@@ -227,26 +234,7 @@ describe("The Game Contract", function ()
             .to.be.revertedWith("getGold() must be >= goldAmount to start the game");
     }),
 
-    ///////////////////////////////////////////////////////////
-    // TEST
-    ///////////////////////////////////////////////////////////
-    it("Sets r between min/max when randomRange (min, max, n)", async function ()
-    {
-        // Arrange
-        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
-        var nonce = 0;
-        var min = 0;
-        var max = 10;
 
-        for (var i = 0; i< 100; i++)
-        {
-            // Act
-            const r = await theGameContract.connect(addr1).randomRange(1, 10, nonce++);
-            
-            // Expect
-            expect(r).to.greaterThanOrEqual(min).and.lessThanOrEqual(max);
-        }
-    }),
 
     ///////////////////////////////////////////////////////////
     // TEST

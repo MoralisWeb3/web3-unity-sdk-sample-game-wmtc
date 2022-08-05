@@ -19,8 +19,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
     public class TreasurePrizeDto : PrizeDto
     {
         // Properties -------------------------------------
-        public string Title { get { return ConvertMetadataStringToObject(Metadata).Title; } }
-        public uint Price { get { return ConvertMetadataStringToObject(Metadata).Price; } }
+        public string Title { get { return TheGameHelper.ConvertMetadataStringToObject(Metadata).Title; } }
+        public uint Price { get { return TheGameHelper.ConvertMetadataStringToObject(Metadata).Price; } }
 
         // Fields -----------------------------------------
 
@@ -36,34 +36,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
         }
         // General Methods --------------------------------
 
-        /// <summary>
-        /// Add custom parsing outside of class hierarchy (thus, use static)
-        /// </summary>
-        public static string ConvertMetadataObjectToString (TreasurePrizeMetadata treasurePrizeMetadata)
-        {
-            return $"Title={treasurePrizeMetadata.Title}|Price={treasurePrizeMetadata.Price}";
-        }
-
-        /// <summary>
-        /// Add custom parsing outside of class hierarchy (thus, use static)
-        /// </summary>
-        public static TreasurePrizeMetadata ConvertMetadataStringToObject(string metadata)
-        {
-            List<string> tokens = metadata.Split("|").ToList();
-            string title = tokens[0].Split("=")[1];
-            uint price = uint.Parse(tokens[1].Split("=")[1]);
-
-            if (title.Length ==0 || price == 0)
-            {
-                throw new ArgumentException();
-            }
-
-            return new TreasurePrizeMetadata
-            {
-                Title = title,
-                Price = price
-            };
-        }
 
 
         // Event Handlers ---------------------------------

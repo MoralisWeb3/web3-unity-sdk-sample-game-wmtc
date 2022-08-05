@@ -14,18 +14,27 @@ async function main()
   // DEPLOYMENT
   ///////////////////////////////////////////////////////////
 
-  // Gold
+  // TheGameLibrary
+  const TheGameLibrary = await ethers.getContractFactory("TheGameLibrary");
+  const theGameLibrary = await TheGameLibrary.deploy();
+  await theGameLibrary.deployed();
+
+  // Gold Contract
   const Gold = await hre.ethers.getContractFactory("Gold");
   const gold = await Gold.deploy();
   await gold.deployed();
 
-  // TreasurePrize
+  // TreasurePrize Contract
   const TreasurePrize = await ethers.getContractFactory("TreasurePrize");
   const treasurePrize = await TreasurePrize.deploy();
   await treasurePrize.deployed();
 
   // TheGameContract
-  const TheGameContract = await hre.ethers.getContractFactory("TheGameContract");
+  const TheGameContract = await ethers.getContractFactory("TheGameContract", {
+    libraries: {
+        TheGameLibrary: theGameLibrary.address,
+    },
+  });
   const theGameContract = await TheGameContract.deploy(gold.address, treasurePrize.address);
   await theGameContract.deployed();
 
@@ -38,12 +47,12 @@ async function main()
   console.log("\n");
   console.log("DEPLOYMENT COMPLETE: COPY TO UNITY...");
   console.log("\n");
-  console.log("   protected override void SetContractDetails()");
-  console.log("   {\n");
-  console.log("     _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
-  console.log("     _address  = \"%s\";", theGameContract.address);
-  console.log("     _abi      = \"%s\";", abi);
-  console.log("   }\n");
+  console.log("       protected override void SetContractDetails()");
+  console.log("       {\n");
+  console.log("         _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
+  console.log("         _address  = \"%s\";", theGameContract.address);
+  console.log("         _abi      = \"%s\";\n", abi);
+  console.log("       }\n");
   console.log("\n");
 
   ///////////////////////////////////////////////////////////
@@ -79,6 +88,7 @@ async function main()
   console.log("\n");
 
 }
+
 
 ///////////////////////////////////////////////////////////
 // EXECUTE
