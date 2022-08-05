@@ -31,20 +31,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
             
             // Refresh -> CheckRegister -> Refresh Again
-            RefreshUI();
+            RefreshUIAsync();
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate()
                 {
                     // Refresh the model
-                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
                     
-                    if (!isRegisteredAsync)
+                    if (!isRegistered)
                     {
                         throw new RequiredIsRegisteredException();
                     }
 
                     //Refresh after async
-                    RefreshUI();
+                    RefreshUIAsync();
                     
                 });
 
@@ -52,12 +52,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         }
         
         //  General Methods -------------------------------
-        private async UniTask RefreshUI()
+        private async UniTask RefreshUIAsync()
         {
             _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
         }
         
-        private async void ResetAllData()
+        private async void ResetAllDataAsync()
         {
             await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                 TheGameConstants.Resetting,
@@ -66,15 +66,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     await TheGameSingleton.Instance.TheGameController.SafeReregisterDeleteAllTreasurePrizeAsync();
                     
                     // Refresh the model
-                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
                     
-                    if (!isRegisteredAsync)
+                    if (!isRegistered)
                     {
                         throw new RequiredIsRegisteredException();
                     }
 
                     //Refresh after async
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
             
         }
@@ -97,7 +97,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             {
                 Debug.LogWarning("SpaceBar NOT Held. Will Reset All Data");
                 TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
-                ResetAllData();
+                ResetAllDataAsync();
             }
         }
         

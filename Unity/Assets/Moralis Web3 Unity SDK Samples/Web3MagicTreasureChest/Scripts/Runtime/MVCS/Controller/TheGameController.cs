@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
@@ -129,7 +126,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
 
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 	
 		}
 
@@ -141,7 +138,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 		}
 
 
@@ -153,7 +150,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.Gold.Value = gold;
 			
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 			
 			return gold;
 		}
@@ -164,7 +161,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.AddTreasurePrizeAsync(treasurePrizeDto);
 			
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 			
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
@@ -177,7 +174,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.SellTreasurePrizeAsync(treasurePrizeDto);
 
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 			
 			int gold = await GetGoldAsync();
 			_theGameModel.Gold.Value = gold;
@@ -192,19 +189,19 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			await _theGameService.DeleteAllTreasurePrizeAsync();
 
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 
 			List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}
 		
-		public async Task SafeReregisterDeleteAllTreasurePrizeAsync()
+		public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
 		{
 			await _theGameService.SafeReregisterDeleteAllTreasurePrizeAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
-			await DelayExtraAfterStateChange();
+			await DelayExtraAfterStateChangeAsync();
 		}
 
 		public async UniTask<Reward> StartGameAndGiveRewardsAsync(int goldAmount)
@@ -227,7 +224,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				_theGameModel.Gold.Value = gold;
 			
 				// Wait for contract values to sync so the client will see the changes
-				await DelayExtraAfterStateChange();
+				await DelayExtraAfterStateChangeAsync();
 			
 				Reward reward = await _theGameService.GetRewardsHistoryAsync();
 				return reward;
@@ -327,7 +324,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				$"{title}\n-\n{_theGameService.PendingMessageActive.Message}", task);
 		}
 		
-		private async Task DelayExtraAfterStateChange()
+		private async UniTask DelayExtraAfterStateChangeAsync()
 		{
 			if (_theGameService.HasExtraDelay)
 			{
@@ -336,7 +333,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			}
 		}
 		
-		public async UniTask ShowMessageCustom(string message, int delayMilliseconds)
+		public async UniTask ShowMessageCustomAsync(string message, int delayMilliseconds)
 		{
 			await _theGameView.ShowMessageWithDelayAsync(message, delayMilliseconds);
 		}

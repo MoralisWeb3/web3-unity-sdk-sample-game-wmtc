@@ -1,9 +1,7 @@
 
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 

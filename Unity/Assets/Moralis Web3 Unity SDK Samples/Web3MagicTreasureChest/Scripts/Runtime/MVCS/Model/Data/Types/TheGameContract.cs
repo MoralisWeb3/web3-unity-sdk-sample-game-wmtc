@@ -1,7 +1,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
@@ -85,20 +84,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		///////////////////////////////////////////////////////////
 
 		// Debugging Methods --------------------------------
-		public async UniTask<string> getLastRegisteredAddress()
-		{
-			Dictionary<string, object> args = new Dictionary<string, object>();
-
-			string result = await RunContractFunctionAsync("getLastRegisteredAddress", args, IsLogging);
-			return result;
-		}
-		
 		
 		// General Methods --------------------------------
-		//TODO: Change all names to async NOT IN THIS CLASS, BUT IN ALL OTHER CLASSES
-		
-		
-		
 		public async UniTask<bool> getIsRegistered()
 		{
 			MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
@@ -106,7 +93,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			args.Add("address", moralisUser.ethAddress);
 
 			string result = await RunContractFunctionAsync("getIsRegistered", args, IsLogging); //getIsRegistered
-
 			bool resultBool = bool.Parse(result);
 			return resultBool;
 		}
@@ -128,6 +114,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		{
 			MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
 			Dictionary<string, object> args = new Dictionary<string, object>();
+			args.Add("address", moralisUser.ethAddress);
 
 			var result = await RunContractFunctionAsync("getRewardsHistory", args, IsLogging);
 			
@@ -245,7 +232,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		}
 		
 		
-		public async Task<string> DeleteAllTreasurePrizes(List<TreasurePrizeDto> treasurePrizeDtos)
+		public async UniTask<string> DeleteAllTreasurePrizes(List<TreasurePrizeDto> treasurePrizeDtos)
 		{
 			int[] tokenIds = GetTokenIds(treasurePrizeDtos);
 			object[] args =
@@ -259,7 +246,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		}
 		
 		
-		public async Task<string> SafeReregisterAndDeleteAllTreasurePrizes(List<TreasurePrizeDto> treasurePrizeDtos)
+		public async UniTask<string> SafeReregisterAndDeleteAllTreasurePrizes(List<TreasurePrizeDto> treasurePrizeDtos)
 		{
 			int[] tokenIds = GetTokenIds(treasurePrizeDtos);
 			object[] args =
@@ -273,7 +260,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		}
 
 
-		public async Task<string> StartGameAndGiveRewards(int goldAmount)
+		public async UniTask<string> StartGameAndGiveRewards(int goldAmount)
 		{
 			object[] args =
 			{

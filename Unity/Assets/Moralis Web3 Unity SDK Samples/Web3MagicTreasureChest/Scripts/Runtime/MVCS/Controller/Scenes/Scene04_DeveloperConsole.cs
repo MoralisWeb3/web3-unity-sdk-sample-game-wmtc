@@ -29,8 +29,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Unity Methods----------------------------------
         protected async void Start()
         {
-            bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            if (!hasMoralisUserAsync)
+            bool hasMoralis = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            if (!hasMoralis)
             {
                 throw new RequiredMoralisUserException();
             }
@@ -49,7 +49,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
             _titleTextBuilder.Clear();
-            RefreshUI();
+            RefreshUIAsync();
             
             // Mimic button press for user convenience
             IsRegisteredButtonUI_OnClicked();
@@ -57,14 +57,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
         //  General Methods -------------------------------
-        private async UniTask RefreshUI()
+        private async UniTask RefreshUIAsync()
         {
             _ui.BackButtonUI.IsInteractable = true; 
 
             _ui.Text.text = _titleTextBuilder.ToString() + _outputTextStringBuilder.ToString();
         }
 
-        private async UniTask<bool> EnsureIsRegistered()
+        private async UniTask<bool> EnsureIsRegisteredAsync()
         {
             // Use the cached here so its quick
             bool isRegisteredCached = TheGameSingleton.Instance.TheGameController.IsRegisteredCached();
@@ -72,7 +72,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             {
                 _outputTextStringBuilder.Clear();
                 _outputTextStringBuilder.AppendHeaderLine($"EnsureIsRegistered(). Failed.");
-                await RefreshUI();
+                await RefreshUIAsync();
             }
 
             return isRegisteredCached;
@@ -84,7 +84,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void IsRegisteredButtonUI_OnClicked()
         {
-                          
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
@@ -97,7 +96,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                   _outputTextStringBuilder.AppendHeaderLine($"isRegistered()");
                   _outputTextStringBuilder.AppendBullet($"result = {isRegistered}");
 
-                  await RefreshUI();
+                  await RefreshUIAsync();
               });
 
         }
@@ -111,7 +110,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             if (!isRegistered)
             {
-                await TheGameSingleton.Instance.TheGameController.ShowMessageCustom(
+                await TheGameSingleton.Instance.TheGameController.ShowMessageCustomAsync(
                     "Already Unregistered", 1000);
             }
             else
@@ -128,7 +127,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         _outputTextStringBuilder.AppendHeaderLine($"UnregisterAsync()");
                         _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
        
-                        await RefreshUI();
+                        await RefreshUIAsync();
                     });
             }
 
@@ -144,7 +143,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             if (isRegistered)
             {
-                await TheGameSingleton.Instance.TheGameController.ShowMessageCustom(
+                await TheGameSingleton.Instance.TheGameController.ShowMessageCustomAsync(
                     "Already Registered.", 1000);
             }
             else
@@ -161,7 +160,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         _outputTextStringBuilder.AppendHeaderLine($"RegisterAsync()");
                         _outputTextStringBuilder.AppendBullet($"result = {isRegisteredAfter}");
 
-                        await RefreshUI();
+                        await RefreshUIAsync();
                     });
             }
         }
@@ -173,7 +172,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -188,7 +187,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendHeaderLine($"AddGold()");
                     _outputTextStringBuilder.AppendBullet($"result = {gold}");
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
 
@@ -198,7 +197,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -213,7 +212,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendHeaderLine($"SpendGold()");
                     _outputTextStringBuilder.AppendBullet($"result = {gold}");
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
 
@@ -223,7 +222,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -247,7 +246,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendHeaderLine($"AddTreasurePrize()");
                     _outputTextStringBuilder.AppendBullet($"result.Count = {treasurePrizeDtos.Count}");
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                     
                 });
         }
@@ -258,7 +257,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -286,7 +285,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendBullet($"result.Count was = {treasurePrizeDtos.Count}");
                     _outputTextStringBuilder.AppendBullet($"result.Count is  = {treasurePrizeDtosAfter.Count}");
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
         
@@ -295,7 +294,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -311,7 +310,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendHeaderLine($"DeleteAllTreasurePrizeAsync()");
                     _outputTextStringBuilder.AppendBullet($"result.Count = {treasurePrizeDtos.Count}");
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
 
@@ -323,7 +322,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            if (!await EnsureIsRegistered())
+            if (!await EnsureIsRegisteredAsync())
             {
                 return;
             }
@@ -345,7 +344,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     _outputTextStringBuilder.AppendBullet($"reward.Price = {reward.Price}");
                     
 
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
 

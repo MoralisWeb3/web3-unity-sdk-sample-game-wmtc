@@ -134,7 +134,6 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 		public async UniTask<string> RunContractFunctionAsync(string functionName, Dictionary<string, object>  args, bool isLogging)
 		{
-
 			RequireIsInitialized();
 
 			MoralisUser moralisUser = await Moralis.GetUserAsync();

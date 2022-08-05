@@ -6,7 +6,6 @@ using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
-using UnityEngine;
 using Nft = MoralisUnity.Samples.Shared.Data.Types.Nft;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
@@ -46,13 +45,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             return UniTask.Delay(DelayExtraAfterStateChangeMilliseconds);
         }
 
-        
-        // DEBUGGING Methods -------------------------
-        public async UniTask<string> GetLastRegisteredAddress()
-        {
-            string result = await _theGameContract.getLastRegisteredAddress();
-            return result;
-        }
         
         // GETTER Methods -------------------------
         public async UniTask<bool> IsRegisteredAsync()

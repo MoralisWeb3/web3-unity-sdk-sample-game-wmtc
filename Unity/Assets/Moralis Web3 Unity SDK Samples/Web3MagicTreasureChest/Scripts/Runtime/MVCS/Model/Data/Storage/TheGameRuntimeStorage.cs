@@ -1,5 +1,3 @@
-using Cysharp.Threading.Tasks;
-using MoralisUnity.Platform.Objects;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Shared.Data.Types.Storage
@@ -50,9 +48,11 @@ namespace MoralisUnity.Samples.Shared.Data.Types.Storage
 
 
         //  Fields  ---------------------------------------
-        [SerializeField] private string _activeAddress = "";
+        [SerializeField] 
+        private string _activeAddress = "";
 
-        [SerializeField] private string _sceneNamePrevious = "";
+        [SerializeField] 
+        private string _sceneNamePrevious = "";
 
 
         //  Unity Methods  --------------------------------
@@ -64,30 +64,9 @@ namespace MoralisUnity.Samples.Shared.Data.Types.Storage
             //Debug.Log("InstantiateCompleted()");
         }
 
-
         public void ResetSceneNamePrevious()
         {
             SceneNamePrevious = string.Empty;
-        }
-
-
-        public async UniTask<string> ResetActiveAddress()
-        {
-            MoralisUser moralisUser = await Moralis.GetUserAsync();
-
-            // The default experience is...
-            // To be logged in...
-            // with active address set to the original
-            if (moralisUser != null)
-            {
-                ActiveAddress = moralisUser.ethAddress;
-            }
-            else
-            {
-                ActiveAddress = string.Empty;
-            }
-
-            return ActiveAddress;
         }
     }
 }

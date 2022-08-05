@@ -61,8 +61,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             TheGameHelper.SetButtonText(_ui.Play03ButtonUI.Button, $"Play {goldText2}");
 
             // 2. Check for user
-            bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            if (!hasMoralisUserAsync)
+            bool hasMoralisUser = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            if (!hasMoralisUser)
             {
                 throw new RequiredMoralisUserException();
             }
@@ -73,22 +73,22 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             
             //Refresh before async
             _observableGameState.Value = GameState.Null;
-            RefreshUI();
+            RefreshUIAsync();
             
             //Do async
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate()
                 {
                     // Refresh the model
-                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
                     
-                    if (!isRegisteredAsync)
+                    if (!isRegistered)
                     {
                         throw new RequiredIsRegisteredException();
                     }
 
                     //Refresh after async
-                    RefreshUI();
+                    RefreshUIAsync();
 
                     
                 });
@@ -103,7 +103,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
         }
 
-        private async UniTask RefreshUI()
+        private async UniTask RefreshUIAsync()
         {
             _ui.BackButtonUI.IsInteractable = true;
             _ui.Play01ButtonUI.IsInteractable = _isReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[0];
@@ -139,7 +139,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                         TheGameConstants.Opening,
                         async delegate()
                         {
+                            
+                            // Toggle auto update. This builds suspense for user
                             _ui.IsObservingOnTheGameModelChanged = false;
+                            
                             _lastReward = await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
                             if (_lastReward == null)
                             {
@@ -148,17 +151,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             }
                             else
                             {
-                                await _treasureChestUI.TakeDamage();
+                                await _treasureChestUI.TakeDamageAsync();
                                 _observableGameState.Value = GameState.TreasureChestOpening;
                             }
-                            
 
-                            await RefreshUI();
+                            await RefreshUIAsync();
 
                         });
                     break;
                 case GameState.TreasureChestOpening:
-                    await _treasureChestUI.Open();
+                    await _treasureChestUI.OpenAsync();
                     _observableGameState.Value = GameState.TreasureChestOpened;
                     break;
                 case GameState.TreasureChestOpened:
@@ -169,7 +171,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexWinSound());
                     
                     // Do NOT await
-                    _treasureChestUI.BounceWhileOpen();
+                    _treasureChestUI.BounceWhileOpenAsync();
                     
                     // Do await
                     await _cardsUI.ShowCardsForReward(_lastReward);
@@ -186,14 +188,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     string message =
                         $"Congratulations!\nYou Spent {_lastGoldSpent} and\nwon `{theTypeName}` worth {_lastReward.Price}.";
 
-                    
-                    
                     // Do NOT await
-                    TheGameSingleton.Instance.TheGameController.ShowMessageCustom(message,
+                    TheGameSingleton.Instance.TheGameController.ShowMessageCustomAsync(message,
                         5000);
                     
                     SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
                     await UniTask.Delay((500));
+                    
+                    // Toggle auto update. This builds suspense for user
                     _ui.IsObservingOnTheGameModelChanged = true;
                     
                     break;
@@ -205,7 +207,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         private async void OnTheGameModelChanged(TheGameModel theGameModel)
         {
             _lastGoldOwned = theGameModel.Gold.Value;
-            await RefreshUI();
+            await RefreshUIAsync();
         }
 
 

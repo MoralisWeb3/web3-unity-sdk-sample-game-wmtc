@@ -1,10 +1,7 @@
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Helpers;
-using System;
-using System.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Audio;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
@@ -63,7 +60,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		}
 
 		// General Methods --------------------------------
-		public async UniTask TakeDamage()
+		public async UniTask TakeDamageAsync()
 		{
 			_bubblesParticleSystem.Play();
 
@@ -73,7 +70,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			return;
 		}
 
-		public async UniTask Open()
+		public async UniTask OpenAsync()
 		{
 			PlayAudioClipOpen();
 			_animator.SetTrigger("Open");
@@ -87,7 +84,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			return;
 		}
 
-		public async UniTask BounceWhileOpen()
+		public async UniTask BounceWhileOpenAsync()
 		{
 			_animator.SetTrigger("BounceWhileOpen");
 			await UniTask.Delay(2000);

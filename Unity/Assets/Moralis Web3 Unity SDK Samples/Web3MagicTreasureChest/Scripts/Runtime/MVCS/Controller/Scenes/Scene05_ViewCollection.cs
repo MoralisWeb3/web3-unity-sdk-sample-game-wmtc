@@ -28,8 +28,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  Unity Methods----------------------------------
         protected async void Start()
         {
-            bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            if (!hasMoralisUserAsync)
+            bool hasMoralisUser = await TheGameSingleton.Instance.HasMoralisUserAsync();
+            if (!hasMoralisUser)
             {
                 throw new RequiredMoralisUserException();
             }
@@ -37,7 +37,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
             
             // Refresh -> CheckRegister -> Refresh Again
-            await RefreshUI();
+            await RefreshUIAsync();
             _titleTextBuilder.Clear();
             _titleTextBuilder.AppendHeaderLine("Collection");
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
@@ -75,16 +75,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     }
                     
                     //Refresh after async
-                    await RefreshUI();
+                    await RefreshUIAsync();
                 });
         }
 
         //  General Methods -------------------------------
-        private async UniTask RefreshUI()
+        private async UniTask RefreshUIAsync()
         {
             _ui.BackButtonUI.IsInteractable = true;
-
-            
             _ui.Text.text = _titleTextBuilder.ToString();
         }
 

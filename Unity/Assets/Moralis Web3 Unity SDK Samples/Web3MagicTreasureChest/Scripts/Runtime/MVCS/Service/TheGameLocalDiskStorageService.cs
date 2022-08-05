@@ -69,12 +69,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return new UniTask<Reward>(_lastReward); 
 		}
 
-		public async UniTask<string> GetLastRegisteredAddress()
-		{
-			await UniTask.Delay(DelaySimulatedPerMethod);
-			return "Test from LocalDiskStorage";
-		}
-
 		public async UniTask<bool> IsRegisteredAsync()
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);

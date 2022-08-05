@@ -37,7 +37,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 if (!isRegistered)
                 {
                     // Refresh -> CheckRegister -> Refresh Again
-                    RefreshUI();
+                    RefreshUIAsync();
                     await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
                         TheGameConstants.Registering,
                         async delegate()
@@ -49,7 +49,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             await TheGameSingleton.Instance.TheGameController.RegisterAsync();
 
                             //Refresh after async
-                            RefreshUI();
+                            RefreshUIAsync();
                     
                         });
                 }
@@ -60,7 +60,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 Debug.Log($"isAuthenticated = {isAuthenticated}. User must click authenticate.");
             }
             
-            RefreshUI();
+            RefreshUIAsync();
 
         }
 
@@ -68,7 +68,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
 
         //  General Methods -------------------------------
-        private async void RefreshUI()
+        private async void RefreshUIAsync()
         {
             bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
             _ui.PlayGameButtonUI.IsInteractable = isAuthenticated;
