@@ -122,6 +122,10 @@ namespace MoralisUnity.Samples.Shared.Helpers
       public static TweenerCore<Vector3, Vector3, VectorOptions> TransformDoScale(GameObject targetGo, 
           Vector3 fromScale, Vector3 toScale,  float duration, float delayStart)
       {
+         if (targetGo == null)
+         {
+            return null;
+         }
          targetGo.transform.localScale = fromScale;
 
          return targetGo.transform.DOScale(toScale, duration)
@@ -131,6 +135,10 @@ namespace MoralisUnity.Samples.Shared.Helpers
         public static TweenerCore<Quaternion, Vector3, QuaternionOptions> TransformDORotate(GameObject targetGo, 
             Vector3 fromRotation, Vector3 toRotation, float duration, float delayStart)
         {
+           if (targetGo == null)
+           {
+              return null;
+           }
             targetGo.transform.rotation = Quaternion.Euler(fromRotation);
 
             return targetGo.transform.DORotate(toRotation, duration)

@@ -59,7 +59,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private async void ResetAllData()
         {
-            await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
+            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
+                TheGameConstants.Resetting,
                 async delegate ()
                 {
                     await TheGameSingleton.Instance.TheGameController.SafeReregisterDeleteAllTreasurePrizeAsync();

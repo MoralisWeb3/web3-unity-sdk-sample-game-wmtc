@@ -24,9 +24,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         public bool HasExtraDelay { get { return true; }}
         
 		// Fields -----------------------------------------
-		private readonly PendingMessage _endingMessageActive = new PendingMessage("Please confirm transaction\nin your wallet", 0);
+		private readonly PendingMessage _endingMessageActive = new PendingMessage("Confirm With Your Wallet", 0);
 		private readonly PendingMessage _pendingMessagePassive = new PendingMessage("Loading ...", 0);
-        private readonly PendingMessage _pendingMessageExtraDelay = new PendingMessage("Waiting for transaction ...", 0);
+        private readonly PendingMessage _pendingMessageExtraDelay = new PendingMessage("Waiting For Transaction ...", 0);
 		private readonly TheGameContract _theGameContract = null;
         
         // Based on trial and error (and current network traffic)

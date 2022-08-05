@@ -39,6 +39,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     // Refresh -> CheckRegister -> Refresh Again
                     RefreshUI();
                     await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
+                        TheGameConstants.Registering,
                         async delegate()
                         {
                             // Wait extra for wallet connect

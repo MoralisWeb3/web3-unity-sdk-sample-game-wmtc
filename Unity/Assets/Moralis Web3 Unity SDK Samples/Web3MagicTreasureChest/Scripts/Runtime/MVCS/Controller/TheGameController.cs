@@ -321,10 +321,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		/// <summary>
 		/// For long async messaging (e.g. "Waiting for wallet...", then "Loading..."
 		/// </summary>
-		public async UniTask ShowMessageActiveAsync(Func<UniTask> task)
+		public async UniTask ShowMessageActiveAsync(string title, Func<UniTask> task)
 		{
 			await _theGameView.ShowMessageDuringMethodAsync(
-				_theGameService.PendingMessageActive.Message, task);
+				$"{title}\n-\n{_theGameService.PendingMessageActive.Message}", task);
 		}
 		
 		private async Task DelayExtraAfterStateChange()
@@ -350,7 +350,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				_theGameView.BaseScreenCoverUI.IsVisible = false;
 			}
 			
-			
 			// HACK: The WalletConnect prefab is not a robust Singleton pattern.
 			// It does not work well if the prefab is in 2 or more scenes that are used at runtime. The 2 or more instances conflict.
 			// So I manually delete the current one BEFORE the next scene loads. Works 100%
@@ -359,7 +358,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				Debug.LogWarning("GameObject.Destroy(WalletConnect.Instance.gameObject);");
 				GameObject.Destroy(WalletConnect.Instance.gameObject);
 			}
-
 
 			if (DOTween.TotalPlayingTweens() > 0)
 			{

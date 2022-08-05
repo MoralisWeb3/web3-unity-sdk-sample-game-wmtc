@@ -136,6 +136,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 case GameState.TreasureChestPreOpening:
 
                     await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
+                        TheGameConstants.Opening,
                         async delegate()
                         {
                             _ui.IsObservingOnTheGameModelChanged = false;
