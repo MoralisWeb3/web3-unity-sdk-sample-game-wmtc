@@ -1,6 +1,5 @@
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using Cysharp.Threading.Tasks;
@@ -47,15 +46,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     
                     if (treasurePrizeDtos.Count == 0)
                     {
-                        _titleTextBuilder.AppendBullet("Collection empty. Open a Magic Treasure Chest.");
+                        _titleTextBuilder.AppendLine("• Your collection is empty");
+                        _titleTextBuilder.AppendLine();
+                        _titleTextBuilder.AppendLine("Play game to earn prizes!");
                     }
                     else
                     {
                         foreach (TreasurePrizeDto treasurePrizeDto in treasurePrizeDtos)
                         {
-                            _titleTextBuilder.AppendBullet($"t={treasurePrizeDto.Title}");
+                            string goldText = TheGameHelper.FormatTextGold((int)treasurePrizeDto.Price);
+                            _titleTextBuilder.AppendLine($"• {treasurePrizeDto.Title} {goldText}");
                         }
-                        _titleTextBuilder.Append("The game does not yet support selling treasure.");
+
+                        _titleTextBuilder.AppendLine("");
+                        _titleTextBuilder.AppendLine("Selling items is not yet supported.");
                     }
                     await RefreshUI();
                 });

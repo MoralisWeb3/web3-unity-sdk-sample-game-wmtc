@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Exceptions;
@@ -34,12 +33,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         private CardsUI _cardsUI = null;
 
         [Header("Reference Points (Scene)")] 
-        [SerializeField]
-        private ReferencePoint _treasureChestStartRP = null;
-
-        [SerializeField] 
-        private ReferencePoint _treasureChestEndRP = null;
-
         [SerializeField] 
         private ReferencePoint _cardStartRP = null;
 
@@ -63,9 +56,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
 
             // Dynamic text
-            TheGameHelper.SetButtonText(_ui.Play01ButtonUI.Button, $"Play ({_goldCostPerPlay[0]} Gold)");
-            TheGameHelper.SetButtonText(_ui.Play02ButtonUI.Button, $"Play ({_goldCostPerPlay[1]} Gold)");
-            TheGameHelper.SetButtonText(_ui.Play03ButtonUI.Button, $"Play ({_goldCostPerPlay[2]} Gold)");
+            string goldText0 = TheGameHelper.FormatTextGold(_goldCostPerPlay[0]);
+            TheGameHelper.SetButtonText(_ui.Play01ButtonUI.Button, $"Play {goldText0}");
+            
+            string goldText1 = TheGameHelper.FormatTextGold(_goldCostPerPlay[1]);
+            TheGameHelper.SetButtonText(_ui.Play02ButtonUI.Button, $"Play {goldText1}");
+            
+            string goldText2 = TheGameHelper.FormatTextGold(_goldCostPerPlay[2]);
+            TheGameHelper.SetButtonText(_ui.Play03ButtonUI.Button, $"Play {goldText2}");
 
             // 2. Check for user
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
@@ -159,7 +157,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     break;
                 case GameState.CardsEntering:
                     
-                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexWinSound());
                     
                     // Do NOT await
                     _treasureChestUI.BounceWhileOpen();
@@ -179,7 +177,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     string message =
                         $"Congratulations!\nYou Spent {_lastGoldSpent} and\nwon `{theTypeName}` worth {_lastReward.Price}.";
 
-                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
+                    
                     
                     // Do NOT await
                     TheGameSingleton.Instance.TheGameController.ShowMessageCustom(message,

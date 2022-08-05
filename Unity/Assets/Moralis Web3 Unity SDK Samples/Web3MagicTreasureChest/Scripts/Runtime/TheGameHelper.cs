@@ -1,4 +1,5 @@
-﻿using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+﻿using System.Collections.Generic;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using TMPro;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
             }
         }
 
-        public static string GetRewardTitle(string name)
+        public static string CreateNewRewardTitle(string name)
         {
             if (name == RewardGold)
             {
@@ -34,7 +35,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
             }
             else
             {
-                return "Prize";
+                List<string> words = new List<string> { "Great", "Amazing", "Worthy" };
+                string word = words[UnityEngine.Random.Range(0, words.Count)];
+                return $"{word} Prize";
             }
         }
         
@@ -65,15 +68,20 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
             return 2;
         }
         
+        public static int GetAudioClipIndexWinSound()
+        {
+            return 3;
+        }
+        
         public static int GetAudioClipIndexByReward(Reward reward)
         {
             if (reward.Type == 1)
             {
-                return 3;
+                return 4;
             }
             else
             {
-                return 4;
+                return 5;
             }
         }
         
@@ -131,6 +139,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
             {
                 canvasGroup.alpha = 0;
             }
+        }
+
+        public static string FormatTextGold(int gold)
+        {
+            return $"({gold} Gold)";
         }
     }
 }

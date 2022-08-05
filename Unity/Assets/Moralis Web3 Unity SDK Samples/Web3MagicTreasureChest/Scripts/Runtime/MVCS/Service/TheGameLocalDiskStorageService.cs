@@ -143,7 +143,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			///////////////////////////////////////////
 			TheGameLocalDiskStorage theGameLocalDiskStorage = new TheGameLocalDiskStorage();
 			bool isSuccess = LocalDiskStorage.Instance.Save<TheGameLocalDiskStorage>(theGameLocalDiskStorage);
-			Debug.Log("!!! ClearTheGameLocalDiskStorage() !!!");
 			return isSuccess;
 		}
 
@@ -278,14 +277,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	        {
 		        // REWARD: Gold!
 		        theType = TheGameHelper.GetRewardType(TheGameHelper.RewardGold);
-		        title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardGold);
+		        title = TheGameHelper.CreateNewRewardTitle(TheGameHelper.RewardGold);
 		        await SetGoldByAsync((int)price);
 	        } 
 	        else 
 	        {
 		        // REWARD: Prize!
 		        theType = TheGameHelper.GetRewardType(TheGameHelper.RewardPrize);
-		        title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardPrize);
+		        title = TheGameHelper.CreateNewRewardTitle(TheGameHelper.RewardPrize);
 
 		        //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
 		        MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();

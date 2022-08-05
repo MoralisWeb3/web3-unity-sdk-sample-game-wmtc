@@ -137,7 +137,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			Debug.LogWarning($"Must manually create a reward here from {result}");
 			Reward reward = new Reward
 			{
-				Title = TheGameHelper.GetRewardTitle(TheGameHelper.RewardGold),
+				Title = TheGameHelper.CreateNewRewardTitle(TheGameHelper.RewardGold),
 				Type = TheGameHelper.GetRewardType(TheGameHelper.RewardPrize),
 				Price = 13,
 			};
