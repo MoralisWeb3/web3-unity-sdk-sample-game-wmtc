@@ -182,12 +182,10 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
 
         // Act
-        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.connect(addr1).getRewardsHistory ();
+        var reward = await theGameContract.connect(addr1).getRewardsHistory ();
 
         // Expect
-        expect(rewardTitle).to.equal("");
-        expect(rewardType).to.equal(0);
-        expect(rewardPrice).to.equal(0);
+        expect(reward.length).to.not.equal(0);
     }),
 
     ///////////////////////////////////////////////////////////
@@ -285,6 +283,73 @@ describe("The Game Contract", function ()
         var string2 = String (addr1.address).toLocaleLowerCase();
         var areSame = string1.localeCompare(string2) == 0;
         expect(areSame).to.equal(true);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("getMessage('blah') returns 'blah'", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+        var messageIn = "blah";
+
+        // Act
+        const messageOut = await theGameContract.connect(addr1).getMessage(messageIn);
+        
+        // Expect
+        expect(messageIn).to.equal(messageOut);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Calls safeReregisterAndBurnNfts() without error when deployed", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+        var tokenIds = [];
+
+        // Act
+        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        
+        // Expect
+        expect(true).to.equal(true);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Calls safeReregisterAndBurnNfts() without error when register()", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+        await theGameContract.connect(addr1).register();
+        var tokenIds = [];
+
+        // Act
+        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        
+        // Expect
+        expect(true).to.equal(true);
+    }),
+
+    ///////////////////////////////////////////////////////////
+    // TEST
+    ///////////////////////////////////////////////////////////
+    it("Calls safeReregisterAndBurnNfts() without error when register()", async function ()
+    {
+        // Arrange
+        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
+        await theGameContract.connect(addr1).register();
+        var tokenIds = [];
+
+        // Act
+        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        
+        // Expect
+        expect(true).to.equal(true);
     })
+
 });
 

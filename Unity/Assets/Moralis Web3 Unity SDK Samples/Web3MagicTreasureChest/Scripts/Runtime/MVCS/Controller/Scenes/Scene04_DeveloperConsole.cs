@@ -327,14 +327,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     int goldAmount = 22;
                     await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(goldAmount);
 
-                    Reward reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
+                    string reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
                     
                     _outputTextStringBuilder.Clear();
                     _outputTextStringBuilder.AppendHeaderLine($"StartGameAndGiveRewards()");
                     _outputTextStringBuilder.AppendBullet($"Gold Spent = {goldAmount}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Title = {reward.Title}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Type = {reward.Type}");
-                    _outputTextStringBuilder.AppendBullet($"reward.Price = {reward.Price}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Title = {reward}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Type = {reward}");
+                    _outputTextStringBuilder.AppendBullet($"reward.Price = {reward}");
                     
 
                     await RefreshUI();

@@ -587,10 +587,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topUI: {fileID: 1685779227013988149}
+  _walletConnect: {fileID: 0}
   _play01ButtonUI: {fileID: 8528729158267956416}
   _play02ButtonUI: {fileID: 2275432921828314017}
   _play03ButtonUI: {fileID: 5789606126202732663}
-  _replayButtonUI: {fileID: 0}
   _backButtonUI: {fileID: 1548458584288796562}
 --- !u!224 &5107167720727049263 stripped
 RectTransform:

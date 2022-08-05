@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
+using WalletConnectSharp.Unity;
 
 #pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -16,6 +18,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         [SerializeField]
         private Scene01_IntroUI _ui;
 
+        
         //  Unity Methods----------------------------------
         protected async void Start()
         {
@@ -26,20 +29,28 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
   
           
             bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
-            
-            
             if (isAuthenticated)
             {
                 Debug.Log($"isAuthenticated = {isAuthenticated}");
-                
                 bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
                 
                 if (!isRegistered)
                 {
-                    Debug.Log($"isRegistered before = {isRegistered}");
-                    await TheGameSingleton.Instance.TheGameController.RegisterAsync();
-                    bool isRegistered2 = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-                    Debug.Log($"isRegistered after = {isRegistered2}");
+                    // Refresh -> CheckRegister -> Refresh Again
+                    RefreshUI();
+                    await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
+                        async delegate()
+                        {
+                            // Wait extra for wallet connect
+                            await UniTask.Delay(1000);
+                            
+                            // Refresh the model
+                            await TheGameSingleton.Instance.TheGameController.RegisterAsync();
+
+                            //Refresh after async
+                            RefreshUI();
+                    
+                        });
                 }
 
             }

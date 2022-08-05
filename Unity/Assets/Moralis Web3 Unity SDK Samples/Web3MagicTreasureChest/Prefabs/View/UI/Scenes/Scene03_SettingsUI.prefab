@@ -325,6 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _topUI: {fileID: 8474755289084630081}
+  _walletConnect: {fileID: 0}
   _resetAllDataButtonUI: {fileID: 901204792053288913}
   _backButtonUI: {fileID: 1548458584288796562}
 --- !u!224 &5107167720727049263 stripped

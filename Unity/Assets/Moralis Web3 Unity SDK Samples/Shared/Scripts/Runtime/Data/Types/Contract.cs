@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Text;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
@@ -131,7 +132,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 			return result;
 		}
 
-		public async UniTask<string> RunContractFunctionAsync(string functionName, object[] args, bool isLogging)
+		public async UniTask<string> RunContractFunctionAsync(string functionName, Dictionary<string, object>  args, bool isLogging)
 		{
 
 			RequireIsInitialized();

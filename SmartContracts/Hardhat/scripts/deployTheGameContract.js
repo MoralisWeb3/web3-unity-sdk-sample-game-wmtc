@@ -38,12 +38,13 @@ async function main()
   console.log("\n");
   console.log("DEPLOYMENT COMPLETE: COPY TO UNITY...");
   console.log("\n");
-  console.log("protected override void SetContractDetails()");
-  console.log("{\n");
-  console.log(" _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
-  console.log(" _address  = \"%s\";", theGameContract.address);
-  console.log(" _abi      = \"%s\";", abi);
-  console.log("\n}\n");
+  console.log("   protected override void SetContractDetails()");
+  console.log("   {\n");
+  console.log("     _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
+  console.log("     _address  = \"%s\";", theGameContract.address);
+  console.log("     _abi      = \"%s\";", abi);
+  console.log("    \n");
+  console.log("   }\n");
   console.log("\n");
 
   ///////////////////////////////////////////////////////////

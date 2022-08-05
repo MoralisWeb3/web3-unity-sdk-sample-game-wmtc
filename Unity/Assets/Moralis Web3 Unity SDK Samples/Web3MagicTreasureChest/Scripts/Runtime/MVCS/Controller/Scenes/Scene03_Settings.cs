@@ -28,8 +28,21 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             _ui.ResetAllDataButtonUI.Button.onClick.AddListener(ResetAllDataButtonUI_OnClicked);
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-
+            
+            // Refresh -> CheckRegister -> Refresh Again
             RefreshUI();
+            await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
+                async delegate()
+                {
+                    // Refresh the model
+                    await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+
+                    //Refresh after async
+                    RefreshUI();
+                    
+                });
+
+            
         }
         
         //  General Methods -------------------------------
@@ -43,15 +56,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate ()
                 {
-                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
-
-                    if (isRegistered)
-                    {
-                        await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
-                    }
                     
-                    await TheGameSingleton.Instance.TheGameController.RegisterAsync();
-
+                    await TheGameSingleton.Instance.TheGameController.SafeReregisterDeleteAllTreasurePrizeAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    Debug.Log("Must be true: " + isRegistered);
                     await RefreshUI();
                 });
             

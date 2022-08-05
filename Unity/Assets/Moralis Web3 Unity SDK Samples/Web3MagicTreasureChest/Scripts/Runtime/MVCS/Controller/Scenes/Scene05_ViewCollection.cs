@@ -7,7 +7,7 @@ using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Exceptions;
 using UnityEngine;
 
-#pragma warning disable 1998
+#pragma warning disable 1998, 4014, 414
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
@@ -34,13 +34,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             
             _ui.BackButtonUI.Button.onClick.AddListener(BackButtonUI_OnClicked);
-            await RefreshUI();
             
+            // Refresh -> CheckRegister -> Refresh Again
+            await RefreshUI();
             _titleTextBuilder.Clear();
             _titleTextBuilder.AppendHeaderLine("Collection");
             await TheGameSingleton.Instance.TheGameController.ShowMessagePassiveAsync(
                 async delegate ()
                 {
+                    // Refresh the model
+                    await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+
+                    
                     List<TreasurePrizeDto> treasurePrizeDtos = 
                         await TheGameSingleton.Instance.TheGameController.GetTreasurePrizesAsync();
                     

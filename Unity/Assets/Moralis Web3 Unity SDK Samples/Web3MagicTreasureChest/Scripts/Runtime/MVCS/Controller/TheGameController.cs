@@ -114,9 +114,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return gold;
 		}
 		
-		public async UniTask<Reward> GetRewardsHistoryAsync()
+		public async UniTask<string> GetRewardsHistoryAsync()
 		{
-			Reward result = await _theGameService.GetRewardsHistoryAsync();
+			string result = await _theGameService.GetRewardsHistoryAsync();
 			return result;
 		}
 
@@ -196,6 +196,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameModel.TreasurePrizeDtos.Value = treasurePrizeDtos;
 			return treasurePrizeDtos;
 		}
+		
+		public async Task SafeReregisterDeleteAllTreasurePrizeAsync()
+		{
+			await _theGameService.SafeReregisterDeleteAllTreasurePrizeAsync();
+			
+			// Wait for contract values to sync so the client will see the changes
+			await DelayExtraAfterStateChange();
+		}
 
 		public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
 		{
@@ -218,15 +226,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				// Wait for contract values to sync so the client will see the changes
 				await DelayExtraAfterStateChange();
 			
-				Reward reward = await _theGameService.GetRewardsHistoryAsync();
+				string reward = await _theGameService.GetRewardsHistoryAsync();
 				
 				// TODO: Remove after both services work 100%
 				StringBuilder output = new StringBuilder();
 				output.AppendHeaderLine($"GetRewardsHistoryAsync()...\n");
 				output.AppendBullet($"Gold Spent = {goldAmount}");
-				output.AppendBullet($"reward.Title = {reward.Title}");
-				output.AppendBullet($"reward.Type = {reward.Type}");
-				output.AppendBullet($"reward.Price = {reward.Price}");
+				output.AppendBullet($"reward.Title = {reward}");
+				output.AppendBullet($"reward.Type = {reward}");
+				output.AppendBullet($"reward.Price = {reward}");
 				Debug.LogWarning(output);
 
 			}
@@ -306,13 +314,18 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			_theGameView.SceneManagerComponent.LoadScenePrevious();
 		}
 
-		
+		/// <summary>
+		/// For short async messaging
+		/// </summary>
 		public async UniTask ShowMessagePassiveAsync(Func<UniTask> task)
 		{
 			await _theGameView.ShowMessageDuringMethodAsync(
 				_theGameService.PendingMessagePassive.Message, task);
 		}
 		
+		/// <summary>
+		/// For long async messaging (e.g. "Waiting for wallet...", then "Loading..."
+		/// </summary>
 		public async UniTask ShowMessageActiveAsync(Func<UniTask> task)
 		{
 			await _theGameView.ShowMessageDuringMethodAsync(
@@ -369,6 +382,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				Application.Quit();
 			}
 		}
+
 
 
 	}

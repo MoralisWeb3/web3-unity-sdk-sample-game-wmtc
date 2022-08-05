@@ -141,7 +141,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             _ui.IsObservingOnTheGameModelChanged = false;
                             await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
                             await _treasureChestUI.TakeDamage();
-                            _lastReward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
+                            
+                            string reward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
+
+                            _lastReward = new Reward
+                            {
+                                Title = "test1",
+                                Type = 1,
+                                Price = 99
+                            };
                             _observableGameState.Value = GameState.TreasureChestOpening;
 
                             await RefreshUI();

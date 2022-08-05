@@ -64,9 +64,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 		
 		//  GETTER - LocalDiskStorage Methods --------------------------------
-		public UniTask<Reward> GetRewardsHistoryAsync()
+		public UniTask<string> GetRewardsHistoryAsync()
 		{
-			return new UniTask<Reward>(_lastReward); 
+			return new UniTask<string>(_lastReward.ToString()); 
 		}
 
 		public async UniTask<string> GetLastRegisteredAddress()
@@ -234,11 +234,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		        Debug.Log($"Paying {gold} per Treasure sold");
 		        await SetGoldByAsync(gold);
 	        }
-	        
-	        
-
         }
 
+        
         public async UniTask DeleteAllTreasurePrizeAsync()
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
@@ -249,6 +247,23 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
         }
 
+        
+        /// <summary>
+        /// Called from the "reset all data" button.
+        /// Combine several operations into 1 to smooth the user experience
+        /// </summary>
+        public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
+        {
+	        bool isRegistered = await IsRegisteredAsync();
+	        if (isRegistered)
+	        {
+		        await UnregisterAsync();
+	        }
+	        await RegisterAsync();
+	        await DeleteAllTreasurePrizeAsync();
+        }
+
+        
         public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
         {
 	        if (goldAmount <= 0)

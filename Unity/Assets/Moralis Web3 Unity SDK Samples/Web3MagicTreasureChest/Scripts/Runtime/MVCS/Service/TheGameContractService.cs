@@ -63,9 +63,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
         
         
-        public async UniTask<Reward> GetRewardsHistoryAsync()
+        public async UniTask<string> GetRewardsHistoryAsync()
         {
-            Reward result = await _theGameContract.GetRewardsHistory();
+            string result = await _theGameContract.GetRewardsHistory();
             return result;
         }
 
@@ -167,10 +167,22 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
                 
+            Debug.Log($"BurnAllTreasurePrizeAsync() count = {treasurePrizeDtos.Count}");
             string result = await _theGameContract.BurnNftsAsync(treasurePrizeDtos);
             Debug.Log($"BurnAllTreasurePrizeAsync() result = {result}");
         }
 
+        /// <summary>
+        /// Called from the "reset all data" button.
+        /// Combine several operations into 1 to smooth the user experience
+        /// </summary>
+        public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
+        {
+            List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
+            string result = await _theGameContract.SafeReregisterAndBurnNftsAsync(treasurePrizeDtos);
+            Debug.Log($"SafeReregisterDeleteAllTreasurePrizeAsync() result = {result}");
+        }
+        
         // Event Handlers ---------------------------------
 
     }
