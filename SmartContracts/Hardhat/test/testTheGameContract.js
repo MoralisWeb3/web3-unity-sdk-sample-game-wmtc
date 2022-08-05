@@ -109,13 +109,13 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets isRegistered to false when deployed", async function ()
+    it("Returns getIsRegistered as false when deployed", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
 
         // Act
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -124,14 +124,14 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets isRegistered to true when register", async function ()
+    it("Returns getIsRegistered as true when register", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
         await theGameContract.connect(addr1).register();
 
         // Act  
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
 
         // Expect
         expect(isRegistered).to.equal(true);
@@ -156,7 +156,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Sets isRegistered to false when register, unregister", async function ()
+    it("Returns getIsRegistered as false when register, unregister", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
@@ -164,7 +164,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).unregister();
 
         // Act
-        const isRegistered = await theGameContract.connect(addr1).isRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -304,14 +304,14 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Calls safeReregisterAndBurnNfts() without error when deployed", async function ()
+    it("Calls safeReregisterAndDeleteAllTreasurePrizes() without error when deployed", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
         var tokenIds = [];
 
         // Act
-        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        const result = await theGameContract.connect(addr1).safeReregisterAndDeleteAllTreasurePrizes(tokenIds);
         
         // Expect
         expect(true).to.equal(true);
@@ -320,7 +320,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Calls safeReregisterAndBurnNfts() without error when register()", async function ()
+    it("Calls safeReregisterAndDeleteAllTreasurePrizes() without error when register()", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
@@ -328,7 +328,7 @@ describe("The Game Contract", function ()
         var tokenIds = [];
 
         // Act
-        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        const result = await theGameContract.connect(addr1).safeReregisterAndDeleteAllTreasurePrizes(tokenIds);
         
         // Expect
         expect(true).to.equal(true);
@@ -337,7 +337,7 @@ describe("The Game Contract", function ()
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
-    it("Calls safeReregisterAndBurnNfts() without error when register()", async function ()
+    it("Calls safeReregisterAndDeleteAllTreasurePrizes() without error when register()", async function ()
     {
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
@@ -345,7 +345,7 @@ describe("The Game Contract", function ()
         var tokenIds = [];
 
         // Act
-        const result = await theGameContract.connect(addr1).safeReregisterAndBurnNfts(tokenIds);
+        const result = await theGameContract.connect(addr1).safeReregisterAndDeleteAllTreasurePrizes(tokenIds);
         
         // Expect
         expect(true).to.equal(true);

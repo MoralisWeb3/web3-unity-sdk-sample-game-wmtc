@@ -58,7 +58,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         // GETTER Methods -------------------------
         public async UniTask<bool> IsRegisteredAsync()
         {
-            bool result = await _theGameContract.isRegistered();
+            bool result = await _theGameContract.getIsRegistered();
             return result;
         }
         
@@ -151,14 +151,14 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            string result = await _theGameContract.MintNftAsync(treasurePrizeDto);
+            string result = await _theGameContract.AddTreasurePrize(treasurePrizeDto);
             Debug.Log($"AddTreasurePrizeAsync() result = {result}");
         }
 
 
         public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            string result = await _theGameContract.BurnNftAsync(treasurePrizeDto);
+            string result = await _theGameContract.SellTreasurePrize(treasurePrizeDto);
             Debug.Log($"SellTreasurePrizeAsync() result = {result}");
         }
 
@@ -168,7 +168,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
                 
             Debug.Log($"BurnAllTreasurePrizeAsync() count = {treasurePrizeDtos.Count}");
-            string result = await _theGameContract.BurnNftsAsync(treasurePrizeDtos);
+            string result = await _theGameContract.DeleteAllTreasurePrizes(treasurePrizeDtos);
             Debug.Log($"BurnAllTreasurePrizeAsync() result = {result}");
         }
 
@@ -179,7 +179,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
         {
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-            string result = await _theGameContract.SafeReregisterAndBurnNftsAsync(treasurePrizeDtos);
+            string result = await _theGameContract.SafeReregisterAndDeleteAllTreasurePrizes(treasurePrizeDtos);
             Debug.Log($"SafeReregisterDeleteAllTreasurePrizeAsync() result = {result}");
         }
         

@@ -34,7 +34,6 @@ contract TheGameContract
     //      *   Values stored on contract
     ///////////////////////////////////////////////////////////
 
-
     // Stores address of the Gold contract, to be called
     address _goldContractAddress;
 
@@ -65,58 +64,77 @@ contract TheGameContract
     }
 
     ///////////////////////////////////////////////////////////
-    // FUNCTIONS: RANDOM
+    // FUNCTIONS: HELPER
     ///////////////////////////////////////////////////////////
     function randomRange (uint min, uint max, uint nonce) public view returns (uint) 
     {
-        // The nonce is especially useful for unit-tests where the block **MAYBE** will not change enough
+        // The nonce is especially useful for unit-tests, to ensure variation
         uint randomnumber = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender, nonce))) % (max);
         randomnumber = randomnumber + min;
         return randomnumber;
     }
     
+    function convertRewardToString (Reward memory reward) public pure returns (string memory rewardString) 
+    {
+        rewardString = string(abi.encodePacked("Title=", reward.Title, "|Type=", reward.Type, "|Price=", reward.Price));
+    }
+    
+
+    ///////////////////////////////////////////////////////////
+    // REMOVE THESES
+    ///////////////////////////////////////////////////////////
+    function getLastRegisteredAddress() external view returns (string memory lastRegisteredAddress)
+    {
+        lastRegisteredAddress = Strings.toHexString(uint256(uint160(_lastRegisteredAddress)), 20);
+    }
+
+    function getMessage(string memory messageIn) external pure returns (string memory messageOut)
+    {
+        messageOut = messageIn;
+    }
+
+    function getAddress(address addressIn) external pure returns (address addressOut)
+    {
+        addressOut = addressIn;
+    }
+
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: MODIFIERS
+    ///////////////////////////////////////////////////////////
+    modifier ensureIsRegistered 
+    {
+        // Validate
+        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+
+        // Execute rest of function
+      _;
+    }
+
 
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GETTERS
     ///////////////////////////////////////////////////////////
-    function getLastRegisteredAddress() public view returns (string memory lastRegisteredAddress)
-    {
-        lastRegisteredAddress = Strings.toHexString(uint256(uint160(_lastRegisteredAddress)), 20);
-    }
 
-    function getMessage(string memory messageIn) public pure returns (string memory messageOut)
-    {
-        messageOut = messageIn;
-    }
-
-
-    function isRegistered() public view returns (bool isPlayerRegistered)
+    function getIsRegistered() public view returns (bool isRegistered) 
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
         // require(msg.sender == _owner);
-        isPlayerRegistered = _isRegistered[_lastRegisteredAddress];
+        isRegistered = _isRegistered[_lastRegisteredAddress];
     }
 
 
-    function getGold() public view returns (uint256 balance)
+    function getGold() public view ensureIsRegistered returns (uint256 balance) 
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
+        
         balance = Gold(_goldContractAddress).getGold(_lastRegisteredAddress);
     }
 
 
-    function getRewardsHistory() public view returns (string memory reward)
+    function getRewardsHistory() external view ensureIsRegistered returns (string memory rewardString)
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
-        string memory rewardTitle2 = _lastReward[_lastRegisteredAddress].Title;
-        uint256 rewardType2 = _lastReward[_lastRegisteredAddress].Type;
-        uint256 rewardPrice2 = _lastReward[_lastRegisteredAddress].Price;
-        reward = string(abi.encodePacked("Title=", rewardTitle2, "|Price=", rewardPrice2, "|Type=", rewardType2));
-
+        rewardString = convertRewardToString(_lastReward[_lastRegisteredAddress]);
     }
 
 
@@ -131,9 +149,8 @@ contract TheGameContract
     }
 
 
-    function unregister() public
+    function unregister() public ensureIsRegistered
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
 
         //Update gold first
         setGold(0);
@@ -141,20 +158,18 @@ contract TheGameContract
         //Then unregister
         _isRegistered[_lastRegisteredAddress] = false;
         _lastRegisteredAddress = address(0);
-        
+
     }
 
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: REWARDS
     ///////////////////////////////////////////////////////////
-    function startGameAndGiveRewards(uint256 goldAmount) public
+    function startGameAndGiveRewards(uint256 goldAmount) ensureIsRegistered external
     {
         require(goldAmount > 0, "goldAmount must be > 0 to start the game");
 
         require(getGold() >= goldAmount, "getGold() must be >= goldAmount to start the game");
-
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
 
         // Deduct gold
         setGoldBy(-int(goldAmount));
@@ -176,10 +191,6 @@ contract TheGameContract
             // REWARD: Prize!
             theType = 2;
             title = "This is an nft.";
-
-            //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
-            string memory metadata = string(abi.encodePacked("Title=", title, "|Price=", price));
-            mintNft (metadata);     
         }
 
         _lastReward[msg.sender] = Reward (
@@ -189,74 +200,67 @@ contract TheGameContract
             Price: price
         });
 
+        if (theType == 2)
+        {
+            //NOTE: Metadata structure must match in both: TheGameContract.sol and TreasurePrizeDto.cs
+            string memory metadata = convertRewardToString(_lastReward[msg.sender]);
+            addTreasurePrize (metadata);     
+        }
+
+
     }
 
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: CLEAR DATA
     ///////////////////////////////////////////////////////////
-
-    function safeReregisterAndBurnNfts(uint256[] calldata tokenIds) public
+    function safeReregisterAndDeleteAllTreasurePrizes(uint256[] calldata tokenIds) external
     {
         // Do not require isRegistered for this method to run
-        bool isReg = isRegistered();
-        if (isReg)
+        bool isRegistered = getIsRegistered();
+        if (isRegistered)
         {
             unregister();
         }
 
         register();
-        burnNfts(tokenIds);
-        
+        deleteAllTreasurePrizes(tokenIds);
     }
 
 
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GOLD
     ///////////////////////////////////////////////////////////
-
-
-
-    function setGold(uint256 targetBalance) public
+    function setGold(uint256 targetBalance) ensureIsRegistered public
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
         Gold(_goldContractAddress).setGold(_lastRegisteredAddress, targetBalance);
     }
 
 
-    function setGoldBy(int delta) public
+    function setGoldBy(int delta) ensureIsRegistered public
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
         Gold(_goldContractAddress).setGoldBy(msg.sender, delta); 
     }
 
 
     ///////////////////////////////////////////////////////////
-    // FUNCTIONS: TREASUREPRIZE
+    // FUNCTIONS: TREASURE PRIZE
     ///////////////////////////////////////////////////////////
-    function mintNft(string memory tokenURI) public 
+    function addTreasurePrize(string memory tokenURI) ensureIsRegistered public 
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
         TreasurePrize(_treasurePrizeContractAddress).mintNft(msg.sender, tokenURI);
     }
 
 
-    function burnNft(uint256 tokenId) public
+    function deleteAllTreasurePrizes(uint256[] calldata tokenIds) ensureIsRegistered public
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
-        TreasurePrize(_treasurePrizeContractAddress).burnNft(tokenId);
+        TreasurePrize(_treasurePrizeContractAddress).burnNfts(tokenIds); 
     }
 
 
-    function burnNfts(uint256[] calldata tokenIds) public
+    function sellTreasurePrize(uint256 tokenId) ensureIsRegistered external
     {
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
-
-        TreasurePrize(_treasurePrizeContractAddress).burnNfts(tokenIds); 
+        TreasurePrize(_treasurePrizeContractAddress).burnNft(tokenId);
     }
 }
 
