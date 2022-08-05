@@ -277,7 +277,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	        // Deduct gold
 	        await SetGoldByAsync(-goldAmount);
 
-	        uint random = (uint)UnityEngine.Random.Range(0, 100);
+	        // The higher the goldAmount paid, the higher the POTENTIAL Prize Price Value
+	        uint random = (uint)UnityEngine.Random.Range(0, 100 + goldAmount);
 	        uint price = random;
 	        uint theType = 0;
 	        string title = "";

@@ -3,18 +3,18 @@ CHECKLIST - DEVELOPMENT
 - [ X ] Intro - 
 - [ X ] Auth 
 - [ X ] Settings - 
-- [  ] DevConsole - 
-- [  ] Collection - 
-- [  ] Game - 
+- [ X ] DevConsole - 
+- [ X ] Collection - 
+- [ X ] Game - 
 - [  ] Various Scenes - 
     - fix lighing across all scenes
 
 CHECKLIST - DEVELOPMENT 
-- [  ] Finish all runtime features
+- [ X ] Finish all runtime features
 - [  ] Address all "TODO" comments in code
 - [  ] Remove any unneeded "Log." calls. Ideally all
 - [  ] Run/Test runtime in Unity Editor
-- [  ] Build/Test runtime on Standalone Desktop
+- [ X ] Build/Test runtime on Standalone Desktop
 - [  ] Revisit every class name, namespace, folder
 - [  ] Rename every "async" method as "MethodName{Async}"
 - [  ] Add class comments
@@ -22,7 +22,7 @@ CHECKLIST - DEVELOPMENT
 - [  ] Validate uncompressed file of repo, direct after download. Ideally < 100MB
 - [  ] Update/Test ReadMe.asset
 - [  ] Update/Test README.md
-- [  ] Update/Test SimCityWeb3Configuration.asset
+- [  ] Update/Test TheGameConfiguration.asset
 
 
 CHECKLIST - RECORDING VIDEO 
@@ -33,7 +33,7 @@ CHECKLIST - RECORDING VIDEO
 CHECKLIST - RELEASE 
 - [   ] Keep in git: ALL values within: TheGameConfiguration.asset
 - [   ] Keep in git: ALL values within: TheGameContract.cs
-- [   ] Release repo as public
+- [ X ] Release repo as public
 - [   ] Release video as unlisted
 
 CHECKLIST - OTHER 

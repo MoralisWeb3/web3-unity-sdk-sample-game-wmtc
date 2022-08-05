@@ -140,7 +140,8 @@ contract TheGameContract
         // Deduct gold
         setGoldBy(-int(goldAmount));
 
-        uint random = TheGameLibrary.randomRange (0, 100, 1);
+        // The higher the goldAmount paid, the higher the POTENTIAL Prize Price Value
+        uint random = TheGameLibrary.randomRange (0, 100 + goldAmount, 1);
         uint price = random;
         uint theType = 0;
         string memory title = "";
