@@ -27,13 +27,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 
 		// Initialization Methods -------------------------
-
-		protected override void SetContractDetails()
+	   protected override void SetContractDetails()
 	   {
 
-	     _treasurePrizeContractAddress  = "0xd070878864a0edCA0bb6521efD7eB7b9Be98dBad";
-	     _address  = "0x9A34e19d7aE9Ae6A81c0991C1A2187C16b3693bc";
-	     _abi      = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"treasurePrizeContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tokenURI\",\"type\":\"string\"}],\"name\":\"addTreasurePrize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"Title\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"Type\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"Price\",\"type\":\"uint256\"}],\"internalType\":\"struct TheGameContract.Reward\",\"name\":\"reward\",\"type\":\"tuple\"}],\"name\":\"convertRewardToString\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"rewardString\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"deleteAllTreasurePrizes\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addressIn\",\"type\":\"address\"}],\"name\":\"getAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addressOut\",\"type\":\"address\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getIsRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isRegistered\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastRegisteredAddress\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"lastRegisteredAddress\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"messageIn\",\"type\":\"string\"}],\"name\":\"getMessage\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"messageOut\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRewardsHistory\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"rewardString\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"randomRange\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"safeReregisterAndDeleteAllTreasurePrizes\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"sellTreasurePrize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetBalance\",\"type\":\"uint256\"}],\"name\":\"setGold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"setGoldBy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"goldAmount\",\"type\":\"uint256\"}],\"name\":\"startGameAndGiveRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
+	     _treasurePrizeContractAddress  = "0xba883B5c73686D8Ca96be6fFE65C5f2990Bf50da";
+	     _address  = "0xB677cABcE44c127d4c8FD3a1e3E899D493fA3666";
+	     _abi      = "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"goldContractAddress\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"treasurePrizeContractAddress\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"tokenURI\",\"type\":\"string\"}],\"name\":\"addTreasurePrize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"components\":[{\"internalType\":\"string\",\"name\":\"Title\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"Type\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"Price\",\"type\":\"uint256\"}],\"internalType\":\"struct TheGameContract.Reward\",\"name\":\"reward\",\"type\":\"tuple\"}],\"name\":\"convertRewardToString\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"rewardString\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"deleteAllTreasurePrizes\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"addressIn\",\"type\":\"address\"}],\"name\":\"getAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"addressOut\",\"type\":\"address\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"}],\"name\":\"getGold\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"}],\"name\":\"getIsRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"isRegistered\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"messageIn\",\"type\":\"string\"}],\"name\":\"getMessage\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"messageOut\",\"type\":\"string\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress\",\"type\":\"address\"}],\"name\":\"getRewardsHistory\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"rewardString\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"min\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"max\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"nonce\",\"type\":\"uint256\"}],\"name\":\"randomRange\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"register\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256[]\",\"name\":\"tokenIds\",\"type\":\"uint256[]\"}],\"name\":\"safeReregisterAndDeleteAllTreasurePrizes\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"sellTreasurePrize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"targetBalance\",\"type\":\"uint256\"}],\"name\":\"setGold\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"int256\",\"name\":\"delta\",\"type\":\"int256\"}],\"name\":\"setGoldBy\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"goldAmount\",\"type\":\"uint256\"}],\"name\":\"startGameAndGiveRewards\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"unregister\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
 
 
 	   }
@@ -57,36 +56,33 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			cInputParams.Add(new { internalType = "address", name = "goldContractAddress", type = "address" });
 			contractAbi.AddConstructor(cInputParams);
 			
-			// getMessage
-			List<object> testInput = new List<object>();
-			testInput.Add(new { internalType = "address", name = "addressIn", type = "address" });
-			List<object> testOutput = new List<object>();
-			testOutput.Add(new { internalType = "address", name = "addressOut", type = "address" });
-			contractAbi.AddFunction("getAddress", "pure", testInput, testOutput);
-			
+			// // getAddress
+			// List<object> testInput = new List<object>();
+			// testInput.Add(new { internalType = "address", name = "addressIn", type = "address" });
+			// List<object> testOutput = new List<object>();
+			// testOutput.Add(new { internalType = "address", name = "addressOut", type = "address" });
+			// contractAbi.AddFunction("getAddress", "pure", testInput, testOutput);
 
-			// isRegistered
+			// getIsRegistered
 			List<object> isRegistered_Input = new List<object>();
+			isRegistered_Input.Add(new { internalType = "address", name = "address", type = "address" });
 			List<object> isRegistered_Output = new List<object>();
 			isRegistered_Output.Add(new { internalType = "bool", name = "isRegistered", type = "bool" });
 			contractAbi.AddFunction("getIsRegistered", "view", isRegistered_Input, isRegistered_Output);
 
 			// getGold
 			List<object> getGold_Input = new List<object>();
+			getGold_Input.Add(new { internalType = "address", name = "address", type = "address" });
 			List<object> getGold_Output = new List<object>();
 			getGold_Output.Add(new { internalType = "uint256", name = "balance", type = "uint256" });
 			contractAbi.AddFunction("getGold", "view", getGold_Input, getGold_Output);
 
-			// getMsgSender
-			List<object> getMsgSender_Input = new List<object>();
-			List<object> getMsgSender_Output = new List<object>();
-			getMsgSender_Output.Add(new { internalType = "string", name = "lastRegisteredAddress", type = "string" });
-			contractAbi.AddFunction("getLastRegisteredAddress", "view", getMsgSender_Input, getMsgSender_Output);
-
-
 			// getRewardsHistory
 			List<object> getRewardsHistory_Input = new List<object>();
+			getRewardsHistory_Input.Add(new { internalType = "address", name = "address", type = "address" });
 			List<object> getRewardsHistory_Output = new List<object>();
+			
+			//todo ; this is wrong...
 			getRewardsHistory_Output.Add(new { internalType = "string", name = "rewardTitle", type = "string" });
 			getRewardsHistory_Output.Add(new { internalType = "uint256", name = "rewardType", type = "uint256" });
 			getRewardsHistory_Output.Add(new { internalType = "uint256", name = "rewardPrice", type = "uint256" });
@@ -116,22 +112,22 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		
 		public async UniTask<bool> getIsRegistered()
 		{
-
 			MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
-			
-			//TEMP TEST OF getAddress
 			Dictionary<string, object> args = new Dictionary<string, object>();
-			args.Add("addressIn", moralisUser.ethAddress);
-			string result = await RunContractFunctionAsync("getAddress", args, IsLogging); //getIsRegistered
+			args.Add("address", moralisUser.ethAddress);
 
-			bool resultBool = false; // bool.Parse(result);
+			string result = await RunContractFunctionAsync("getIsRegistered", args, IsLogging); //getIsRegistered
+
+			bool resultBool = bool.Parse(result);
 			return resultBool;
 		}
 
 		
 		public async UniTask<int> getGold()
 		{
+			MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
 			Dictionary<string, object> args = new Dictionary<string, object>();
+			args.Add("address", moralisUser.ethAddress);
 
 			string goldString = await RunContractFunctionAsync("getGold", args, IsLogging);
 			int goldInt = Int32.Parse(goldString);
@@ -141,7 +137,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 		public async UniTask<string> GetRewardsHistory()
 		{
+			MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
 			Dictionary<string, object> args = new Dictionary<string, object>();
+			args.Add("address", moralisUser.ethAddress);
 
 			var result = await RunContractFunctionAsync("getRewardsHistory", args, IsLogging);
 			

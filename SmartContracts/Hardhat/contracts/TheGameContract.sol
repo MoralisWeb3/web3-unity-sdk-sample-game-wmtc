@@ -40,8 +40,6 @@ contract TheGameContract
     // Stores address of the TreasurePrize contract, to be called
     address _treasurePrizeContractAddress;
 
-    address _lastRegisteredAddress;
-
     mapping(address => bool) private _isRegistered;
 
     // Stores the most recent reward
@@ -81,13 +79,8 @@ contract TheGameContract
     
 
     ///////////////////////////////////////////////////////////
-    // REMOVE THESES
+    // FUNCTIONS: DEBUGGING ONLY - CONFIRMING WHAT'S POSSIBLE
     ///////////////////////////////////////////////////////////
-    function getLastRegisteredAddress() external view returns (string memory lastRegisteredAddress)
-    {
-        lastRegisteredAddress = Strings.toHexString(uint256(uint160(_lastRegisteredAddress)), 20);
-    }
-
     function getMessage(string memory messageIn) external pure returns (string memory messageOut)
     {
         messageOut = messageIn;
@@ -101,10 +94,10 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: MODIFIERS
     ///////////////////////////////////////////////////////////
-    modifier ensureIsRegistered 
+    modifier ensureIsRegistered (address userAddress)
     {
         // Validate
-        require(_isRegistered[_lastRegisteredAddress], "Must be registered");
+        require(_isRegistered[userAddress], "Must be registered");
 
         // Execute rest of function
       _;
@@ -116,25 +109,25 @@ contract TheGameContract
     // FUNCTIONS: GETTERS
     ///////////////////////////////////////////////////////////
 
-    function getIsRegistered() public view returns (bool isRegistered) 
+    function getIsRegistered(address userAddress) public view returns (bool isRegistered) 
     {
         // DISCLAIMER -- NOT A PRODUCTION READY CONTRACT
         // CONSIDER TO ADD MORE SECURITY CHECKS TO EVERY FUNCTION
         // require(msg.sender == _owner);
-        isRegistered = _isRegistered[_lastRegisteredAddress];
+        isRegistered = _isRegistered[userAddress];
     }
 
 
-    function getGold() public view ensureIsRegistered returns (uint256 balance) 
+    function getGold(address userAddress) public view ensureIsRegistered (userAddress) returns (uint256 balance) 
     {
         
-        balance = Gold(_goldContractAddress).getGold(_lastRegisteredAddress);
+        balance = Gold(_goldContractAddress).getGold(userAddress);
     }
 
 
-    function getRewardsHistory() external view ensureIsRegistered returns (string memory rewardString)
+    function getRewardsHistory(address userAddress) external view ensureIsRegistered (userAddress) returns (string memory rewardString)
     {
-        rewardString = convertRewardToString(_lastReward[_lastRegisteredAddress]);
+        rewardString = convertRewardToString(_lastReward[userAddress]);
     }
 
 
@@ -143,21 +136,19 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     function register() public
     {
-        _lastRegisteredAddress = msg.sender;
-        _isRegistered[_lastRegisteredAddress] = true;
+        _isRegistered[msg.sender] = true;
         setGold(100);
     }
 
 
-    function unregister() public ensureIsRegistered
+    function unregister() public ensureIsRegistered (msg.sender)
     {
 
         //Update gold first
         setGold(0);
 
         //Then unregister
-        _isRegistered[_lastRegisteredAddress] = false;
-        _lastRegisteredAddress = address(0);
+        _isRegistered[msg.sender] = false;
 
     }
 
@@ -165,11 +156,11 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: REWARDS
     ///////////////////////////////////////////////////////////
-    function startGameAndGiveRewards(uint256 goldAmount) ensureIsRegistered external
+    function startGameAndGiveRewards(uint256 goldAmount) ensureIsRegistered (msg.sender) external
     {
         require(goldAmount > 0, "goldAmount must be > 0 to start the game");
 
-        require(getGold() >= goldAmount, "getGold() must be >= goldAmount to start the game");
+        require(getGold(msg.sender) >= goldAmount, "getGold() must be >= goldAmount to start the game");
 
         // Deduct gold
         setGoldBy(-int(goldAmount));
@@ -217,7 +208,7 @@ contract TheGameContract
     function safeReregisterAndDeleteAllTreasurePrizes(uint256[] calldata tokenIds) external
     {
         // Do not require isRegistered for this method to run
-        bool isRegistered = getIsRegistered();
+        bool isRegistered = getIsRegistered(msg.sender);
         if (isRegistered)
         {
             unregister();
@@ -231,13 +222,13 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: GOLD
     ///////////////////////////////////////////////////////////
-    function setGold(uint256 targetBalance) ensureIsRegistered public
+    function setGold(uint256 targetBalance) ensureIsRegistered (msg.sender) public
     {
-        Gold(_goldContractAddress).setGold(_lastRegisteredAddress, targetBalance);
+        Gold(_goldContractAddress).setGold(msg.sender, targetBalance);
     }
 
 
-    function setGoldBy(int delta) ensureIsRegistered public
+    function setGoldBy(int delta) ensureIsRegistered (msg.sender) public
     {
         Gold(_goldContractAddress).setGoldBy(msg.sender, delta); 
     }
@@ -246,20 +237,23 @@ contract TheGameContract
     ///////////////////////////////////////////////////////////
     // FUNCTIONS: TREASURE PRIZE
     ///////////////////////////////////////////////////////////
-    function addTreasurePrize(string memory tokenURI) ensureIsRegistered public 
+    function addTreasurePrize(string memory tokenURI) ensureIsRegistered (msg.sender)  public 
     {
         TreasurePrize(_treasurePrizeContractAddress).mintNft(msg.sender, tokenURI);
     }
 
 
-    function deleteAllTreasurePrizes(uint256[] calldata tokenIds) ensureIsRegistered public
+    function deleteAllTreasurePrizes(uint256[] calldata tokenIds) ensureIsRegistered (msg.sender)  public
     {
         TreasurePrize(_treasurePrizeContractAddress).burnNfts(tokenIds); 
     }
 
 
-    function sellTreasurePrize(uint256 tokenId) ensureIsRegistered external
+    function sellTreasurePrize(uint256 tokenId) ensureIsRegistered (msg.sender)  external
     {
+        //TODO reward gold for the specific prize
+
+        //Then burn the prize
         TreasurePrize(_treasurePrizeContractAddress).burnNft(tokenId);
     }
 }

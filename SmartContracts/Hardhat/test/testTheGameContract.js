@@ -62,7 +62,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
 
         // Act
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(100);
@@ -80,7 +80,7 @@ describe("The Game Contract", function ()
 
         // Act
         await theGameContract.connect(addr1).setGold(10);
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(10);
@@ -99,7 +99,7 @@ describe("The Game Contract", function ()
         // Act
         await theGameContract.connect(addr1).setGoldBy(10);
         await theGameContract.connect(addr1).setGoldBy(-5);
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(105);
@@ -115,7 +115,7 @@ describe("The Game Contract", function ()
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
 
         // Act
-        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -131,7 +131,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
 
         // Act  
-        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(true);
@@ -147,7 +147,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
 
         // Act
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Expect
         expect(goldBalance).to.equal(100);
@@ -164,7 +164,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).unregister();
 
         // Act
-        const isRegistered = await theGameContract.connect(addr1).getIsRegistered();
+        const isRegistered = await theGameContract.connect(addr1).getIsRegistered(addr1.address);
 
         // Expect
         expect(isRegistered).to.equal(false);
@@ -182,7 +182,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).register();
 
         // Act
-        var reward = await theGameContract.connect(addr1).getRewardsHistory ();
+        var reward = await theGameContract.connect(addr1).getRewardsHistory (addr1.address);
 
         // Expect
         expect(reward.length).to.not.equal(0);
@@ -200,7 +200,7 @@ describe("The Game Contract", function ()
         await theGameContract.connect(addr1).startGameAndGiveRewards (goldAmount);
 
         // Act
-        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.connect(addr1).getRewardsHistory ();
+        var [rewardTitle, rewardType, rewardPrice ] = await theGameContract.connect(addr1).getRewardsHistory (addr1.address);
 
         // Expect
         expect(rewardTitle).to.not.equal("");
@@ -216,7 +216,7 @@ describe("The Game Contract", function ()
         // Arrange
         const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
         await theGameContract.connect(addr1).register();
-        const goldBalance = await theGameContract.connect(addr1).getGold();
+        const goldBalance = await theGameContract.connect(addr1).getGold(addr1.address);
 
         // Act
         // Expect
@@ -246,43 +246,6 @@ describe("The Game Contract", function ()
             // Expect
             expect(r).to.greaterThanOrEqual(min).and.lessThanOrEqual(max);
         }
-    }),
-
-    ///////////////////////////////////////////////////////////
-    // TEST
-    ///////////////////////////////////////////////////////////
-    it("getLastRegisteredAddress() is NOT addr1 when deployed", async function ()
-    {
-        // Arrange
-        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
-
-        // Act
-        const result = await theGameContract.connect(addr1).getLastRegisteredAddress();
-        
-        // Expect
-        var string1 = String (result).toLocaleLowerCase();
-        var string2 = String (addr1.address).toLocaleLowerCase();
-        var areSame = string1.localeCompare(string2) == 0;
-        expect(areSame).to.equal(false);
-    }),
-
-    ///////////////////////////////////////////////////////////
-    // TEST
-    ///////////////////////////////////////////////////////////
-    it("getLastRegisteredAddress() is addr1 when deployed, register", async function ()
-    {
-        // Arrange
-        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
-        await theGameContract.connect(addr1).register();
-
-        // Act
-        const result = await theGameContract.connect(addr1).getLastRegisteredAddress();
-        
-        // Expect
-        var string1 = String (result).toLocaleLowerCase();
-        var string2 = String (addr1.address).toLocaleLowerCase();
-        var areSame = string1.localeCompare(string2) == 0;
-        expect(areSame).to.equal(true);
     }),
 
     ///////////////////////////////////////////////////////////

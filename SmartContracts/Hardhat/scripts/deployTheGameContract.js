@@ -43,7 +43,6 @@ async function main()
   console.log("     _treasurePrizeContractAddress  = \"%s\";", treasurePrize.address);
   console.log("     _address  = \"%s\";", theGameContract.address);
   console.log("     _abi      = \"%s\";", abi);
-  console.log("    \n");
   console.log("   }\n");
   console.log("\n");
 
