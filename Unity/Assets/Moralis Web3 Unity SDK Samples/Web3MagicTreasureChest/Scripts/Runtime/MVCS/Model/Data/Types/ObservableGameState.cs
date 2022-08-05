@@ -15,6 +15,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		TreasureChestEntered,
 		TreasureChestIdle,
 		WaitForUser,
+		TreasureChestPreOpening,
 		TreasureChestOpening,
 		TreasureChestOpened,
 		CardsEntering,
@@ -38,10 +39,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 		//  General Methods -------------------------------
 		protected override GameState OnValueChanging(GameState oldValue, GameState newValue)
 		{
-			//Debug.Log($"ObservableGameState.OnValueChanging() newValue = {newValue}");
-			Debug.Log($"{newValue}");
-			
-			//TODO: Throw errors here if state changes incorrectly per ordering
+			//TODO: Optional, you can validate the new/old states here to detect state errors
 			return base.OnValueChanging(oldValue, newValue);
 		}
 

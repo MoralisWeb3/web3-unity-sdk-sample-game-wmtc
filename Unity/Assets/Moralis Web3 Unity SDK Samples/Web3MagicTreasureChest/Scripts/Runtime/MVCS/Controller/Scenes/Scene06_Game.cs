@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
+using MoralisUnity.Samples.Shared.Audio;
 using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
@@ -16,15 +18,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
     public class Scene06_Game : MonoBehaviour
     {
         //  Properties ------------------------------------
-        public ObservableGameState ObservableGameState
-        {
-            get { return _observableGameState; }
-        }
-
-        public bool IsReadyForUserToClickPlay
-        {
-            get { return _observableGameState.Value == GameState.WaitForUser; }
-        }
+        private bool _isReadyForUserToClickPlay  {  get { return _observableGameState.Value == GameState.WaitForUser; } }
 
         //  Fields ----------------------------------------
         [Header("Debugging")] [SerializeField]
@@ -107,32 +101,23 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         private async void StartGame(int goldSpent)
         {
             _lastGoldSpent = goldSpent;
-            await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
-                async delegate()
-                {
-                    await _treasureChestUI.TakeDamage();
-                    await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
-                    _lastReward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
-                    _observableGameState.Value = GameState.TreasureChestOpening;
+            _observableGameState.Value = GameState.TreasureChestPreOpening;
 
-                    await RefreshUI();
-
-                });
         }
 
         private async UniTask RefreshUI()
         {
             _ui.BackButtonUI.IsInteractable = true;
-            _ui.Play01ButtonUI.IsInteractable = IsReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[0];
-            _ui.Play02ButtonUI.IsInteractable = IsReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[1];
-            _ui.Play03ButtonUI.IsInteractable = IsReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[2];
+            _ui.Play01ButtonUI.IsInteractable = _isReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[0];
+            _ui.Play02ButtonUI.IsInteractable = _isReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[1];
+            _ui.Play03ButtonUI.IsInteractable = _isReadyForUserToClickPlay && _lastGoldOwned >= _goldCostPerPlay[2];
         }
 
 
         //  Event Handlers --------------------------------
         private async void ObservableGameState_OnValueChanged(GameState gameState)
         {
-            Debug.Log("gameState: " + gameState);
+            //Debug.Log("gameState: " + gameState);
             switch (gameState)
             {
                 case GameState.Null:
@@ -150,10 +135,23 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 case GameState.WaitForUser:
                     //wait for user click
                     break;
-                case GameState.TreasureChestOpening:
+                case GameState.TreasureChestPreOpening:
 
-                    bool willSkipWait = false;
-                    await _treasureChestUI.Open(willSkipWait);
+                    await TheGameSingleton.Instance.TheGameController.ShowMessageActiveAsync(
+                        async delegate()
+                        {
+                            _ui.IsObservingOnTheGameModelChanged = false;
+                            await TheGameSingleton.Instance.TheGameController.StartGameAndGiveRewardsAsync(_lastGoldSpent);
+                            await _treasureChestUI.TakeDamage();
+                            _lastReward = await TheGameSingleton.Instance.TheGameController.GetRewardsHistoryAsync();
+                            _observableGameState.Value = GameState.TreasureChestOpening;
+
+                            await RefreshUI();
+
+                        });
+                    break;
+                case GameState.TreasureChestOpening:
+                    await _treasureChestUI.Open();
                     _observableGameState.Value = GameState.TreasureChestOpened;
                     break;
                 case GameState.TreasureChestOpened:
@@ -161,9 +159,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     break;
                 case GameState.CardsEntering:
                     
-                    // Don't await this
+                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+                    
+                    // Do NOT await
                     _treasureChestUI.BounceWhileOpen();
-
+                    
+                    // Do await
                     await _cardsUI.ShowCardsForReward(_lastReward, _cardStartRP, _cardEndRPs);
                     
                     _observableGameState.Value = GameState.CardsEntered;
@@ -177,8 +178,17 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     string theTypeName = TheGameHelper.GetRewardTypeNameByType(_lastReward.Type);
                     string message =
                         $"Congratulations!\nYou Spent {_lastGoldSpent} and\nwon `{theTypeName}` worth {_lastReward.Price}.";
-                    await TheGameSingleton.Instance.TheGameController.ShowMessageCustom(message,
+
+                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
+                    
+                    // Do NOT await
+                    TheGameSingleton.Instance.TheGameController.ShowMessageCustom(message,
                         5000);
+                    
+                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
+                    await UniTask.Delay((500));
+                    _ui.IsObservingOnTheGameModelChanged = true;
+                    
                     break;
             }
         }

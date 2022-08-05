@@ -109,7 +109,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		/// </summary>
 		public void PlayAudioClipClick()
 		{
-			SoundManager.Instance.PlayAudioClip(0);
+			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexClick());
 		}
 		
 		// Event Handlers ---------------------------------

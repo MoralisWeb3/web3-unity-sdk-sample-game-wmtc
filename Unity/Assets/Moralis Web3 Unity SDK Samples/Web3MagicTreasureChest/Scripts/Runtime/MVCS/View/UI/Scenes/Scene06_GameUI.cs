@@ -15,6 +15,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 		public BaseButtonUI Play03ButtonUI { get { return _play03ButtonUI; } }
 		
 		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
+		
 
 		//  Fields ----------------------------------------
 		[Header("References (Scene)")]

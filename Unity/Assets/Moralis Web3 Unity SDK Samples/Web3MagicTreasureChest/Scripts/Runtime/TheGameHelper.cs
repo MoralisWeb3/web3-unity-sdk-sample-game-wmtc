@@ -50,6 +50,34 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
             }
         }
         
+        public static int GetAudioClipIndexClick()
+        {
+            return 0;
+        }
+        
+        public static int GetAudioClipIndexChestHit01()
+        {
+            return 1;
+        }
+        
+        public static int GetAudioClipIndexChestHit02()
+        {
+            return 2;
+        }
+        
+        public static int GetAudioClipIndexByReward(Reward reward)
+        {
+            if (reward.Type == 1)
+            {
+                return 3;
+            }
+            else
+            {
+                return 4;
+            }
+        }
+        
+        
         public const string RewardGold = "GOLD";
         public const string RewardPrize = "PRIZE";
 

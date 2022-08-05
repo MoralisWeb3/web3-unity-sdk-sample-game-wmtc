@@ -2,7 +2,9 @@ using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Helpers;
 using System;
 using System.Threading.Tasks;
+using MoralisUnity.Samples.Shared.Audio;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
@@ -30,10 +32,35 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		//  Unity Methods----------------------------------
 		protected void Start()
 		{
+			InitDuringAutomaticBouncing();
+
+		}
+
+		/// <summary>
+		/// The animator automatically plays through to a bounce animation. So just time
+		/// this by coincidence to happen every scene
+		/// </summary>
+		private void InitDuringAutomaticBouncing()
+		{
 			_bubblesParticleSystem.Stop();
 			_raysParticleSystem.gameObject.transform.localScale = new Vector3(.1f, .1f, .1f);
+
+			PlayAudioClipOpen();
+
 		}
-		
+
+		private async void PlayAudioClipOpen()
+		{
+			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+			await UniTask.Delay((500));
+			
+			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit02());
+			await UniTask.Delay((500));
+			
+			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+			await UniTask.Delay((500));
+
+		}
 
 		// General Methods --------------------------------
 		public async UniTask TakeDamage()
@@ -46,22 +73,16 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 			return;
 		}
 
-		public async UniTask Open(bool willSkipWaiting)
+		public async UniTask Open()
 		{
+			PlayAudioClipOpen();
 			_animator.SetTrigger("Open");
-
-			int m = 1;
-			if (willSkipWaiting)
-            {
-				m = 0;
-            }
-	
-			await UniTask.Delay(2000 * m);
-
+			await UniTask.Delay(2000 );
+			
 			if (_raysParticleSystem == null) return;
 			TweenHelper.TransformDoScale(_raysParticleSystem.gameObject, new Vector3(.1f, .1f, .1f), new Vector3(1, 1, 1), 1, 0.1f);
 
-			await UniTask.Delay(500 * m);
+			await UniTask.Delay(500);
 
 			return;
 		}
@@ -70,10 +91,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 		{
 			_animator.SetTrigger("BounceWhileOpen");
 			await UniTask.Delay(2000);
-
-	
-
-			return;
 		}
 
 		// Event Handlers ---------------------------------
