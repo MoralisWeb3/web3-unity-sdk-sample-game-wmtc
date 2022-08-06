@@ -18,15 +18,16 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 
         
 		//  Fields ----------------------------------------
-
+		// This class is in 'Shared' so can't directly use TheGameConstants.cs. That is ok.
+		private const string ProjectTitle = "Web3 Magic Treasure Chest"; 
 		
 		//  General Methods -------------------------------
 		
 		///////////////////////////////////////////
 		// Tools Menu
 		///////////////////////////////////////////
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-			SharedConstants.Web3UnitySDKExamples + "/" + SharedConstants.OpenReadMe, false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + SharedConstants.OpenReadMe, false,
 			SharedConstants.PriorityMoralisTools_Examples)]
 		public static void OpenReadMe()
 		{
@@ -34,8 +35,8 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		}
 
 
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-				   SharedConstants.Web3UnitySDKExamples + "/" + "Add Example Scenes To Build Settings", false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + "Add Example Scenes To Build Settings", false,
 			SharedConstants.PriorityMoralisTools_Examples)]
 		public static void AddAllScenesToBuildSettings()
 		{
@@ -46,8 +47,8 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		}
 
 
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-		          SharedConstants.Web3UnitySDKExamples + "/" + "Load Moralis Layout (10x16)", false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + "Load Moralis Layout (10x16)", false,
 			SharedConstants.PriorityMoralisTools_Examples)]
 		public static void LoadExampleLayout_10x16()
 		{
@@ -57,8 +58,8 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		}
 		
 		
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-		          SharedConstants.Web3UnitySDKExamples + "/" + "Load Moralis Layout (16x10)", false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + "Load Moralis Layout (16x10)", false,
 			SharedConstants.PriorityMoralisTools_Examples)]
 		public static void LoadExampleLayout_16x10()
 		{
@@ -67,16 +68,16 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 			UnityReflectionUtility.UnityEditor_WindowLayout_LoadWindowLayout(path);
 		}
 		
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-		          SharedConstants.Web3UnitySDKExamples + "/" + "Example_LocalDiskStorage_01/Open Persistent Data Path", false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + "Storage/Open Persistent Data Path", false,
 			SharedConstants.PriorityMoralisTools_Examples_Sub)]
 		public static void OpenApplicationPersistentDataPath()
 		{
 			EditorUtility.RevealInFinder(Application.persistentDataPath);
 		}
 		
-		[MenuItem(MoralisConstants.PathMoralisExamplesWindowMenu + "/" +
-		          SharedConstants.Web3UnitySDKExamples + "/" + "Example_LocalDiskStorage_01/Open Steaming Data Path", false,
+		[MenuItem(MoralisConstants.PathMoralisSamplesWindowMenu + "/" +
+		          ProjectTitle + "/" + "Storage/Open Steaming Data Path", false,
 			SharedConstants.PriorityMoralisTools_Examples_Sub)]
 		public static void OpenApplicationStreamingDataPath()
 		{

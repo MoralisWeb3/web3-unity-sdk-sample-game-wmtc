@@ -12,6 +12,9 @@ using MoralisUnity.Samples.Shared.Debugging;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
 
+	/// <summary>
+	/// The object to be written/read to local disk
+	/// </summary>
 	[CustomFilePath(LocalDiskStorage.Title + "/TheGameLocalDiskStorage.txt", CustomFilePathLocation.StreamingAssetsPath)]
 	[System.Serializable]
 	public class TheGameLocalDiskStorage

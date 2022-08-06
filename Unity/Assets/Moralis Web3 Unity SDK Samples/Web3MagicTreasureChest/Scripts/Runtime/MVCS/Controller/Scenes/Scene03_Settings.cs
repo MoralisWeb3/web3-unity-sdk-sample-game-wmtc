@@ -9,7 +9,7 @@ using UnityEngine;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
-    /// Replace with comments...
+    /// Core Scene Behavior - Using <see cref="Scene03_SettingsUI"/>
     /// </summary>
     public class Scene03_Settings : MonoBehaviour
     {

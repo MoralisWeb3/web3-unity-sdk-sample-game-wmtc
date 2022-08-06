@@ -1,42 +1,43 @@
 
 CHECKLIST - DEVELOPMENT 
-- [ X ] Intro - 
-- [ X ] Auth 
-- [ X ] Settings - 
-- [ X ] DevConsole - 
-- [ X ] Collection - 
-- [ X ] Game - 
-- [  ] Various Scenes - 
+- [X] Intro - 
+- [X] Auth 
+- [X] Settings - 
+- [X] DevConsole - 
+- [X] Collection - 
+- [X] Game - 
+- [] Various Scenes - 
     - fix lighing across all scenes
 
 CHECKLIST - DEVELOPMENT 
-- [ X ] Finish all runtime features
-- [ X ] Address all "TODO" comments in code
-- [ X ] Move any logging to "Custom.Debug.Log." calls. Ideall all.
-- [  ] Run/Test runtime in Unity Editor
-- [ X ] Build/Test runtime on Standalone Desktop
-- [  ] Revisit every class name, namespace, folder
-- [  ] Rename every "async" method as "MethodName{Async}"
-- [  ] Add class comments
-- [  ] Remove unneeded /3rdParty/ contents
-- [  ] Validate uncompressed file of repo, direct after download. Ideally < 100MB
-- [  ] Update/Test ReadMe.asset
-- [  ] Update/Test README.md
-- [  ] Update/Test TheGameConfiguration.asset
+- [X] Finish all runtime features
+- [X] Address all "TODO" comments in code
+- [X] Move any logging to "Custom.Debug.Log." calls. Ideall all.
+- [X] Revisit every class name, namespace, folder
+- [X] Rename every "async" method as "MethodName{Async}"
+- [] Add class comments
+- [X] Unity/Tools/Moralis Web3 Unity SDK/ ... Menu Items
+- [X] Update/Test ReadMe.asset
+- [X] Update/Test README.md
+- [X] Update/Test TheGameConfiguration.asset
+- [] Remove unneeded /3rdParty/ contents
+- [] Validate uncompressed file of repo, direct after download. Ideally < 100MB
+- [X] Run/Test runtime in Unity Editor
+- [X] Build/Test runtime on Standalone Desktop
 
 
 CHECKLIST - RECORDING VIDEO 
-- [   ] - Use 10x16 Layout
-- [   ] - Code editor height set to ~25 lines
+- [] - Use 10x16 Layout
+- [] - Code editor height set to ~25 lines
 
 
 CHECKLIST - RELEASE 
-- [   ] Keep in git: ALL values within: TheGameConfiguration.asset
-- [   ] Keep in git: ALL values within: TheGameContract.cs
-- [ X ] Release repo as public
-- [   ] Release video as unlisted
+- [] Keep in git: ALL values within: TheGameConfiguration.asset
+- [] Keep in git: ALL values within: TheGameContract.cs
+- [X] Release repo as public
+- [] Release video as unlisted
 
 CHECKLIST - OTHER 
-- [   ] 
-- [   ] 
-- [   ] 
+- [] 
+- [] 
+- []

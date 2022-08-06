@@ -8,7 +8,7 @@ using UnityEngine;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
 	/// <summary>
-	/// Handles the TreasureChest for the game
+	/// Handles the group of cards (may be just 1 total card for now) for the game
 	/// </summary>
 	public class CardsUI : MonoBehaviour
 	{

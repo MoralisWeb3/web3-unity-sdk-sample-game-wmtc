@@ -5,7 +5,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes
 {
 	/// <summary>
-	/// The UI for <see cref="Scene06_Game"/>
+	/// The UI for Core Scene Behavior of <see cref="Scene06_Game"/>
 	/// </summary> 
 	public class Scene06_GameUI : Scene_UIWithTop
 	{

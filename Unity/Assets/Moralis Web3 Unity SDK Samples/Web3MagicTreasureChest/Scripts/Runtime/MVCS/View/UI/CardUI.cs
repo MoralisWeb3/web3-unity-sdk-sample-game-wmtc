@@ -3,7 +3,7 @@ using UnityEngine;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 {
 	/// <summary>
-	/// Handles the TreasureChest for the game
+	/// Handles the card prize that appears for the game
 	/// </summary>
 	public class CardUI : MonoBehaviour
 	{

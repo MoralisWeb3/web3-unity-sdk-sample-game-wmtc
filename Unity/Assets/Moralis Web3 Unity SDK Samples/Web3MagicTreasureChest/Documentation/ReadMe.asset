@@ -49,14 +49,14 @@ MonoBehaviour:
     linkText: 
     url: 
     openMenuName: Add Example Scenes To Build Settings
-    openMenuNameId: Tools/Moralis Web3 Unity SDK/Examples/Web3 Unity SDK Examples/Add Example Scenes To Build Settings
+    openMenuNameId: Tools/Moralis Web3 Unity SDK/Samples/Web3 Magic Treasure Chest/Add Example Scenes To Build Settings
   - heading: 
     subheading: 4. Update Unity Layout & Aspect Ratio
     text: Use default layout or choose your own
     linkText: 
     url: 
     openMenuName: Load Moralis Layout (10x16)
-    openMenuNameId: Tools/Moralis Web3 Unity SDK/Examples/Web3 Unity SDK Examples/Load Moralis Layout (10x16)
+    openMenuNameId: Tools/Moralis Web3 Unity SDK/Samples/Web3 Magic Treasure Chest/Load Moralis Layout (10x16)
   - heading: 
     subheading: 5. Update Game Settings
     text: Use default values or choose your own

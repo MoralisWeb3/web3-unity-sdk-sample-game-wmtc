@@ -10,7 +10,7 @@ using MoralisUnity.Web3Api.Models;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 {
 	/// <summary>
-	/// Wrapper class for a Web3API Eth Contract.
+	/// Wrapper class for a Web3API communication to the Solidity Smart Contract.
 	/// </summary>
 	public class TheGameContract : Contract
 	{

@@ -19,7 +19,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 	}
 
 	/// <summary>
-	/// Handles the Dungeon for the game
+	/// Handles the Camera for the game
+	///		* The camera was animated in earlier iterations. Now it does not animate.
 	/// </summary>
 	public class CameraUI : SingletonMonobehaviour<CameraUI>
 	{

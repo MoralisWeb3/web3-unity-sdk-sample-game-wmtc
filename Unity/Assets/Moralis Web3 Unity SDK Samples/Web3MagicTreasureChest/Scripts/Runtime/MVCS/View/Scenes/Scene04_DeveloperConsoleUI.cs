@@ -6,7 +6,7 @@ using TMPro;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes
 {
 	/// <summary>
-	/// The UI for <see cref="Scene04_DeveloperConsole"/>
+	/// The UI for Core Scene Behavior of <see cref="Scene04_DeveloperConsole"/>
 	/// </summary>
 	public class Scene04_DeveloperConsoleUI : Scene_UIWithTop
 	{

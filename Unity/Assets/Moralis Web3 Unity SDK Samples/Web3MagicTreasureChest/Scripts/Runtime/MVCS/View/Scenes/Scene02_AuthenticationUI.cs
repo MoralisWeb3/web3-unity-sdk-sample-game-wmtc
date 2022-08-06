@@ -6,7 +6,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes
 {
 	/// <summary>
-	/// The UI for <see cref="Scene02_Authentication"/>
+	/// The UI for Core Scene Behavior of <see cref="Scene02_Authentication"/>
 	/// </summary>
 	public class Scene02_AuthenticationUI : Scene_BaseUI
 	{

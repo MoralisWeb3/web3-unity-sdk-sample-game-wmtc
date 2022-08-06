@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
     /// <summary>
-    /// Replace with comments...
+    /// Core Scene Behavior - Using <see cref="Scene02_AuthenticationUI"/>
     /// </summary>
     public class Scene02_Authentication : MonoBehaviour
     {
