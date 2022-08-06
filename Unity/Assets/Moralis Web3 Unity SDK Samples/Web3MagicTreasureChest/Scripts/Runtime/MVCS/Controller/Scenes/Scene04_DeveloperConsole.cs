@@ -67,7 +67,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         private async UniTask<bool> EnsureIsRegisteredAsync()
         {
             // Use the cached here so its quick
-            bool isRegisteredCached = TheGameSingleton.Instance.TheGameController.IsRegisteredCached();
+            bool isRegisteredCached = TheGameSingleton.Instance.TheGameController.GetIsRegisteredCached();
             if (!isRegisteredCached)
             {
                 _outputTextStringBuilder.Clear();
@@ -90,7 +90,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
               async delegate ()
               {
     
-                  bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                  bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
                   _outputTextStringBuilder.Clear();
                   _outputTextStringBuilder.AppendHeaderLine($"isRegistered()");
@@ -106,7 +106,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         {
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+            bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
             if (!isRegistered)
             {
@@ -121,7 +121,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     {
                         await TheGameSingleton.Instance.TheGameController.UnregisterAsync();
 
-                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
                         _outputTextStringBuilder.Clear();
                         _outputTextStringBuilder.AppendHeaderLine($"UnregisterAsync()");
@@ -139,7 +139,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                           
             TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
 
-            bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+            bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
             if (isRegistered)
             {
@@ -154,7 +154,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     {
                         await TheGameSingleton.Instance.TheGameController.RegisterAsync();
 
-                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                        bool isRegisteredAfter = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
                         _outputTextStringBuilder.Clear();
                         _outputTextStringBuilder.AppendHeaderLine($"RegisterAsync()");

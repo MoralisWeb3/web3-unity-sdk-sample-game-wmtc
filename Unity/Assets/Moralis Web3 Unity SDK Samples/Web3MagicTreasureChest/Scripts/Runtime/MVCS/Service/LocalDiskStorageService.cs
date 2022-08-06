@@ -72,7 +72,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			return new UniTask<Reward>(_lastReward); 
 		}
 
-		public async UniTask<bool> IsRegisteredAsync()
+		public async UniTask<bool> GetIsRegisteredAsync()
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);
 
@@ -267,7 +267,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         /// </summary>
         public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
         {
-	        bool isRegistered = await IsRegisteredAsync();
+	        bool isRegistered = await GetIsRegisteredAsync();
 	        if (isRegistered)
 	        {
 		        await UnregisterAsync();
@@ -288,7 +288,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	        {
 		        throw new Exception("getGold() must be >= goldAmount to start the game");
 	        }
-	        if (await IsRegisteredAsync() == false)
+	        if (await GetIsRegisteredAsync() == false)
 	        {
 		        throw new Exception("Must be registered to start the game.");
 	        }

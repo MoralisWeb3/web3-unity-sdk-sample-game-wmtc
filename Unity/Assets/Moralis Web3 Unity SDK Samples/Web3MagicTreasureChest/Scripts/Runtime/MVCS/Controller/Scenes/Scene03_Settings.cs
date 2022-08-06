@@ -37,7 +37,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 async delegate()
                 {
                     // Refresh the model
-                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
                     
                     if (!isRegistered)
                     {
@@ -67,7 +67,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     await TheGameSingleton.Instance.TheGameController.SafeReregisterDeleteAllTreasurePrizeAsync();
                     
                     // Refresh the model
-                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
                     
                     if (!isRegistered)
                     {

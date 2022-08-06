@@ -80,7 +80,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 async delegate()
                 {
                     // Refresh the model
-                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegistered = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
                     
                     if (!isRegistered)
                     {
@@ -156,7 +156,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             }
                             
                             // Refresh the data - Don't await this
-                            TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                            TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
 
                             // Refresh the ui
                             await RefreshUIAsync();

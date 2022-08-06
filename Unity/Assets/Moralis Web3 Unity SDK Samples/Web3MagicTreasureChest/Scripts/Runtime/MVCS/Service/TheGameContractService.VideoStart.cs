@@ -1,13 +1,11 @@
+/*
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using MoralisUnity.Web3Api.Models;
-using Nft = MoralisUnity.Samples.Shared.Data.Types.Nft;
 
+#pragma warning disable CS1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {
 	/// <summary>
@@ -49,116 +47,98 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         
         // GETTER Methods -------------------------
+
         public async UniTask<bool> GetIsRegisteredAsync()
         {
-            bool result = await _theGameContract.getIsRegistered();
+            
+            //Example of RunContractFunction - Let's look at how that is called.
+            
+            //VIDEO TO DO: Return real value(s)
+            bool result = true;
             return result;
         }
         
         
         public async UniTask<Reward> GetRewardsHistoryAsync()
         {
-            Reward result = await _theGameContract.GetRewardsHistory();
+            //VIDEO TO DO: Return real value(s)
+            Reward result = new Reward
+            {
+                Title = "Temp Gold Title",
+                Type = TheGameHelper.GetRewardType(TheGameHelper.RewardGold),
+                Price = 33
+            };
             return result;
         }
 
 
         public async UniTask<int> GetGoldAsync()
         {
-            int result = await _theGameContract.getGold();
+            //VIDEO TO DO: Return real value(s)
+            int result = 99;
             return result;
         }
         
         
         public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
         {
-            // Create Method Return Value
+            //VIDEO TO DO: Return real value(s)
             List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
-
-            // Check System Status
-            bool hasMoralisUser = await TheGameSingleton.Instance.HasMoralisUserAsync();
-            if (!hasMoralisUser)
-            {
-                // Sometimes, ONLY warn
-                throw new RequiredMoralisUserException();
-            }
-
-            // Get NFT Info
-            MoralisUser moralisUser = await TheGameSingleton.Instance.GetMoralisUserAsync();
-            var nftCollection = await Moralis.Web3Api.Account.GetNFTsForContract(
-                moralisUser.ethAddress,
-                _theGameContract.TreasurePrizeContractAddress,
-                _theGameContract.ChainList);
-
-            // Create Method Return Value
-            foreach (NftOwner nftOwner in nftCollection.Result)
-            {
-                string ownerAddress = nftOwner.OwnerOf;
-                string tokenIdString = nftOwner.TokenId;
-                string metadata = nftOwner.TokenUri;
-                TreasurePrizeDto treasurePrizeDto = Nft.CreateNewFromMetadata<TreasurePrizeDto>(ownerAddress, tokenIdString, metadata);
-                treasurePrizeDtos.Add(treasurePrizeDto);
-            }
-
-            // Finalize Method Return Value
             return treasurePrizeDtos;
         }
         
         // SETTER Methods -------------------------
         public async UniTask RegisterAsync()
         {
-            string result = await _theGameContract.Register();
-            //Debug.Log($"RegisterAsync() result = {result}");
+            //Example of ExecuteContractFunction - Let's look at how that is called
+            
+            //VIDEO TO DO: Register the user
         }
 
 
         public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
         {
-            string result = await _theGameContract.StartGameAndGiveRewards(goldAmount);
-            //Debug.Log($"StartGameAndGiveRewardsAsync() result = {result}");
+            //VIDEO TO DO: start the game, reward the player randomly with either gold or prizes
         }
 
 
         public async UniTask UnregisterAsync()
         {
-            string result = await _theGameContract.Unregister();
-            //Debug.Log($"UnregisterAsync() result = {result}");
+            //VIDEO TO DO: unregister
         }
 
 
         public async UniTask SetGoldAsync(int targetBalance)
         {
-            string result = await _theGameContract.setGold(targetBalance);
-            //Debug.Log($"SetGoldAsync() result = {result}");
+            //VIDEO TO DO: Set real values
         }
 
         
         public async UniTask SetGoldByAsync(int deltaBalance)
         {
-            string result = await _theGameContract.setGoldBy(deltaBalance);
-            //Debug.Log($"SetGoldByAsync() result = {result}");
+            //VIDEO TO DO: Set real values
         }
 
 
         public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToAdd)
         {
-            string result = await _theGameContract.AddTreasurePrize(treasurePrizeToAdd);
-            //Debug.Log($"AddTreasurePrizeAsync() result = {result}");
+            //VIDEO TO DO: Add the prize
         }
 
 
         public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            string result = await _theGameContract.SellTreasurePrize(treasurePrizeDto);
-            //Debug.Log($"SellTreasurePrizeAsync() result = {result}");
+            //VIDEO TO DO: Sell the prizes
         }
 
         
         public async UniTask DeleteAllTreasurePrizeAsync()
         {
-            List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-            string result = await _theGameContract.DeleteAllTreasurePrizes(treasurePrizeDtos);
-            //Debug.Log($"DeleteAllTreasurePrizeAsync() result = {result}");
+            //VIDEO TO DO: Get list of prizes
+            List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
+
+            //VIDEO TO DO: Delete all treasures
+            
         }
 
         /// <summary>
@@ -167,12 +147,15 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         /// </summary>
         public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
         {
-            List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-            string result = await _theGameContract.SafeReregisterAndDeleteAllTreasurePrizes(treasurePrizeDtos);
-            //Debug.Log($"SafeReregisterDeleteAllTreasurePrizeAsync() result = {result}");
+            //VIDEO TO DO: Get list of prizes
+            List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
+            
+            //VIDEO TO DO: Delete all treasures
+            
         }
         
         // Event Handlers ---------------------------------
 
     }
 }
+*/

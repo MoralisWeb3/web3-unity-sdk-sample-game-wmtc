@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
@@ -28,7 +27,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync();
 
 		// RunContractFunction - Various Return Types
-		UniTask<bool> IsRegisteredAsync();
+		UniTask<bool> GetIsRegisteredAsync();
 		UniTask<int> GetGoldAsync();
 		UniTask<Reward> GetRewardsHistoryAsync();
 

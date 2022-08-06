@@ -4,7 +4,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
-using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller.Events;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
@@ -70,10 +69,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 
 		// GETTER Methods -------------------------
-		public async UniTask<bool> IsRegisteredAsync()
+		public async UniTask<bool> GetIsRegisteredAsync()
 		{
 			// Call Service. Sync Model
-			bool isRegistered = await _theGameService.IsRegisteredAsync();
+			bool isRegistered = await _theGameService.GetIsRegisteredAsync();
 			_theGameModel.IsRegistered.Value = isRegistered;
 
 			if (_theGameModel.IsRegistered.Value)
@@ -94,7 +93,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			return _theGameModel.IsRegistered.Value;
 		}
 
-		public bool IsRegisteredCached()
+		public bool GetIsRegisteredCached()
 		{
 			return _theGameModel.IsRegistered.Value;
 		}
@@ -123,7 +122,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		public async UniTask UnregisterAsync()
 		{
 			await _theGameService.UnregisterAsync();
-			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
+			_theGameModel.IsRegistered.Value = await GetIsRegisteredAsync();
 
 			// Wait for contract values to sync so the client will see the changes
 			await DelayExtraAfterStateChangeAsync();
@@ -135,7 +134,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		public async UniTask RegisterAsync()
 		{
 			await _theGameService.RegisterAsync();
-			_theGameModel.IsRegistered.Value = await IsRegisteredAsync();
+			_theGameModel.IsRegistered.Value = await GetIsRegisteredAsync();
 			
 			// Wait for contract values to sync so the client will see the changes
 			await DelayExtraAfterStateChangeAsync();
@@ -357,13 +356,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// So I manually delete the current one BEFORE the next scene loads. Works 100%
 			if (WalletConnect.Instance != null)
 			{
-				Custom.Debug.LogWarning("GameObject.Destroy(WalletConnect.Instance.gameObject);");
 				GameObject.Destroy(WalletConnect.Instance.gameObject);
 			}
 
 			if (DOTween.TotalPlayingTweens() > 0)
 			{
-				Custom.Debug.LogWarning("DOTween.KillAll();");
 				DOTween.KillAll();
 			}
 		}

@@ -44,7 +44,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 async delegate ()
                 {
                     // Refresh the model
-                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
+                    bool isRegisteredAsync = await TheGameSingleton.Instance.TheGameController.GetIsRegisteredAsync();
                     
                     if (!isRegisteredAsync)
                     {
