@@ -9,11 +9,21 @@ namespace MoralisUnity.Samples.Shared.Data.Types.Configuration
     public class BaseConfiguration <T>  : CustomSingletonScriptableObject<T> where T : ScriptableObject
     {
         // Properties -------------------------------------
-
+        public bool IsLogEnabled { get { return _isLogEnabled;}}
+  
         // Fields -----------------------------------------
-        
-        // Unity Methods ----------------------------------
+        [Header("Settings")]
+        [SerializeField]
+        private bool _isLogEnabled = true;
 
+        // Unity Methods ----------------------------------
+        protected virtual void OnValidate()
+        {
+            if (Shared.Debug.IsEnabled != _isLogEnabled)
+            {
+                Shared.Debug.IsEnabled = _isLogEnabled;
+            }
+        }
         // General Methods --------------------------------
 
         // Event Handlers ---------------------------------

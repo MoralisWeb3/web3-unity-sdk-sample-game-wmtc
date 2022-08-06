@@ -7,7 +7,6 @@ using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Sdk.Interfaces;
 using MoralisUnity.Web3Api.Models;
 using Nethereum.Hex.HexTypes;
-using UnityEngine;
 using WalletConnectSharp.Unity;
 
 namespace MoralisUnity.Samples.Shared.Data.Types
@@ -115,7 +114,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\tvalue		= {value}");
 				stringBuilder.AppendLine($"\tgas		= {gas}");
 				stringBuilder.AppendLine($"\tgasPrice	= {gasPrice}");
-				Debug.Log($"{stringBuilder.ToString()}");
+				Shared.Debug.Log($"{stringBuilder.ToString()}");
 				
 			}
 			
@@ -126,7 +125,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Debug.Log($"{functionName} ExecuteContractFunction() FINISH, result = {result}");
+				Shared.Debug.Log($"{functionName} ExecuteContractFunction() FINISH, result = {result}");
 			}
 
 			return result;
@@ -177,7 +176,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\trunContractDto.Abi.Length	= {abiLength}");
 				stringBuilder.AppendLine($"\trunContractDto.Params.Length	= {paramsLength}");
 				stringBuilder.AppendLine($"\tchainList	= {ChainList}");
-				Debug.Log($"{stringBuilder.ToString()}");
+				Shared.Debug.Log($"{stringBuilder.ToString()}");
 			}
 
 
@@ -191,7 +190,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Debug.Log($"{functionName} RunContractFunction() FINISH, result = {result}");
+				Shared.Debug.Log($"{functionName} RunContractFunction() FINISH, result = {result}");
 			}
 
 			return result;
@@ -199,5 +198,5 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 
     }
-
+	
 }

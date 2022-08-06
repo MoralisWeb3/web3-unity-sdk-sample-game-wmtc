@@ -1,22 +1,16 @@
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Shared.Architectures.MVCS;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
-using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
 using UnityEngine;
-using UnityEngine.Events;
 
 #pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 {
-	//TODO: Move this
-	public class TheGameModelUnityEvent : UnityEvent<TheGameModel>
-	{
-
-	}
 
 	/// <summary>
 	/// The main entry point for the whole game
@@ -29,7 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 	///		<item>S - <see cref="TheGameService"/> - Handles communication with external sources (e.g. database/servers/contracts)</item>
 	/// </list>
 	/// </summary>
-	public class TheGameSingleton : SingletonMonobehaviour<TheGameSingleton>
+	public class TheGameSingleton : BaseMVCS<TheGameSingleton>
 	{
 
 		// Properties -------------------------------------
@@ -37,6 +31,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 		private TheGameView TheGameView  { get { return _theGameView; }}
 		public TheGameController TheGameController  { get { return _theGameController; }}
 		private ITheGameService TheGameService  { get { return _theGameService; }}
+		
 		
 		// Fields -----------------------------------------
 		private TheGameModel _theGameModel;
@@ -52,7 +47,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
 			Screen.SetResolution(675, 1000, false);
 			Screen.fullScreen = false;
 #endif
-			
+
 			// Name it
 			gameObject.name = GetType().Name;
 			

@@ -198,7 +198,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 			
 			if (tokenId == TreasurePrizeDto.NullTokenId)
 			{
-				Debug.Log("BurnNftAsync() failed. tokenId must be NOT null. " +
+				TheGameSingleton.Debug.Log("BurnNftAsync() failed. tokenId must be NOT null. " +
 				          "Was this NFT just created? Leave and return to Scene so it gets loaded from online");
 				return "";
 			}

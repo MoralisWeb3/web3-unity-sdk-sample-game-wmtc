@@ -44,6 +44,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		{
 			base.Start();
 			
+			TheGameSingleton.Debug.Log("test 123");
+			
 			// AddListener - Update View When Model Changes
 			TheGameSingleton.Instance.TheGameController.OnTheGameModelChanged.AddListener(OnTheGameModelChanged);
 			TheGameSingleton.Instance.TheGameController.OnTheGameModelChangedRefresh();

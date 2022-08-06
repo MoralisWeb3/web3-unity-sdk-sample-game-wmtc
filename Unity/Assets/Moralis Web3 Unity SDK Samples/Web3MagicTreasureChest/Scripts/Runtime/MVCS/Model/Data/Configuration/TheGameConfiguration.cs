@@ -23,7 +23,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
         public SceneData GameSceneData { get { return _sceneDataStorage.SceneDatas[5]; } }
 
         public TheGameServiceType TheGameServiceType { get { return _theGameServiceType;}}
-
+        
 
         // Fields -----------------------------------------
         public const string Title = "TheGameConfiguration";
@@ -34,8 +34,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
         [SerializeField]
         private SceneDataStorage _sceneDataStorage = null;
-
-
+  
         [Header("Settings (Edit-Time Only)")]
         
         [Tooltip("Use either Moralis Database (dev) or Moralis Web3 (prod)")]
@@ -43,8 +42,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
         public TheGameServiceType _theGameServiceType = TheGameServiceType.Null;
         
         // Unity Methods ----------------------------------
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+        }
 
-        
+
         // General Methods --------------------------------
 
 		

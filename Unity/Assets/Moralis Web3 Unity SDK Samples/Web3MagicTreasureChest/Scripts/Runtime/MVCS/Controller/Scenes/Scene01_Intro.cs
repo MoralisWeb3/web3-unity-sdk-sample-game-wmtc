@@ -31,7 +31,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             bool isAuthenticated = _ui.AuthenticationButtonUI.IsAuthenticated;
             if (isAuthenticated)
             {
-                Debug.Log($"isAuthenticated = {isAuthenticated}");
+                TheGameSingleton.Debug.Log($"isAuthenticated = {isAuthenticated}");
                 bool isRegistered = await TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
                 
                 if (!isRegistered)
@@ -57,7 +57,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
             }
             else
             {
-                Debug.Log($"isAuthenticated = {isAuthenticated}. User must click authenticate.");
+                TheGameSingleton.Debug.Log($"isAuthenticated = {isAuthenticated}. User must click authenticate.");
             }
             
             RefreshUIAsync();

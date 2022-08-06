@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MoralisUnity.Samples.Shared;
 using MoralisUnity.Samples.Shared.Components;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Events;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
@@ -13,8 +15,6 @@ using WalletConnectSharp.Unity;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 {
-
-	
 	/// <summary>
 	/// Stores data for the game
 	///		* See <see cref="TheGameSingleton"/> - Handles the core functionality of the game
@@ -352,13 +352,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 			// So I manually delete the current one BEFORE the next scene loads. Works 100%
 			if (WalletConnect.Instance != null)
 			{
-				Debug.LogWarning("GameObject.Destroy(WalletConnect.Instance.gameObject);");
+				Shared.Shared.Debug.LogWarning("GameObject.Destroy(WalletConnect.Instance.gameObject);");
 				GameObject.Destroy(WalletConnect.Instance.gameObject);
 			}
 
 			if (DOTween.TotalPlayingTweens() > 0)
 			{
-				Debug.LogWarning("DOTween.KillAll();");
+				Shared.Shared.Debug.LogWarning("DOTween.KillAll();");
 				DOTween.KillAll();
 			}
 		}
