@@ -55,6 +55,7 @@ async function main()
   console.log("       }\n");
   console.log("\n");
 
+
   ///////////////////////////////////////////////////////////
   // WAIT
   ///////////////////////////////////////////////////////////
@@ -66,20 +67,14 @@ async function main()
   ///////////////////////////////////////////////////////////
   // VERIFY
   ///////////////////////////////////////////////////////////
-  console.log("VERIFICATION - MANUAL ...");
-  console.log("https://testnet.cronoscan.com/address/" + theGameContract.address);
+  console.log("VERIFICATION STARTING ...");
   console.log("\n");
-
-
-  console.log("SKIP FOR NOW.");
-  // console.log("VERIFICATION - AUTOMATIC ...");
-  // console.log("\n");
-  // await hre.run("verify:verify", {
-  //   address: theGameContract.address,
-  //   constructorArguments: [gold.address, treasurePrize.address],
-  // });
-
-  
+  await hre.run("verify:verify", {
+    address: theGameContract.address,
+    constructorArguments: [
+      gold.address, 
+      treasurePrize.address],
+  });
 
   ///////////////////////////////////////////////////////////
   // LOG OUT DATA FOR USAGE IN UNITY

@@ -112,7 +112,7 @@ contract TheGameContract
     function register() public
     {
         _isRegistered[msg.sender] = true;
-        setGold(100);
+        setGold(TheGameLibrary.GoldOnRegister);
     }
 
 
@@ -120,7 +120,7 @@ contract TheGameContract
     {
 
         //Update gold first
-        setGold(0);
+        setGold(TheGameLibrary.GoldOnUnregister);
 
         //Then unregister
         _isRegistered[msg.sender] = false;
@@ -146,17 +146,17 @@ contract TheGameContract
         uint theType = 0;
         string memory title = "";
 
-        if (random < 50)
+        if (random < TheGameLibrary.MaxRandomForGold)
         {
             // REWARD: Gold!
-            theType = 1;
+            theType = TheGameLibrary.GoldType;
             title = "This is gold.";
-            setGoldBy (int(random));
+            setGoldBy (int(price));
         } 
         else 
         {
             // REWARD: Prize!
-            theType = 2;
+            theType = TheGameLibrary.PrizeType;
             title = "This is an nft.";
         }
 
@@ -225,7 +225,7 @@ contract TheGameContract
 
     function sellTreasurePrize(uint256 tokenId) ensureIsRegistered (msg.sender)  external
     {
-        //TODO reward gold for the specific prize
+        //TODO reward gold for the specific prize. Can I find the metadata from the tokenId here in Solidity?
 
         //Then burn the prize
         TreasurePrize(_treasurePrizeContractAddress).burnNft(tokenId);

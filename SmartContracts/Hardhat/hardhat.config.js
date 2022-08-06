@@ -13,17 +13,18 @@ require("hardhat-gas-reporter");
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  solidity: "0.8.9",
   networks: {
     hardhat: {},
     cronosTestnet: {
-      url: "https://evm-t3.cronos.org/", //Cronos Testnet
+      url: "https://evm-t3.cronos.org/",
       chainId: 338,
       accounts: [process.env.WEB3_WALLET_PRIVATE_KEY],
       gasPrice: 5000000000000
     }
   },
   etherscan: {
-    apiKey:  {
+    apiKey: {
       cronosTestnet: process.env.CRONOSCAN_TESTNET_API_KEY
     },
     customChains: [
@@ -31,8 +32,8 @@ module.exports = {
         network: "cronosTestnet",
         chainId: 338,
         urls: {
-          apiURL: "https://api.cronoscan.com/",
-          browserURL: "https://testnet.cronoscan.com"
+            apiURL: "https://api-testnet.cronoscan.com/api",
+            browserURL: "https://testnet.cronoscan.com/"
         }
       }
     ]
@@ -40,17 +41,18 @@ module.exports = {
   gasReporter: {
     currency: 'USD',
     enabled: true
-  },
-  solidity: "0.8.9",
+  }
 };
+
 
 ///////////////////////////////////////////////////////////
 // TASKS
 ///////////////////////////////////////////////////////////
-task("cct", "Clean, Compile, & Test the Greeter.sol").setAction(async () => {
+task("ccct", "Clean, Compile, Coverage, & Test the Greeter.sol").setAction(async () => {
 
   // Works!
   await hre.run("clean");
   await hre.run("compile");
+  await hre.run("coverage");
   await hre.run("test");
 });

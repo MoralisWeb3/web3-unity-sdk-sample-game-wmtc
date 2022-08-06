@@ -13,17 +13,18 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 ///////////////////////////////////////////////////////////
 library TheGameLibrary 
 {
-    // Defining structure
-    struct Constants {
+    ///////////////////////////////////////////////////////////
+    // CONTANTS
+    ///////////////////////////////////////////////////////////
+    uint constant GoldOnRegister = 100;             
+    uint constant GoldOnUnregister = 0;  
+    uint constant MaxRandomForGold = 50;  
+    uint constant GoldType = 1;  
+    uint constant PrizeType = 2;  
 
-        // Declaring variables
-        uint Pi;             
-        uint EulerNb;        
-        uint PythagoraConst; 
-        uint TheodorusConst; 
-    }
-    
-
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: RANDOM
+    ///////////////////////////////////////////////////////////
     function randomRange (uint min, uint max, uint nonce) public view returns (uint) 
     {
         // The nonce is especially useful for unit-tests, to ensure variation
@@ -32,6 +33,9 @@ library TheGameLibrary
         return randomnumber;
     }
     
+    ///////////////////////////////////////////////////////////
+    // FUNCTIONS: CONVERT
+    ///////////////////////////////////////////////////////////
     function convertRewardToString (Reward memory reward) public pure returns (string memory rewardString) 
     {
         string memory titleString = reward.Title;
