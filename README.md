@@ -12,6 +12,15 @@ This sample game demonstrates the Moralis Web3 Unity SDK and randomly rewarding 
 
 See [docs.moralis.io/unity](https://docs.moralis.io/unity) for more info.
 
+**Bonus: Service Type**
+
+This game features flexibility on the service layer. Toggle the `TheGameServiceType` enum to explore various ways that the game communicates with external services. Select the `ReadMe.asset`, select the `TheGameConfiguration.asset`, and choose the `TheGameServiceType` value.
+
+
+<img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_08_Configuration.png" width = "250">
+
+
+
 ---
 
 **Documentation**
@@ -35,16 +44,38 @@ See [docs.moralis.io/unity](https://docs.moralis.io/unity) for more info.
 
 ## Media
 
-**Images**
+**Project**
 
 <table>
   <tr>
-    <th>Image 01</th>
-    <th>Image 02</th>
+    <th>Project</th>
+    <th>ReadMe</th>
+    <th>TheGameConfiguration</th>
   </tr>
   <tr>
-    <td align="center"><img src="https://github.com/MoralisWeb3/web3-unity-sdk-sample-game-template/blob/main/Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/MySampleGame/Documentation/Images/Screenshot_01.png" width = "250"></td>
-    <td align="center"><img src="https://github.com/MoralisWeb3/web3-unity-sdk-sample-game-template/blob/main/Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/MySampleGame/Documentation/Images/Screenshot_02.png" width = "250"></td>
+    <td align="center"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_09_Project.png" width = "250"></td>
+    <td align="center"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_07_Readme.png" width = "250"></td>
+    <td align="center"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_08_Configuration.png" width = "250"></td>
+  </tr> 
+</table>
+
+
+**Scenes**
+
+<table style="table-layout: fixed; width: 100%">
+  <tr>
+    <th>Screenshot_01_Intro</th>
+    <th>Screenshot_02_Authentication</th>
+    <th>Screenshot_03_Settings</th>
+    <th>Screenshot_05_ViewCollection</th>
+    <th>Screenshot_06a_Game</th>
+  </tr>
+  <tr>
+    <td align="center" style="width: 20%;"><img  src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_01_Intro.png"></td>
+    <td align="center" style="width: 20%;"><img  src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_02_Authentication.png" ></td>
+    <td align="center" style="width: 20%;"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_03_Settings.png"></td>
+    <td align="center" style="width: 20%;"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_05_ViewCollection.png"></td>
+    <td align="center" style="width: 20%;"><img src="./Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Samples/Web3MagicTreasureChest/Documentation/Images/Screenshot_06a_Game.png"></td>
   </tr> 
 </table>
 
