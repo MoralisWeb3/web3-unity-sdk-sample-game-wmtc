@@ -21,7 +21,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
 		// General Methods --------------------------------
 		
-		// Delay that runs locally to await state change finality
+		// Wait for contract values to sync so the client will see the changes
 		UniTask DoExtraDelayAsync();
 
 		// Web3 API Call - Various Return Types

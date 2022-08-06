@@ -40,6 +40,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         
         // DELAY Methods -------------------------
+        
+        // Wait for contract values to sync so the client will see the changes
         public UniTask DoExtraDelayAsync()
         {
             return UniTask.Delay(DelayExtraAfterStateChangeMilliseconds);
@@ -155,8 +157,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         public async UniTask DeleteAllTreasurePrizeAsync()
         {
             List<TreasurePrizeDto> treasurePrizeDtos = await GetTreasurePrizesAsync();
-                
-            //Debug.Log($"DeleteAllTreasurePrizeAsync() count = {treasurePrizeDtos.Count}");
             string result = await _theGameContract.DeleteAllTreasurePrizes(treasurePrizeDtos);
             //Debug.Log($"DeleteAllTreasurePrizeAsync() result = {result}");
         }

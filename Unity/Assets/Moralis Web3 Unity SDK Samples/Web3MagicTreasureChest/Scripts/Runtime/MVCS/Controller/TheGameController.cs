@@ -328,6 +328,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 				$"{title}\n-\n{_theGameService.PendingMessageActive.Message}", task);
 		}
 		
+		// Wait for contract values to sync so the client will see the changes
 		private async UniTask DelayExtraAfterStateChangeAsync()
 		{
 			if (_theGameService.HasExtraDelay)

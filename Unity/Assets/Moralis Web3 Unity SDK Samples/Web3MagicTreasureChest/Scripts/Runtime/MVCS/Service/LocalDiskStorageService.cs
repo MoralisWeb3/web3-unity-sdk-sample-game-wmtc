@@ -59,6 +59,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		}
 		
 		// DELAY Methods -------------------------
+		
+		// Wait for contract values to sync so the client will see the changes
 		public UniTask DoExtraDelayAsync()
 		{
 			return UniTask.Delay(DelayExtraSimulatedAfterStateChange);
