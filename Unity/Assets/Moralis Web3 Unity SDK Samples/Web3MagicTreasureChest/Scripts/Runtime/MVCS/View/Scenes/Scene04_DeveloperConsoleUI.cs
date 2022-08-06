@@ -3,7 +3,7 @@ using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 using TMPro;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes
 {
 	/// <summary>
 	/// The UI for <see cref="Scene04_DeveloperConsole"/>

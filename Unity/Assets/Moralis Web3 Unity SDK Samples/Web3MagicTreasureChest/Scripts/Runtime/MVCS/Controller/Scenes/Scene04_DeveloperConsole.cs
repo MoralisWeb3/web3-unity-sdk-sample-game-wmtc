@@ -1,14 +1,13 @@
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using System.Text;
 using UnityEngine;
 using MoralisUnity.Samples.Shared;
 using Cysharp.Threading.Tasks;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Shared.Exceptions;
 using System.Collections.Generic;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes;
 
 #pragma warning disable 1998, 4014
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller

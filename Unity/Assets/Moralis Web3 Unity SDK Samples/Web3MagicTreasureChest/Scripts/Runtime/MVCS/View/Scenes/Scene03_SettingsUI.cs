@@ -1,28 +1,27 @@
-using MoralisUnity.Kits.AuthenticationKit;
 using MoralisUnity.Samples.Shared.UI;
 using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes
 {
 	/// <summary>
-	/// The UI for <see cref="Scene02_Authentication"/>
+	/// The UI for <see cref="Scene03_Settings"/>
 	/// </summary>
-	public class Scene02_AuthenticationUI : Scene_BaseUI
+	public class Scene03_SettingsUI : Scene_UIWithTop
 	{
 		//  Properties ------------------------------------
+		public BaseButtonUI ResetAllDataButtonUI { get { return _resetAllDataButtonUI; } }
 		public BaseButtonUI BackButtonUI { get { return _backButtonUI; } }
-		public AuthenticationKit AuthenticationKit { get { return _authenticationKit; } }
 
 
 		//  Fields ----------------------------------------
 		[Header("References (Scene)")]
 
 		[SerializeField]
-		private BaseButtonUI _backButtonUI = null;
+		private BaseButtonUI _resetAllDataButtonUI = null;
 
 		[SerializeField]
-		private AuthenticationKit _authenticationKit = null;
+		private BaseButtonUI _backButtonUI = null;
 
 		
 		//  Unity Methods----------------------------------
@@ -32,6 +31,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes
 
 		
 		//  Event Handlers --------------------------------
-		
+
+
 	}
 }

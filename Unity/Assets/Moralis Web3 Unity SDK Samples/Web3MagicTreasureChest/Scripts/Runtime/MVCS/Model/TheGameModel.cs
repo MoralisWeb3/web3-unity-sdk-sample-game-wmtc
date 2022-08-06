@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using UnityEngine;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types.Configuration;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 {

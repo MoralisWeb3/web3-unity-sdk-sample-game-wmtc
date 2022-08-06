@@ -3,7 +3,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View
 {
 	/// <summary>
 	/// Any shared functionality for all Scene-specific UIs

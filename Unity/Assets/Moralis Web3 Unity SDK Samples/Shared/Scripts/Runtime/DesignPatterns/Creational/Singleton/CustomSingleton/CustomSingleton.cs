@@ -32,7 +32,7 @@ namespace MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.Custom
         }
     }
 
-    //TODO: Add to Web3 Unity SDK - srivello
+    //TODO: Add to Moralis Web3 Unity SDK - srivello
     /// <summary>
     /// Custom Singleton Pattern: See <a href="https://en.wikipedia.org/wiki/Singleton_pattern">https://en.wikipedia.org/wiki/Singleton_pattern</a>
     ///

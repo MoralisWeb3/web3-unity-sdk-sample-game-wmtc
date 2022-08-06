@@ -1,6 +1,7 @@
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using UnityEngine.Events;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Events
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller.Events
 {
 	/// <summary>
 	/// Stores data for the game

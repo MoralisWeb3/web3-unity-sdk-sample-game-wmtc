@@ -52,20 +52,27 @@ MonoBehaviour:
     openMenuNameId: Tools/Moralis Web3 Unity SDK/Examples/Web3 Unity SDK Examples/Add Example Scenes To Build Settings
   - heading: 
     subheading: 4. Update Unity Layout & Aspect Ratio
-    text: Use our default layout or choose your own
+    text: Use default layout or choose your own
     linkText: 
     url: 
     openMenuName: Load Moralis Layout (10x16)
     openMenuNameId: Tools/Moralis Web3 Unity SDK/Examples/Web3 Unity SDK Examples/Load Moralis Layout (10x16)
   - heading: 
-    subheading: 5. Set Up Web3 Contract(s)
+    subheading: 5. Update Game Settings
+    text: Use default values or choose your own
+    linkText: 
+    url: 
+    pingObjectName: TheGameConfiguration.asset
+    pingObjectGuid: f56178f34d5af1045b6eac5b834d4982
+  - heading: 
+    subheading: 6. Set Up Web3 Contract(s)
     text: Follow additional instructions
     linkText: 
     url: 
     pingObjectName: SmartContracts.txt
     pingObjectGuid: 9587f3903fca13447a01d13bf713926b
   - heading: 
-    subheading: 6. Open Any Example Scene
+    subheading: 7. Open Any Example Scene
     text: Play this scene or choose your ownS
     linkText: 
     url: 

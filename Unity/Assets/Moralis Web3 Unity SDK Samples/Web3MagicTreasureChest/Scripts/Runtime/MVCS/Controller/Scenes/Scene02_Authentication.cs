@@ -1,5 +1,5 @@
 using MoralisUnity.Samples.Shared.Debugging;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller

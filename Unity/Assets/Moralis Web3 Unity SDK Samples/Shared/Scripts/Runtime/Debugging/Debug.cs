@@ -1,7 +1,3 @@
-//https://github.com/scissor/Hotter/blob/master/Hotter/Utilities/Debug.cs
-
-using UnityEngine;
-
 namespace MoralisUnity.Samples.Shared.Debugging
 {
     /// <summary>
@@ -109,10 +105,10 @@ namespace MoralisUnity.Samples.Shared.Debugging
     ///
     /// USAGE
     ///     * Debug.Log("Hello"); // to use unity's logging
-    ///     * Custom.Debug.Log("Hello"); // to use a custom wrapper (with IsEnabled toggle) for unity's logging
+    ///     * Shared.Debug.Log("Hello"); // to use a custom wrapper (with IsEnabled toggle) for unity's logging
     /// 
     /// </summary>
-    public static class Custom //Keep naming. While a bit odd, I like the resulting format of "Custom.Debug.Log()" from any context
+    public static class Custom //Keep naming. While a bit odd, I like the resulting format of "Shared.Debug.Log()" from any context
     {
         // Properties -------------------------------------
         public static IDebug Debug = new UnityEngineDebug();

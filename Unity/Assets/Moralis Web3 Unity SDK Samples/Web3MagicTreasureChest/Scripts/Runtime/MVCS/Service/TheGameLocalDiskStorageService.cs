@@ -5,11 +5,9 @@ using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using MoralisUnity.Samples.Shared.Attributes;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Debugging;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 {

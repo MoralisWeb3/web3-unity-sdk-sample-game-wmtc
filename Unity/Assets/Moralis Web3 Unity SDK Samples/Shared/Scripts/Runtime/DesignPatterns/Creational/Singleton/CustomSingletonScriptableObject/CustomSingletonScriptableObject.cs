@@ -5,7 +5,7 @@ using UnityEngine;
 namespace MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.CustomSingletonScriptableObject
 {
 
-    //TODO: Add to Web3 Unity SDK - srivello
+    //TODO: Add to Moralis Web3 Unity SDK - srivello
     /// <summary>
     /// Unity offers https://docs.unity3d.com/2020.1/Documentation/ScriptReference/ScriptableSingleton_1.html
     /// but it was throwing "ScriptableSingleton already exists. Did you query the singleton in a constructor?"

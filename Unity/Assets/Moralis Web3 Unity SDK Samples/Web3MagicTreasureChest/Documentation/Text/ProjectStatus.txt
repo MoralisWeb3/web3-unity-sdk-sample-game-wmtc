@@ -11,8 +11,8 @@ CHECKLIST - DEVELOPMENT
 
 CHECKLIST - DEVELOPMENT 
 - [ X ] Finish all runtime features
-- [  ] Address all "TODO" comments in code
-- [  ] Remove any unneeded "Log." calls. Ideally all
+- [ X ] Address all "TODO" comments in code
+- [ X ] Move any logging to "Custom.Debug.Log." calls. Ideall all.
 - [  ] Run/Test runtime in Unity Editor
 - [ X ] Build/Test runtime on Standalone Desktop
 - [  ] Revisit every class name, namespace, folder

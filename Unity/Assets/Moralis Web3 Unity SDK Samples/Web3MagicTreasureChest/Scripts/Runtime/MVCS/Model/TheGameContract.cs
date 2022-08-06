@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Data.Types;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Web3Api.Models;
-using UnityEngine;
 
-namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 {
 	/// <summary>
 	/// Wrapper class for a Web3API Eth Contract.

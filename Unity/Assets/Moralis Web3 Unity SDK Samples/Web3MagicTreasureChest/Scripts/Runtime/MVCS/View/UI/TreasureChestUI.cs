@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Helpers;
-using MoralisUnity.Samples.Shared.Audio;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI

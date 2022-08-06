@@ -2,8 +2,6 @@
 
 namespace MoralisUnity.Samples.Shared
 {
-    //TODO: Remove the unused from here
-    
     /// <summary>
     /// Helper values
     /// </summary>

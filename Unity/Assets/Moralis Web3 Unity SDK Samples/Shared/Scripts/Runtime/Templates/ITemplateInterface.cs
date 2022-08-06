@@ -1,4 +1,4 @@
-namespace MoralisUnity.Samples.Shared
+namespace MoralisUnity.Samples.Shared.Templates
 {
 	/// <summary>
 	/// Replace with comments...

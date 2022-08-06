@@ -1,6 +1,8 @@
+using MoralisUnity.Samples.Shared.Data.Types.Storage;
+using MoralisUnity.Samples.Shared.Events;
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Shared.Data.Types.Storage
+namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types.Storage
 {
     /// <summary>
     /// Example local storage which is written to disk

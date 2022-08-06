@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes;
 using UnityEngine;
 
 #pragma warning disable 1998, 4014

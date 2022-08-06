@@ -1,7 +1,6 @@
 using Cysharp.Threading.Tasks;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
+using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.Scenes;
 using UnityEngine;
-using WalletConnectSharp.Unity;
 
 #pragma warning disable 1998
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
