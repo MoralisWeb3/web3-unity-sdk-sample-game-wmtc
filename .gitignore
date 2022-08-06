@@ -13,6 +13,8 @@
 /[Ss]mart[Cc]ontracts/[Hh]ardhat/cache/
 /[Ss]mart[Cc]ontracts/[Hh]ardhat/node_modules/
 /[Ss]mart[Cc]ontracts/[Hh]ardhat/.env.*
+/[Ss]mart[Cc]ontracts/[Hh]ardhat/coverage/
+
 
 # Temporary auto-generated Android Assets
 /Unity/[Aa]ssets/Moralis Web3 Unity SDK/
@@ -85,5 +87,6 @@ crashlytics-build.properties
 # Samples symlink to Samples~
 Samples
 Samples.meta
+
 
 
