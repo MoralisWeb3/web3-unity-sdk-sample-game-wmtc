@@ -28,7 +28,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 					theGameService = new TheGameContractService();
 					break;
 				case TheGameServiceType.LocalDiskStorage:
-					theGameService = new TheGameLocalDiskStorageService();
+					theGameService = new LocalDiskStorageService();
 					break;
 				default:
 					SwitchDefaultException.Throw(theGameServiceType);

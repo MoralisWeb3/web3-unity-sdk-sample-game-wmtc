@@ -5,7 +5,6 @@ using MoralisUnity.Samples.Shared.Data.Types.Storage;
 using MoralisUnity.Samples.Shared.Attributes;
 using MoralisUnity.Samples.Shared.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
-using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Platform.Objects;
 using MoralisUnity.Samples.Shared.Debugging;
 
@@ -17,7 +16,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	/// </summary>
 	[CustomFilePath(LocalDiskStorage.Title + "/TheGameLocalDiskStorage.txt", CustomFilePathLocation.StreamingAssetsPath)]
 	[System.Serializable]
-	public class TheGameLocalDiskStorage
+	public class LocalDiskStorageData
 	{
 		//  Properties ------------------------------------
 
@@ -32,7 +31,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 	/// Depending on <see cref="TheGameServiceType"/> this is enabled.
 	///		* Handles connection to external resource of Moralis Database
 	/// </summary>
-	public class TheGameLocalDiskStorageService : ITheGameService
+	public class LocalDiskStorageService : ITheGameService
 	{
 		// Properties -------------------------------------
 		public PendingMessage PendingMessageActive { get { return _pendingMessageActive; }}
@@ -54,7 +53,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		
 		
 		// Initialization Methods -------------------------
-		public TheGameLocalDiskStorageService()
+		public LocalDiskStorageService()
 		{
 
 		}
@@ -75,59 +74,59 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);
 
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-			return theGameLocalDiskStorage.IsRegistered;
+			LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
+			return localDiskStorageData.IsRegistered;
 		}
 		
 		public async UniTask<int> GetGoldAsync()
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);
 	        
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+			LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
 	        
-			return theGameLocalDiskStorage.Gold;
+			return localDiskStorageData.Gold;
 		}
 		
 		public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
 		{
 			await UniTask.Delay(DelaySimulatedPerMethod);
 
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+			LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
 
-			return theGameLocalDiskStorage.TreasurePrizeDtos;
+			return localDiskStorageData.TreasurePrizeDtos;
 		}
 
 		//  SETTER - LocalDiskStorage Methods --------------------------------
-		public static TheGameLocalDiskStorage LoadTheGameLocalDiskStorage()
+		public static LocalDiskStorageData LoadLocalDiskStorageData()
 		{
-			bool hasTheGameLocalDiskStorage = LocalDiskStorage.Instance.Has<TheGameLocalDiskStorage>();
+			bool hasTheGameLocalDiskStorage = LocalDiskStorage.Instance.Has<LocalDiskStorageData>();
 
-			TheGameLocalDiskStorage theGameLocalDiskStorage = null;
+			LocalDiskStorageData localDiskStorageData = null;
 			if (hasTheGameLocalDiskStorage)
 			{
 				///////////////////////////////////////////
 				// Execute: Load
 				///////////////////////////////////////////
-				theGameLocalDiskStorage = LocalDiskStorage.Instance.Load<TheGameLocalDiskStorage>();
+				localDiskStorageData = LocalDiskStorage.Instance.Load<LocalDiskStorageData>();
 			}
 			else
 			{
 				///////////////////////////////////////////
 				// Execute: Create
 				///////////////////////////////////////////
-				theGameLocalDiskStorage = new TheGameLocalDiskStorage();
-				Custom.Debug.LogWarning("Creating 'TheGameLocalDiskStorage'");
+				localDiskStorageData = new LocalDiskStorageData();
+				Custom.Debug.LogWarning("Creating LocalDiskStorageData");
 			}
-			return theGameLocalDiskStorage;
+			return localDiskStorageData;
 		}
 
 		
-		private static bool SaveTheGameLocalDiskStorage(TheGameLocalDiskStorage theGameLocalDiskStorage)
+		private static bool SaveLocalDiskStorageData(LocalDiskStorageData localDiskStorageData)
 		{
 			///////////////////////////////////////////
 			// Execute: Save
 			///////////////////////////////////////////
-			bool isSuccess = LocalDiskStorage.Instance.Save<TheGameLocalDiskStorage>(theGameLocalDiskStorage);
+			bool isSuccess = LocalDiskStorage.Instance.Save<LocalDiskStorageData>(localDiskStorageData);
 			return isSuccess;
 		}
 
@@ -137,8 +136,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			///////////////////////////////////////////
 			// Execute: Save
 			///////////////////////////////////////////
-			TheGameLocalDiskStorage theGameLocalDiskStorage = new TheGameLocalDiskStorage();
-			bool isSuccess = LocalDiskStorage.Instance.Save<TheGameLocalDiskStorage>(theGameLocalDiskStorage);
+			LocalDiskStorageData localDiskStorageData = new LocalDiskStorageData();
+			bool isSuccess = LocalDiskStorage.Instance.Save<LocalDiskStorageData>(localDiskStorageData);
 			return isSuccess;
 		}
 
@@ -152,9 +151,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			
 			await SetGoldAsync(100);
 			
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-			theGameLocalDiskStorage.IsRegistered = true;
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+			LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
+			localDiskStorageData.IsRegistered = true;
+			SaveLocalDiskStorageData(localDiskStorageData);
 			
 		}
         
@@ -167,9 +166,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 			
 			await SetGoldAsync(0);
 			
-			TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-			theGameLocalDiskStorage.IsRegistered = false;
-			SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+			LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
+			localDiskStorageData.IsRegistered = false;
+			SaveLocalDiskStorageData(localDiskStorageData);
 
 		}
         
@@ -178,9 +177,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 	        
-	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-	        theGameLocalDiskStorage.Gold = targetBalance;
-	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
+	        localDiskStorageData.Gold = targetBalance;
+	        SaveLocalDiskStorageData(localDiskStorageData);
         }
 
         
@@ -188,9 +187,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 	        
-	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
-	        theGameLocalDiskStorage.Gold = theGameLocalDiskStorage.Gold + deltaBalance;
-	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
+	        localDiskStorageData.Gold = localDiskStorageData.Gold + deltaBalance;
+	        SaveLocalDiskStorageData(localDiskStorageData);
         }
 
 
@@ -198,9 +197,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 	        
-	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
 
-	        int index = theGameLocalDiskStorage.TreasurePrizeDtos.FindIndex((next) =>
+	        int index = localDiskStorageData.TreasurePrizeDtos.FindIndex((next) =>
 	        {
 		        return next.Title == treasurePrizeToAdd.Title &&
 		               next.Price == treasurePrizeToAdd.Price;
@@ -208,8 +207,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
 	        if (index == -1)
 	        {
-		        theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeToAdd);
-		        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+		        localDiskStorageData.TreasurePrizeDtos.Add(treasurePrizeToAdd);
+		        SaveLocalDiskStorageData(localDiskStorageData);
 	        }
 	        else
 	        {
@@ -222,11 +221,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 
-	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
 
-	        int countBefore = theGameLocalDiskStorage.TreasurePrizeDtos.Count;
+	        int countBefore = localDiskStorageData.TreasurePrizeDtos.Count;
 
-	        int index = theGameLocalDiskStorage.TreasurePrizeDtos.FindIndex((next) =>
+	        int index = localDiskStorageData.TreasurePrizeDtos.FindIndex((next) =>
 	        {
 		        return next.Title == treasurePrizeToDelete.Title &&
 		               next.Price == treasurePrizeToDelete.Price;
@@ -234,8 +233,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
 	        if (index != -1)
 	        {
-		        theGameLocalDiskStorage.TreasurePrizeDtos.RemoveAt(index);
-		        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+		        localDiskStorageData.TreasurePrizeDtos.RemoveAt(index);
+		        SaveLocalDiskStorageData(localDiskStorageData);
 		        
 		        //Give gold
 		        int gold = (int)treasurePrizeToDelete.Price;
@@ -253,10 +252,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 
-	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
+	        LocalDiskStorageData localDiskStorageData = LoadLocalDiskStorageData();
 
-	        theGameLocalDiskStorage.TreasurePrizeDtos.Clear();
-	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        localDiskStorageData.TreasurePrizeDtos.Clear();
+	        SaveLocalDiskStorageData(localDiskStorageData);
         }
 
         
