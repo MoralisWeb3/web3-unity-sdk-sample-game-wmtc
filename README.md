@@ -8,7 +8,8 @@
 1. Download this repo (*.zip or *.git)
 2. Download the [Unity Editor](https://store.unity.com/#plans-individual)
 3. Open this repo in the Unity Editor
-4. Enjoy
+4. Follow the `ReadMe.asset` instructions within Unity
+5. Enjoy
 
 See [docs.moralis.io/unity](https://docs.moralis.io/unity) for more info.
 
