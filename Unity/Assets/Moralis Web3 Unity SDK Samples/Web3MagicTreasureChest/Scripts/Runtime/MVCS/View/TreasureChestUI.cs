@@ -48,13 +48,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI
 
 		private async void PlayAudioClipOpen()
 		{
-			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+			TheGameSingleton.Instance.TheGameController.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
 			await UniTask.Delay((500));
 			
-			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit02());
+			TheGameSingleton.Instance.TheGameController.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit02());
 			await UniTask.Delay((500));
 			
-			SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
+			TheGameSingleton.Instance.TheGameController.PlayAudioClip(TheGameHelper.GetAudioClipIndexChestHit01());
 			await UniTask.Delay((500));
 
 		}

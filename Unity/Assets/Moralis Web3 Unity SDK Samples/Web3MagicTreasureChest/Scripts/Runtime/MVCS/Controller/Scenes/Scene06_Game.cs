@@ -8,6 +8,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
+using MoralisUnity.Samples.Shared;
 
 #pragma warning disable 1998, 4014, 414
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -147,7 +148,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             if (_lastReward == null)
                             {
                                 //UI Button toggling will likely prevent this...
-                                Debug.LogWarning("Not enough gold. visit 'View Collection' and sell something.");
+                                Shared.Shared.Debug.LogWarning("Not enough gold. visit 'View Collection' and sell something.");
                             }
                             else
                             {
@@ -172,7 +173,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     break;
                 case GameState.CardsEntering:
                     
-                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexWinSound());
+                    TheGameSingleton.Instance.TheGameController.PlayAudioClip(TheGameHelper.GetAudioClipIndexWinSound());
                     
                     // Do NOT await
                     _treasureChestUI.BounceWhileOpenAsync();
@@ -196,7 +197,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                     TheGameSingleton.Instance.TheGameController.ShowMessageCustomAsync(message,
                         5000);
                     
-                    SoundManager.Instance.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
+                    TheGameSingleton.Instance.TheGameController.PlayAudioClip(TheGameHelper.GetAudioClipIndexByReward(_lastReward));
                     await UniTask.Delay((500));
                     
                     // Toggle auto update. This builds suspense for user

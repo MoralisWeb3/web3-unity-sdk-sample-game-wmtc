@@ -235,6 +235,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 		///////////////////////////////////////////
 		// Related To: View
 		///////////////////////////////////////////
+		public void PlayAudioClip(int audioClipIndex)
+		{
+			_theGameView.PlayAudioClip(audioClipIndex );
+		}
 		public void PlayAudioClipClick()
 		{
 			_theGameView.PlayAudioClipClick();

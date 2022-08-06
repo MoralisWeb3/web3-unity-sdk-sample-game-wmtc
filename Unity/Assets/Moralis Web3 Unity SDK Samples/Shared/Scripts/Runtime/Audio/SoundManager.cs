@@ -27,16 +27,16 @@ namespace MoralisUnity.Samples.Shared.Audio
 		/// <summary>
 		/// Play the AudioClip by index.
 		/// </summary>
-		public void PlayAudioClip(int index)
+		public void PlayAudioClip(int audioClipIndex)
 		{
 			AudioClip audioClip = null;
 			try
 			{
-				audioClip = AudioClips[index];
+				audioClip = AudioClips[audioClipIndex];
 			}
 			catch
 			{
-				throw new ArgumentException($"PlayAudioClip() failed for index = {index}");
+				throw new ArgumentException($"PlayAudioClip() failed for index = {audioClipIndex}");
 			}
 			
 			PlayAudioClip(audioClip);
@@ -47,7 +47,7 @@ namespace MoralisUnity.Samples.Shared.Audio
 		/// Play the AudioClip by reference.
 		/// If all sources are occupied, nothing will play.
 		/// </summary>
-		public void PlayAudioClip(AudioClip audioClip)
+		private void PlayAudioClip(AudioClip audioClip)
 		{
 			foreach (AudioSource audioSource in _audioSources)
 			{
