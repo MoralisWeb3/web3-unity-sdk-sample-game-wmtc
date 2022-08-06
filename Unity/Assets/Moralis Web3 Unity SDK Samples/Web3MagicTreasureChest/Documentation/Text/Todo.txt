@@ -12,8 +12,6 @@ CHECKLIST - DEVELOPMENT
 - [X] DevConsole - 
 - [X] Collection - 
 - [X] Game - 
-- [] Various Scenes - 
-    - fix lighing across all scenes
 
 
 CHECKLIST - DEVELOPMENT 
