@@ -8,6 +8,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 using UnityEngine;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller;
 
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
@@ -114,7 +115,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 				// Execute: Create
 				///////////////////////////////////////////
 				theGameLocalDiskStorage = new TheGameLocalDiskStorage();
-				Debug.LogWarning("Creating 'TheGameLocalDiskStorage'");
+				Custom.Debug.LogWarning("Creating 'TheGameLocalDiskStorage'");
 			}
 			return theGameLocalDiskStorage;
 		}
@@ -192,15 +193,27 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
 
 
-        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToAdd)
         {
 	        await UniTask.Delay(DelaySimulatedPerMethod);
 	        
 	        TheGameLocalDiskStorage theGameLocalDiskStorage = LoadTheGameLocalDiskStorage();
 
-	        //TODO: Check if list contains?
-	        theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeDto);
-	        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        int index = theGameLocalDiskStorage.TreasurePrizeDtos.FindIndex((next) =>
+	        {
+		        return next.Title == treasurePrizeToAdd.Title &&
+		               next.Price == treasurePrizeToAdd.Price;
+	        });
+
+	        if (index == -1)
+	        {
+		        theGameLocalDiskStorage.TreasurePrizeDtos.Add(treasurePrizeToAdd);
+		        SaveTheGameLocalDiskStorage(theGameLocalDiskStorage);
+	        }
+	        else
+	        {
+		        Custom.Debug.LogError($"AddTreasurePrizeAsync() failed. Can't add already-existing prize");
+	        }
         }
 
         
@@ -225,8 +238,12 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		        
 		        //Give gold
 		        int gold = (int)treasurePrizeToDelete.Price;
-		        Debug.Log($"Paying {gold} per Treasure sold");
+		        Custom.Debug.Log($"Paying {gold} per Treasure sold");
 		        await SetGoldByAsync(gold);
+	        }
+	        else
+	        {
+		        Custom.Debug.LogError($"SellTreasurePrizeAsync() failed. Can't sell non-existing prize");
 	        }
         }
 

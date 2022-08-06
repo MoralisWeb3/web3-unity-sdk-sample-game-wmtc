@@ -9,6 +9,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 using MoralisUnity.Samples.Shared;
+using MoralisUnity.Samples.Shared.Debugging;
 
 #pragma warning disable 1998, 4014, 414
 namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
@@ -148,7 +149,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                             if (_lastReward == null)
                             {
                                 //UI Button toggling will likely prevent this...
-                                Shared.Shared.Debug.LogWarning("Not enough gold. visit 'View Collection' and sell something.");
+                                Custom.Debug.LogWarning("Not enough gold. visit 'View Collection' and sell something.");
                             }
                             else
                             {

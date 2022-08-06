@@ -38,7 +38,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 		UniTask SetGoldAsync(int targetBalance);
 		UniTask SetGoldByAsync(int deltaBalance);
 		UniTask StartGameAndGiveRewardsAsync(int goldAmount);
-		UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
+		UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToAdd);
 		UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto);
 		UniTask DeleteAllTreasurePrizeAsync();
 		UniTask SafeReregisterDeleteAllTreasurePrizeAsync();

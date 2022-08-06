@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
             bool hasMoralisUserAsync = await TheGameSingleton.Instance.HasMoralisUserAsync();
 
-            Debug.Log("auth, and hasMoralisUserAsync: " + hasMoralisUserAsync);
+            Custom.Debug.Log("auth, and hasMoralisUserAsync: " + hasMoralisUserAsync);
 
             if (hasMoralisUserAsync)
             {
@@ -57,13 +58,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         
         private void AuthenticationUI_OnConnected()
         {
-            Debug.Log("AuthenticationUI_OnConnected");
+            Custom.Debug.Log("AuthenticationUI_OnConnected");
             BackButtonUI_OnClicked();
         }
 
         private void AuthenticationUI_OnDisconnected()
         {
-            Debug.Log("AuthenticationUI_OnConnected");
+            Custom.Debug.Log("AuthenticationUI_OnConnected");
             BackButtonUI_OnClicked();
         }
 

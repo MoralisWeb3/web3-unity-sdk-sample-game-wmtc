@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoralisUnity.Samples.Shared.Data.Types.Storage;
+using MoralisUnity.Samples.Shared.Debugging;
 using UnityEditor;
 using MoralisUnity.Sdk.Constants;
 using MoralisUnity.Sdk.UI.ReadMe;
@@ -41,7 +42,7 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 		{
 			List<SceneData> sceneDatas = SceneDataStorage.Instance.SceneDatas;
 
-			Debug.Log($"AddAllScenesToBuildSettings() sceneAssets.Count = {sceneDatas.Count}");
+			Custom.Debug.Log($"AddAllScenesToBuildSettings() sceneAssets.Count = {sceneDatas.Count}");
 			EditorBuildSettingsUtility.AddScenesToBuildSettings(sceneDatas);
 		}
 
@@ -103,7 +104,7 @@ namespace MoralisUnity.Samples.Shared.MenuItems
 			string path = AssetDatabase.GetAssetPath(obj);
 			GUID guid = AssetDatabase.GUIDFromAssetPath(path);
 			GUIUtility.systemCopyBuffer = guid.ToString();
-			Debug.Log($"CopyGuidToClipboard() success! Value '{GUIUtility.systemCopyBuffer}' copied to clipboard.");
+			Custom.Debug.Log($"CopyGuidToClipboard() success! Value '{GUIUtility.systemCopyBuffer}' copied to clipboard.");
 		}
 		
 		

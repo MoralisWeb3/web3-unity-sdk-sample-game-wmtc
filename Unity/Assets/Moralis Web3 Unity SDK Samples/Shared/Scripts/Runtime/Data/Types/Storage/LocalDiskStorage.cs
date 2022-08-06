@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using MoralisUnity.Samples.Shared.Attributes;
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.CustomSingleton;
 using UnityEngine;
 
@@ -46,7 +47,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types.Storage
             bool isSuccess = false;
             if (!willOverwrite && File.Exists(customFilePathAttribute.Filepath))
             {
-                Debug.LogWarning($"LocalDiskStorage.Save() failed. File already exists and willOverwrite = {willOverwrite}.");
+                Custom.Debug.LogWarning($"LocalDiskStorage.Save() failed. File already exists and willOverwrite = {willOverwrite}.");
             }
             else
             {

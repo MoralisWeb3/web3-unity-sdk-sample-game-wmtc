@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Shared.Debugging;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -163,7 +164,7 @@ namespace MoralisUnity.Samples.Shared
                 !serverTimeResponse.ContainsKey("dateTime") ||
                 !long.TryParse(serverTimeResponse["dateTime"].ToString(), out serverTime))
             {
-                Debug.Log("Failed to retrieve server time from Moralis Server!");
+                Custom.Debug.Log("Failed to retrieve server time from Moralis Server!");
             }
 
             return serverTime;

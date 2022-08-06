@@ -1,4 +1,5 @@
 using MoralisUnity.Samples.Shared.Attributes;
+using MoralisUnity.Samples.Shared.Debugging;
 using UnityEngine;
 
 namespace MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.CustomSingletonScriptableObject
@@ -27,8 +28,8 @@ namespace MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.Custom
                     if (results.Length > 1)
                     {
                         //Fix the code if this happens
-                        Debug.LogError("CustomSingletonScriptableObject: Results length is greater than 1 of " +
-                                       typeof(T).ToString() + " too many in project. Delete all but 1.");
+                        Custom.Debug.LogError("CustomSingletonScriptableObject: Results length is greater than 1 of " +
+                                                    typeof(T).ToString() + " too many in project. Delete all but 1.");
                         return null;
                     }
                     
@@ -64,7 +65,7 @@ namespace MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.Custom
         
             if (string.IsNullOrEmpty(guid))
             {
-                Debug.LogError("Add [ReferenceByGuidAttribute] to child object and include accurate Guid value.");
+                Custom.Debug.LogError("Add [ReferenceByGuidAttribute] to child object and include accurate Guid value.");
             }
 
 

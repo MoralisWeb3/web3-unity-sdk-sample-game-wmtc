@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Cysharp.Threading.Tasks;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Sdk.Interfaces;
 using MoralisUnity.Web3Api.Models;
@@ -114,7 +115,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\tvalue		= {value}");
 				stringBuilder.AppendLine($"\tgas		= {gas}");
 				stringBuilder.AppendLine($"\tgasPrice	= {gasPrice}");
-				Shared.Debug.Log($"{stringBuilder.ToString()}");
+				Custom.Debug.Log($"{stringBuilder.ToString()}");
 				
 			}
 			
@@ -125,7 +126,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Shared.Debug.Log($"{functionName} ExecuteContractFunction() FINISH, result = {result}");
+				Custom.Debug.Log($"{functionName} ExecuteContractFunction() FINISH, result = {result}");
 			}
 
 			return result;
@@ -176,7 +177,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 				stringBuilder.AppendLine($"\trunContractDto.Abi.Length	= {abiLength}");
 				stringBuilder.AppendLine($"\trunContractDto.Params.Length	= {paramsLength}");
 				stringBuilder.AppendLine($"\tchainList	= {ChainList}");
-				Shared.Debug.Log($"{stringBuilder.ToString()}");
+				Custom.Debug.Log($"{stringBuilder.ToString()}");
 			}
 
 
@@ -190,7 +191,7 @@ namespace MoralisUnity.Samples.Shared.Data.Types
 
 			if (isLogging)
 			{
-				Shared.Debug.Log($"{functionName} RunContractFunction() FINISH, result = {result}");
+				Custom.Debug.Log($"{functionName} RunContractFunction() FINISH, result = {result}");
 			}
 
 			return result;

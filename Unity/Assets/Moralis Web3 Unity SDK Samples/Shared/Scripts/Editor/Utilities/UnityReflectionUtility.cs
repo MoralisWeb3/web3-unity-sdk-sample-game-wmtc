@@ -1,4 +1,5 @@
 ﻿using System;
+using MoralisUnity.Samples.Shared.Debugging;
 using UnityEditor;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace MoralisUnity.Samples.Shared.Utilities
 						}
 						catch (Exception e)
 						{
-							Debug.LogError(e.Message);
+							Custom.Debug.LogError(e.Message);
 						}
 					}
 				}

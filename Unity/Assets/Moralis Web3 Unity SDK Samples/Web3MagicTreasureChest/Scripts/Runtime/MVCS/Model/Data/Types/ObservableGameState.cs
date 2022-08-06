@@ -37,13 +37,8 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types
 
 		
 		//  General Methods -------------------------------
-		protected override GameState OnValueChanging(GameState oldValue, GameState newValue)
-		{
-			//TODO: Optional, you can validate the new/old states here to detect state errors
-			return base.OnValueChanging(oldValue, newValue);
-		}
 
-
+		
 		//  Event Handlers --------------------------------
 	}
 	

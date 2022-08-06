@@ -138,9 +138,9 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         }
 
 
-        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
+        public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToAdd)
         {
-            string result = await _theGameContract.AddTreasurePrize(treasurePrizeDto);
+            string result = await _theGameContract.AddTreasurePrize(treasurePrizeToAdd);
             //Debug.Log($"AddTreasurePrizeAsync() result = {result}");
         }
 

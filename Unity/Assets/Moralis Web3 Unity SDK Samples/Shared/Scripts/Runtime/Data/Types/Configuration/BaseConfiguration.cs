@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Shared.DesignPatterns.Creational.Singleton.CustomSingletonScriptableObject;
 using UnityEngine;
 
@@ -19,9 +20,9 @@ namespace MoralisUnity.Samples.Shared.Data.Types.Configuration
         // Unity Methods ----------------------------------
         protected virtual void OnValidate()
         {
-            if (Shared.Debug.IsEnabled != _isLogEnabled)
+            if (Custom.Debug.IsEnabled != _isLogEnabled)
             {
-                Shared.Debug.IsEnabled = _isLogEnabled;
+                Custom.Debug.IsEnabled = _isLogEnabled;
             }
         }
         // General Methods --------------------------------

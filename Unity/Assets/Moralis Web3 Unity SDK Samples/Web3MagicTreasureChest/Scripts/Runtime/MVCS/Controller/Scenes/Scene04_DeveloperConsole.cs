@@ -7,6 +7,7 @@ using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model;
 using MoralisUnity.Samples.Shared.Exceptions;
 using System.Collections.Generic;
 using MoralisUnity.Platform.Objects;
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model.Data.Types;
 
 #pragma warning disable 1998, 4014
@@ -271,7 +272,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
 
                     if (treasurePrizeDtos.Count == 0)
                     {
-                        Debug.LogWarning("Nothing to sell. That is ok.");
+                        Custom.Debug.LogWarning("Nothing to sell. That is ok.");
                         return;
                     }
 

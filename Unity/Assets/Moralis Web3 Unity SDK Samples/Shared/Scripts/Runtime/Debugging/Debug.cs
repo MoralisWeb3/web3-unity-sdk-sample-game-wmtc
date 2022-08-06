@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace MoralisUnity.Samples.Shared
+namespace MoralisUnity.Samples.Shared.Debugging
 {
     /// <summary>
     /// Define SOME (not yet all, feel free to add more) of the methods supported by
@@ -25,7 +25,7 @@ namespace MoralisUnity.Samples.Shared
     }
 }
 
-namespace MoralisUnity.Samples.Shared
+namespace MoralisUnity.Samples.Shared.Debugging
 {
     /// <summary>
     /// Added so that <see cref="BaseConfiguration{T}"/> can toggle IsDebugLog for the project
@@ -102,17 +102,17 @@ namespace MoralisUnity.Samples.Shared
 }
 
 
-namespace MoralisUnity.Samples.Shared
+namespace MoralisUnity.Samples.Shared.Debugging
 {
     /// <summary>
     /// Added so that <see cref="BaseConfiguration"/> can toggle IsDebugLog for the project
     ///
     /// USAGE
     ///     * Debug.Log("Hello"); // to use unity's logging
-    ///     * Shared.Debug.Log("Hello"); // to use a custom wrapper (with IsEnabled toggle) for unity's logging
+    ///     * Custom.Debug.Log("Hello"); // to use a custom wrapper (with IsEnabled toggle) for unity's logging
     /// 
     /// </summary>
-    public static class Shared //Keep naming. While a bit odd, I like the resulting format of "Shared.Debug.Log()" from any context
+    public static class Custom //Keep naming. While a bit odd, I like the resulting format of "Custom.Debug.Log()" from any context
     {
         // Properties -------------------------------------
         public static IDebug Debug = new UnityEngineDebug();
@@ -126,6 +126,7 @@ namespace MoralisUnity.Samples.Shared
         // Event Handlers ---------------------------------
         
     }
+
 }
 
 

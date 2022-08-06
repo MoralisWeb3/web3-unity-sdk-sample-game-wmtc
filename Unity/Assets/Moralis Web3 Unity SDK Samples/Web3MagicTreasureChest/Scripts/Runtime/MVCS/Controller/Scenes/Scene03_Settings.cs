@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Samples.Shared.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.Exceptions;
 using MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.View.UI.Scenes;
@@ -54,7 +55,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
         //  General Methods -------------------------------
         private async UniTask RefreshUIAsync()
         {
-            _ui.BackButtonUI.IsInteractable = true; // toggle some settings buttons, TODO
+            _ui.BackButtonUI.IsInteractable = true; 
         }
         
         private async void ResetAllDataAsync()
@@ -89,13 +90,13 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                 || Input.GetKey(KeyCode.LeftShift))
             {
                 // This is a secret menu for developers
-                Debug.LogWarning("SpaceBar Held. Will Open Developer Console");
+                Custom.Debug.LogWarning("SpaceBar Held. Will Open Developer Console");
                 TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 TheGameSingleton.Instance.TheGameController.LoadDeveloperConsoleSceneAsync();
             }
             else
             {
-                Debug.LogWarning("SpaceBar NOT Held. Will Reset All Data");
+                Custom.Debug.LogWarning("SpaceBar NOT Held. Will Reset All Data");
                 TheGameSingleton.Instance.TheGameController.PlayAudioClipClick();
                 ResetAllDataAsync();
             }

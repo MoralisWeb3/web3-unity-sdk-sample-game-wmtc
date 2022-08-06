@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Debugging;
 using MoralisUnity.Sdk.DesignPatterns.Creational.Singleton.SingletonMonobehaviour;
 using UnityEngine;
 

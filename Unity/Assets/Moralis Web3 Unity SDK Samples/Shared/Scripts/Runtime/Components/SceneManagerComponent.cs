@@ -1,3 +1,4 @@
+using MoralisUnity.Samples.Shared.Debugging;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -51,7 +52,7 @@ namespace MoralisUnity.Samples.Shared.Components
 		{
 			if (string.IsNullOrEmpty(sceneName))
 			{
-				Debug.LogWarning($"Cannot LoadScene() when sceneName={sceneName}. That is ok.");
+				Custom.Debug.LogWarning($"Cannot LoadScene() when sceneName={sceneName}. That is ok.");
 				return;
 			}
 			
