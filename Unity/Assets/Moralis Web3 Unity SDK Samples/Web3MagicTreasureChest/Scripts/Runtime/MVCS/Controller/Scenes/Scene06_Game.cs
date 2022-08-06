@@ -154,7 +154,11 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Controller
                                 await _treasureChestUI.TakeDamageAsync();
                                 _observableGameState.Value = GameState.TreasureChestOpening;
                             }
+                            
+                            // Refresh the data - Don't await this
+                            TheGameSingleton.Instance.TheGameController.IsRegisteredAsync();
 
+                            // Refresh the ui
                             await RefreshUIAsync();
 
                         });
