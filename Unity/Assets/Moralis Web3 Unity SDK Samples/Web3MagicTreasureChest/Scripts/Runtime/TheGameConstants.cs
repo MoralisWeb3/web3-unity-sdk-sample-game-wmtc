@@ -35,7 +35,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS
         ///////////////////////////////////////////
         public const string Registering = "Registering Player";
         public const string Unregistering = "Unregistering Player";
-        public const string Opening = "Opening Chest";
+        public const string Opening = "Opening Treasure Chest";
         public const string Updating = "Updating Game";
         public const string Deleting = "Deleting Prize";
         public const string Selling = "Selling Prize";
