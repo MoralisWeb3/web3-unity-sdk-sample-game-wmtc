@@ -1,6 +1,6 @@
 <img src="https://github.com/MoralisWeb3/web3-unity-sdk-examples/blob/ef346891d0f2a1c4568c7509be2165cab912cd37/Unity/Assets/Moralis%20Web3%20Unity%20SDK%20Examples/Documentation/Images/ReadMeBanner.png" />
 
-# Web3 Magic Treasure Chest (Update This Page)
+# Web3 Magic Treasure Chest
 
 > This sample game demonstrates the Moralis Web3 Unity SDK and randomly rewarding the player with crypto currencies and NFTs.
 
