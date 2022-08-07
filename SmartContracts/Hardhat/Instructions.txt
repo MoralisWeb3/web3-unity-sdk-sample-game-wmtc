@@ -1,5 +1,9 @@
 ///////////////////////////////////////////////////////////
 // Instructions.txt
+//      *   Follow these complete steps to clean, create, 
+//          and compile the Solidity code
+//      *   Upon completion the Unity project can call the 
+?/          Solidity code
 ///////////////////////////////////////////////////////////
 
 // 01. INSTALL THE LATEST VERSION OF NODEJS
@@ -7,13 +11,13 @@
     https://nodejs.org/en/download/
     
     
-// 02. OPEN FOLDER "./SmartContracts/" IN A TEXT EDITOR (EX. VISUAL STUDIO CODE)
+// 02. OPEN FOLDER "./SmartContracts/Hardhat/" IN A TEXT EDITOR (EX. VISUAL STUDIO CODE)
 
 
-// 03. OPEN FOLDER "./SmartContracts/" IN A TERMINAL FOR COMMAND LINE 
+// 03. OPEN FOLDER "./SmartContracts/Hardhat/" IN A TERMINAL FOR COMMAND LINE 
 
 
-// 04. INSTALL HARDHAT via COMMAND LINE WITHIN FOLDER OF "MyHardHat"
+// 04. INSTALL HARDHAT via COMMAND LINE WITHIN FOLDER OF "./SmartContracts/Hardhat/"
 
     npm install --save-dev hardhat
     
@@ -22,84 +26,81 @@
 
     npm install dotenv
 
-    npm install --save-dev @nomicfoundation/hardhat-toolbox
-
     npm i -D @openzeppelin/contracts
 
+    npm install --save-dev @nomicfoundation/hardhat-toolbox
 
-// 06. INSTALL OPTIONAL DEPENDENCIES via COMMAND LINE (EACH LINE IS A SEPARATE COMMAND)
 
-    npm install --save-dev @nomiclabs/hardhat-etherscan@^3.1.0 
-
-    npm install --save-dev @cronos-labs/hardhat-cronoscan 
-
-    npm install --save-dev solidity-coverage 
+// 06. (OPTIONAL STEP) INSTALL OPTIONAL DEPENDENCIES via COMMAND LINE (EACH LINE IS A SEPARATE COMMAND)
 
     npm install --save-dev hardhat-gas-reporter 
 
+    npm install --save-dev solidity-coverage 
+    
+    npm install --save-dev @cronos-labs/hardhat-cronoscan 
 
-// 07. DELETE FILE(S) WITHIN "./MyHardHat/contracts/"
-
-
-// 08. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/contracts/" TO
-
-    "./MyHardHat/contracts/" 
+    npm install --save-dev @nomiclabs/hardhat-etherscan@^3.1.0 
 
 
-// 09. DELETE FILE(S) WITHIN "./MyHardHat/scripts/"
+// 07. READ AND UNDERSTAND THE FILE(S) WITHIN "./SmartContracts/Hardhat/"
+
+    "./SmartContracts/Hardhat/classes/"      contains class files
+    "./SmartContracts/Hardhat/contracts/"    contains contract files
+    "./SmartContracts/Hardhat/libraries/"    contains library files
+    "./SmartContracts/Hardhat/scripts/"      contains script files
+    "./SmartContracts/Hardhat/test/"         contains test files
 
 
-// 10. COPY ALL FILE(S) WITHIN "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/HardHat/scripts/" TO
-
-    "./MyHardHat/scripts/" 
+// 08. READ AND UNDERSTAND THE FILE "./SmartContracts/Hardhat/hardhat.config.js"
 
 
-// 11. COPY THE CONTENTS OF "./Unity/Assets/Moralis Web3 Unity SDK Examples/Shared/SmartContracts/hardhat.config.js" INTO 
+// 09. CREATE NEW TEXT FILE OF "./SmartContracts/Hardhat/.evn". Add the following contents and replace the ""
 
-    "./MyHardHat/hardhat.config.js" 
-   
+    // Populate from MetaMask Chrome Extension, from https://metamask.io, after sign-in. 
+    WEB3_WALLET_PRIVATE_KEY = ""
+    
+    // Populate from https://cronoscan.com/myapikey, after sign-in 
+    CRONOSCAN_TESTNET_API_KEY = "" 
 
-// 12. OPEN THE FILE "./.env", REPLACE THE EMPTY "" WITH PROPER VALUES
 
-
-// 13. VERIFY INSTALL via COMMAND LINE. COMMAND FINISHES WITH NO RED ERRORS = SUCCESS :)
+// 10. VERIFY INSTALL via COMMAND LINE. COMMAND FINISHES WITH NO RED ERRORS = SUCCESS :)
 
     npx hardhat 
 
 
-// 14. CLEAN SMART CONTRACT via COMMAND LINE
+// 11. CLEAN SMART CONTRACT via COMMAND LINE
 
     npx hardhat clean
 
 
-// 15. COMPILE SMART CONTRACT via COMMAND LINE
+// 12. COMPILE SMART CONTRACT via COMMAND LINE
     
     npx hardhat compile
 
 
-// 16. (OPTIONAL): TEST SMART CONTRACT via COMMAND LINE
+// 13. (OPTIONAL STEP) TEST SMART CONTRACT via COMMAND LINE
     
     npx hardhat coverage
 
     npx hardhat test
 
 
-// 17. DEPLOY SMART CONTRACT via COMMAND LINE
+// 14. DEPLOY SMART CONTRACT via COMMAND LINE
 
     npx hardhat run scripts/deployTheGameContract.js --network cronosTestnet
         
         
-// 18. UPON SUCCESS SEE OUTPUT via COMMAND LINE WHICH RESEMBLES "deployed to: {YourContractAddress}"
+// 15. UPON SUCCESS SEE OUTPUT via COMMAND LINE WHICH RESEMBLES "deployed to: {YourContractAddress}"
 
     Visit "https://testnet.cronoscan.com/{YourContractAddress}" to see 
      
 
-// 19. PASTE {YourContractAddress} and the {YourABI} WITHIN
+// 16. PASTE {YourContractAddress} and the {YourABI} WITHIN
 
     "./Unity/Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scripts/Runtime/MVCS/Model/Data/Types/TheGameContract.cs
  
 
- // 20. RUN THE RELEVANT SCENE IN UNITY
+ // 17. RUN THE RELEVANT SCENE IN UNITY
 
     Congratulations, you are done!
 
