@@ -22,7 +22,7 @@ This game features flexibility on the service layer. Toggle the `TheGameServiceT
 
 **Documentation**
 * `README.md` - The primary documentation for this repo
-* `Assets/Moralis Web3 Unity SDK Samples/MySampleGame/Documentation/ReadMe.asset` - Select this asset in Unity to get started
+* `Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Documentation/ReadMe.asset` - Select this asset in Unity to get started
 
 **Configuration**
 * `Unity Target` - [Standalone MAC/PC](https://support.unity.com/hc/en-us/articles/206336795-What-platforms-are-supported-by-Unity-)
@@ -30,9 +30,13 @@ This game features flexibility on the service layer. Toggle the `TheGameServiceT
 * `Unity Rendering` - [Universal Render Pipeline (URP)](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@11.0/manual/)
 * `Unity Aspect Ratio` - [Game View 10x16](https://docs.unity3d.com/Manual/GameView.html)
 
-**Structure**
+**Unity Structure**
 * `Unity/` - Open this folder in the Unity Editor
-* `Assets/Moralis Web3 Unity SDK Samples/MySampleGame/Scenes/` - Open any Scene. Press 'Play'!
+* `Unity/Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/` - Open any Scene. Press 'Play'!
+
+**Smart contract Structure**
+* `SmartContracts/Hardhat/` - Open this folder in the Visual Studio Code Editor
+* `SmartContracts/Hardhat/Instructions.txt` - The primary documentation for smart contracts
 
 **Dependencies**
 * `Moralis Web3 Unity SDK` - Already included via [Unity Package Manager](https://docs.unity3d.com/Manual/upm-ui.html) as this [Version](./Unity/Packages/manifest.json)
