@@ -34,7 +34,7 @@ This game features flexibility on the service layer. Toggle the `TheGameServiceT
 * `Unity/` - Open this folder in the Unity Editor
 * `Unity/Assets/Moralis Web3 Unity SDK Samples/Web3MagicTreasureChest/Scenes/` - Open any Scene. Press 'Play'!
 
-**Smart contract Structure**
+**Smart Contract Structure**
 * `SmartContracts/Hardhat/` - Open this folder in the Visual Studio Code Editor
 * `SmartContracts/Hardhat/Instructions.txt` - The primary documentation for smart contracts
 
