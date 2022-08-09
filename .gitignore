@@ -11,9 +11,11 @@
 [Uu]nity/[Bb]uilds/
 [Uu]nity/[Ll]ogs/
 [Uu]nity/[Uu]ser[Ss]ettings/
-[Uu]nity/[Aa]ssets/[Ss]treamingAssets/aa.meta
+[Uu]nity/[Aa]ssets/[Ss]treamingAssets/
+[Uu]nity/[Aa]ssets/[Ss]treamingAssets.meta
 [Uu]nity/[Aa]ssets/Moralis Web3 Unity SDK/
 [Uu]nity/[Aa]ssets/Moralis Web3 Unity SDK.meta
+
 
 # Hardhat Files
 [Ss]mart[Cc]ontracts/[Hh]ardhat/artifacts/
@@ -68,8 +70,6 @@ sysinfo.txt
 # Samples symlink to Samples~
 Samples
 Samples.meta
-
-
 
 
 
