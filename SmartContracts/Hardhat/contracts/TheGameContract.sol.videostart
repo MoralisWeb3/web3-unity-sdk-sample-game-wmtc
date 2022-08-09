@@ -21,6 +21,7 @@ import { TheGameLibrary } from "libraries/TheGameLibrary.sol";
 contract TheGameContract
 {
 
+
     ///////////////////////////////////////////////////////////
     // FIELDS
     //      *   Values stored on contract
@@ -36,6 +37,7 @@ contract TheGameContract
 
     // Stores the most recent reward
     mapping (address => Reward) private _lastReward;
+
 
     ///////////////////////////////////////////////////////////
     // CONSTRUCTOR
@@ -57,20 +59,6 @@ contract TheGameContract
 
         // Execute rest of function
       _;
-    }
-
-
-    ///////////////////////////////////////////////////////////
-    // FUNCTIONS: DEBUGGING ONLY 
-    ///////////////////////////////////////////////////////////
-    function getMessage(string memory messageIn) external pure returns (string memory messageOut)
-    {
-        // TODO: Add code...
-    }
-
-    function getAddress(address addressIn) external pure returns (address addressOut)
-    {
-        // TODO: Add code...
     }
 
 

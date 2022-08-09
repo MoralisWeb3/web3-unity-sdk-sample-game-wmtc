@@ -68,20 +68,6 @@ contract TheGameContract
 
 
     ///////////////////////////////////////////////////////////
-    // FUNCTIONS: DEBUGGING ONLY 
-    ///////////////////////////////////////////////////////////
-    function getMessage(string memory messageIn) external pure returns (string memory messageOut)
-    {
-        messageOut = messageIn;
-    }
-
-    function getAddress(address addressIn) external pure returns (address addressOut)
-    {
-        addressOut = addressIn;
-    }
-
-
-    ///////////////////////////////////////////////////////////
     // FUNCTIONS: GETTERS
     ///////////////////////////////////////////////////////////
     function getIsRegistered(address userAddress) public view returns (bool isRegistered) 

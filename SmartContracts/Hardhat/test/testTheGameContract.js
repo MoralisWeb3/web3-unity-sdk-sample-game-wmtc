@@ -235,23 +235,6 @@ describe("The Game Contract", function ()
     }),
 
 
-
-    ///////////////////////////////////////////////////////////
-    // TEST
-    ///////////////////////////////////////////////////////////
-    it("getMessage('blah') returns 'blah'", async function ()
-    {
-        // Arrange
-        const { theGameContract, addr1 } = await loadFixture(deployTokenFixture);
-        var messageIn = "blah";
-
-        // Act
-        const messageOut = await theGameContract.connect(addr1).getMessage(messageIn);
-        
-        // Expect
-        expect(messageIn).to.equal(messageOut);
-    }),
-
     ///////////////////////////////////////////////////////////
     // TEST
     ///////////////////////////////////////////////////////////
