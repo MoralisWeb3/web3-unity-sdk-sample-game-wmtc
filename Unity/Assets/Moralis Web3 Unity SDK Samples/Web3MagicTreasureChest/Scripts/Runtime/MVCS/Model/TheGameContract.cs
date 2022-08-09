@@ -84,7 +84,6 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Model
 		// RunContractFunctionAsync
 		///////////////////////////////////////////////////////////
 
-		// Debugging Methods --------------------------------
 		
 		// General Methods --------------------------------
 		public async UniTask<bool> getIsRegistered()
