@@ -53,7 +53,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
             
             //Example of RunContractFunction - Let's look at how that is called.
             
-            //VIDEO TO DO: Return real value(s)
+            //TODO: Return real value(s)
             bool result = true;
             return result;
         }
@@ -61,7 +61,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         
         public async UniTask<Reward> GetRewardsHistoryAsync()
         {
-            //VIDEO TO DO: Return real value(s)
+            //TODO: Return real value(s)
             Reward result = new Reward
             {
                 Title = "Temp Gold Title",
@@ -74,7 +74,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
 
         public async UniTask<int> GetGoldAsync()
         {
-            //VIDEO TO DO: Return real value(s)
+            //TODO: Return real value(s)
             int result = 99;
             return result;
         }
@@ -82,7 +82,7 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         
         public async UniTask<List<TreasurePrizeDto>> GetTreasurePrizesAsync()
         {
-            //VIDEO TO DO: Return real value(s)
+            //TODO: Return real value(s)
             List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
             return treasurePrizeDtos;
         }
@@ -92,52 +92,52 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         {
             //Example of ExecuteContractFunction - Let's look at how that is called
             
-            //VIDEO TO DO: Register the user
+            //TODO: Register the user
         }
 
 
         public async UniTask StartGameAndGiveRewardsAsync(int goldAmount)
         {
-            //VIDEO TO DO: start the game, reward the player randomly with either gold or prizes
+            //TODO: start the game, reward the player randomly with either gold or prizes
         }
 
 
         public async UniTask UnregisterAsync()
         {
-            //VIDEO TO DO: unregister
+            //TODO: unregister
         }
 
 
         public async UniTask SetGoldAsync(int targetBalance)
         {
-            //VIDEO TO DO: Set real values
+            //TODO: Set real values
         }
 
         
         public async UniTask SetGoldByAsync(int deltaBalance)
         {
-            //VIDEO TO DO: Set real values
+            //TODO: Set real values
         }
 
 
         public async UniTask AddTreasurePrizeAsync(TreasurePrizeDto treasurePrizeToAdd)
         {
-            //VIDEO TO DO: Add the prize
+            //TODO: Add the prize
         }
 
 
         public async UniTask SellTreasurePrizeAsync(TreasurePrizeDto treasurePrizeDto)
         {
-            //VIDEO TO DO: Sell the prizes
+            //TODO: Sell the prizes
         }
 
         
         public async UniTask DeleteAllTreasurePrizeAsync()
         {
-            //VIDEO TO DO: Get list of prizes
+            //TODO: Get list of prizes
             List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
 
-            //VIDEO TO DO: Delete all treasures
+            //TODO: Delete all treasures
             
         }
 
@@ -147,10 +147,10 @@ namespace MoralisUnity.Samples.Web3MagicTreasureChest.MVCS.Service
         /// </summary>
         public async UniTask SafeReregisterDeleteAllTreasurePrizeAsync()
         {
-            //VIDEO TO DO: Get list of prizes
+            //TODO: Get list of prizes
             List<TreasurePrizeDto> treasurePrizeDtos = new List<TreasurePrizeDto>();
             
-            //VIDEO TO DO: Delete all treasures
+            //TODO: Delete all treasures
             
         }
         
