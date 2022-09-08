@@ -45,6 +45,38 @@ This game features flexibility on the service layer. Toggle the `TheGameServiceT
 
 ## Media
 
+
+## Media
+
+
+<BR>
+  
+**Video: Create a Web3 Magic Treasure Chest game for Unity**
+<table>
+  <tr>
+    <th>Thumbnail</th>
+    <th>TimeStamps</th>
+  </tr>
+  <tr>
+    <td style="max-width:50%;" align="center"><a href="https://www.youtube.com/watch?v=Jhkk91DyPxE"><img src="https://img.youtube.com/vi/Jhkk91DyPxE/maxresdefault.jpg" width = "400"></a></td>
+        <td align="left">
+<ul>          
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=0s">0:00 </a>Intro Topic</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=66s">1:06 </a>Main Topic</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=822s">13:42 </a>Live Coding - Overview</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=866s">14:26 </a>Live Coding - Hardhat</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=1899s">31:39 </a>Live Coding - Unity</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=2800s">46:40 </a>Complete Gameplay</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=2888s">48:08 </a>Cronos Hackathon</li>
+<li>▶ <a href="https://www.youtube.com/watch?v=Jhkk91DyPxE&t=2914s">48:34 </a>Recap Topic</li>
+</ul>
+    </td>
+  </tr> 
+</table>
+
+
+ 
+
 **Project**
 
 <table>
